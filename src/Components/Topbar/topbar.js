@@ -157,19 +157,9 @@ const Topbar =()=>{
                 </ul> 
             </div>
         </Grid>
-        
         <Grid className="topCRight" item xs ={false} sm={4}>
             <div className="topRight-inner" >
                 <ul className="topRight-ul" >
-                    {/* <li className='topRight-li'>
-                        <FaUserAlt className="icons2" />
-                    </li> */}
-                    {/* <li className='topRight-li'>
-                        <FaTh  className="icons2"/>
-                    </li>
-                    <li className='topRight-li'>
-                        <FaRocketchat  className="icons2"/>
-                    </li> */}
                     <li className='topRight-li'>
                         <div className='icon2-text'>
                             <FaBell  className="icons2"

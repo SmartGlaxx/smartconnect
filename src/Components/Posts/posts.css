@@ -33,6 +33,9 @@
     font-size: 0.9rem;
     color: var(--color2);
 }
+.sharename{
+    text-transform: capitalize;
+}
 .shared-img{
     width: 70%;
     margin-left: 15%;

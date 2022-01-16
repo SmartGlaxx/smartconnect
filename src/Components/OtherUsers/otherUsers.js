@@ -118,7 +118,7 @@ if(loading){
                             <div className='others-name'>{`${firstname} ${lastname}`}</div>
                             <form>
                                 <br/>
-                                <button onClick={(e)=>follow(e, id, username)} className='follow-btn'>{ newUserFollowings.includes(allUser._id) ? `Followed` : `Follow`}</button>
+                                <button onClick={(e)=>follow(e, id, username)} className='follow-btn'>{ newUserFollowings.includes(allUser._id) ? `Follow` : `Follow`}</button>
                             </form>
                         </div>
                      }

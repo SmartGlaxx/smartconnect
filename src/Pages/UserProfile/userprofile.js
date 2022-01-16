@@ -507,6 +507,8 @@ const submit = async(e)=>{
             data:{
                 userId : _id,
                 username : username,
+                firstname : firstname,
+                lastname : lastname,
                 description : formValue,
                 img : imgSrc
             }
@@ -543,6 +545,8 @@ const submit = async(e)=>{
                 data:{
                     userId : _id,
                     username : username,
+                    firstname : firstname,
+                    lastname : lastname,
                     description : formValue
                     
                 }

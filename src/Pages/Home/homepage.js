@@ -16,7 +16,7 @@ import ProfileImage from '../../assets/profile.jpg'
 const HomePage =()=>{
 const {loggedIn, loading, setLazyLoading, lazyLoading, currentUser,timelineposts, allUsers, postcreated, 
     setPostCreated, currentUserParsed, fetchedUser} = UseAppContext()
-const {_id : userId, username : userUsername, followings, followers, 
+const {_id : userId, username : userUsername, firstname, lastname, followings, followers, 
     profilePicture , coverPicture : userCoverPicture} = currentUserParsed
 const [formValue, setFormValue] = useState('')
 const [error, setError] = useState({status : false, msg:''})
@@ -113,6 +113,8 @@ useEffect(()=>{
 //         }
 // }
 
+console.log('po p o', timeline)
+
 const submit = async(e)=>{
     e.preventDefault()
     const {_id , username} = currentUserParsed
@@ -144,6 +146,8 @@ const submit = async(e)=>{
             data:{
                 userId : _id,
                 username : username,
+                firstname : firstname,
+                lastname : lastname,
                 description : formValue,
                 img : imgSrc
             }
@@ -180,6 +184,8 @@ const submit = async(e)=>{
                 data:{
                     userId : _id,
                     username : username,
+                    firstname : firstname,
+                    lastname : lastname,
                     description : formValue
                     
                 }

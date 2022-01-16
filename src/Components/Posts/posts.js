@@ -20,8 +20,8 @@ import {FaExclamationCircle, FaThumbsUp, FaComment, FaEllipsisH, FaShare, FaWind
         },
     }));
     
-const Posts =({_id : id, userId, username, description, likes, createdAt, sharedDescription, shareImg, sharedId, 
-    sharedUsername, img : postImage})=>{
+const Posts =({_id : id, userId, username, firstname, lastname, description, likes, createdAt, sharedDescription,
+     shareImg, sharedId, sharedUsername, sharedFirstname, sharedLastname, img : postImage})=>{
     const {timelineposts, currentUser, currentUserParsed, setPostCreated, postCreated,commentSent, 
         setCommentSent, fetchedUser} = UseAppContext()
     const [readMoreValue, setReadMoreValue] = useState(false)
@@ -48,7 +48,7 @@ const Posts =({_id : id, userId, username, description, likes, createdAt, shared
     const [fetchedUserData, setFetchedUserData] = useState({})
     const {_id : currentUserLikeId} = currentUserParsed
 
-    const {firstname, lastname, profilePicture} = fetchedUserData
+    const {firstname : userFirstname, lastname : userLastname, profilePicture} = fetchedUserData
 
 
     const classes = useStyles();
@@ -323,9 +323,13 @@ const sharePost = async(url)=>{
         data :{
                 userId : currentUserId,
                 username : currentUserName,
+                firstname : firstname,
+                lastname : lastname,
                 description : sharePostValue,
                 sharedId : userId,
                 sharedUsername : username,
+                sharedFirstname : firstname,
+                sharedLastname : lastname,
                 sharedDescription : description,
                 shareImg : postImage
         }
@@ -426,16 +430,32 @@ const {_id : uId , username : userUsername} =  currentUserParsed
                     
                 <div className='post-top'>
                     <img src={profilePicture ? profilePicture : ProfileImage}  className='profile-pic'/>
-                    <div className='name'>{`${firstname} ${lastname}`}</div>
+                    <div className='name'>{`${userFirstname} ${userLastname}`}</div>
                     <TimeAgo datetime={createdAt} locale='en_US'/>
                 </div>
                 <div className='description'>{description.length > 150  && !readMoreValue ? description.slice(0, 150) + "...  "  : description }
                     {description.length > 150 &&
                         <button className='more-btn' onClick={()=>setReadMoreValue(!readMoreValue)}>{readMoreValue ? `Show Less` : `Show More`}</button>}
                 </div>
+                {/* <div className="sharer">${username}<div></div> */}
+                {/* `${username} shared a memory`  */}
+                {/* `${username} shared a post by ${sharedUsername}` */}
                 {
                 sharedDescription && sharedDescription.length > 0 &&<div>
-                        <div className='shared-box-info'>{username == sharedUsername ? `${username} shared a memory` : `${username} shared a post by ${sharedUsername}`}</div>
+                        <div className='shared-box-info'>
+                            {username == sharedUsername ? 
+                            <div>
+                                <span className='sharename'>{` ${userFirstname} ${userLastname} `}</span>
+                                 shared a memory
+                            </div>
+                            :
+                             <div>
+                                 <span className='sharename'>{` ${userFirstname} ${userLastname} `}</span>
+                                  shared a post by 
+                                  <span className='sharename'>{ `${sharedFirstname} ${sharedLastname} `}</span>
+                            </div>
+                            }
+                        </div>
                         <div className='shared-box'>
                             <div className='shared-description'>{sharedDescription}</div>
                             <div className='sharedname'>{sharedUsername}</div>

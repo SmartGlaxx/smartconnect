@@ -75,7 +75,7 @@ const initialState = {
 
 export const AppProvider = ({children})=>{
     const [state, dispatch] = useReducer(reducer, initialState)
-    console.log('fofpfpfp', state.allUsers, state.loggedIn)
+    
     const allUsersUrl = "https://smart-job-search.herokuapp.com/api/v1/user"
     const posturl = 'https://smart-job-search.herokuapp.com/api/v1/posts'
 
@@ -192,7 +192,7 @@ export const AppProvider = ({children})=>{
 //    //SET USERDATA WHEN CHAGES OCCURS - LIKE FOLLOWING / UNFOLLOWING
     const setNewCurrentUser = (value)=>{
             localStorage.setItem('CurrentUser',JSON.stringify(value))
-            console.log(value)
+            
            // dispatch({type : SETNEWTEMPUSER, payload : value})
            dispatch({type : CURRENTUSER, payload : value})
     }
@@ -303,7 +303,7 @@ const setSearchTermValue = (value)=>{
     dispatch({type : SETSEARCHTERM , payload : value})
 }
 
-console.log(state.allUsers)
+
     return <AppContext.Provider value={{
         ...state,  setLoading, setCurrentUser, setLoggedIn, setLazyLoading, setCurrentUser, setLoggedIn, setNewCurrentUser, 
         setTempAllusers, setPostCreated, openSidebar, setUserClicked, setFetchedUser, 
