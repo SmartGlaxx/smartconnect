@@ -3,7 +3,8 @@ import { useParams } from 'react-router-dom'
 import './userprofile.css'
 import axios from 'axios'
 import { Grid } from '@material-ui/core'
-import { FaUserAlt, FaUsers, FaImages, FaExclamationCircle, FaHome, FaUser, FaCamera, FaEllipsisH } from 'react-icons/fa'
+import { FaUserAlt, FaUsers, FaImages, FaExclamationCircle, FaHome, FaUser, FaCamera,
+    FaTelegramPlane, FaEllipsisH, FaWindowClose } from 'react-icons/fa'
 import {Topbar, Sidebar, Backdrop, Posts} from '../../Components';
 import { UseAppContext } from '../../Contexts/app-context'
 import {Link, useNavigate} from 'react-router-dom'
@@ -341,6 +342,13 @@ const setPostData = (value1, value2)=>{
         setPostCreated(false)
     }, 3000)
 }
+
+const setCancelValues = ()=>{
+    setPostPreviewBox(false)
+    setFormValue('')
+    setPostImage('')
+}
+
 const setDataValues = (value, data)=>{
     setNewCurrentUser(data)
     setLoading(value)
@@ -689,24 +697,32 @@ const usernameCapitalized = firstLetter.toUpperCase() + otherLettes
     <Grid className='profile' container > 
         <Grid className='profile-left-border' item xs={false} sm={1} ></Grid> 
         
-
         <Grid className='profile-center'item xs={12} sm={10} container>
             
-
             <Grid className='profile-center-left' item sm={false} md={1} ></Grid>
             
-             <Grid className='profile-top'  item xs={12}> 
+            <Grid className='profile-top'  item xs={12}> 
                 {/* <img src = {CoverImage} alt='Cover Image' className='cover-image'/> */}
                 { <img src={userCoverPicture ? userCoverPicture : CoverImage} alt='Cover Image' className='cover-image' />}
-                {coverPreviewBox && 
+                {/* {coverPreviewBox && 
                     <div className='cover-img-preview-box'>
-                        <img src={coverPicturePreview} alt='Error loading preview' className='cover-img-preview'/>
-                        <div className='pic-upload-btn'>
-                            <Button onClick={()=>setCoverPreviewBox(false)}>Cancel</Button>
-                            <Button onClick={()=>uploadCoverPicture(coverImage)}>Upload Picture</Button>
+                        <img src={coverPicturePreview} alt='Error loading preview' className='post-img-preview'/>
+                        <div className='preview-bottom'>
+                            <div className='homepage-center-input-item-2' onClick={()=>setCoverPreviewBox(false)} >
+                            <FaWindowClose  className='homepage-center-input-icon-close' size='25' />
+                            <span className='picture-name'>
+                                Cancel
+                            </span>
+                            </div>
+                            <div className='homepage-center-input-item-2' onClick={()=>uploadCoverPicture(profileImage)}>
+                            <FaTelegramPlane  className='homepage-center-post-icon' size='25' />
+                            <span className='picture-name'>
+                                Post
+                            </span>
+                            </div>
                         </div>
-                    </div>
-                    }
+                        </div>  
+                    } */}
                 <form className="cover-label-box" enctype="multipart/form-data">
                         {idCurrent == userId && usernameCurrent == userUsername && <label htmlFor='coverPicture'  >
                             <div className="cover-label-box-inner" > 
@@ -720,15 +736,25 @@ const usernameCapitalized = firstLetter.toUpperCase() + otherLettes
                 <Grid className='profile-img-box' container>
                 <Grid item xs={12} sm={3}>
                    { <img src={userProfilePicture ? userProfilePicture : ProfileImage} alt='Profile Image' className='profile-img' />}
-                    {profilePreviewBox && 
-                    <div className='profile-img-preview-box'>
-                        <img src={profilePicturePreview} alt='Error loading preview' className='profile-img-preview'/>
-                        <div className='pic-upload-btn'>
-                            <Button onClick={()=>setProfilePreviewBox(false)}>Cancel</Button>
-                            <Button onClick={()=>uploadProfilePicture(profileImage)}>Upload Picture</Button>
+                    {/* {profilePreviewBox && 
+                        <div className='profile-img-preview-box'>
+                        <img src={profilePicturePreview} alt='Error loading preview' className='post-img-preview'/>
+                        <div className='preview-bottom'>
+                            <div className='homepage-center-input-item-2' onClick={()=>setProfilePreviewBox(false)} >
+                            <FaWindowClose  className='homepage-center-input-icon-close' size='25' />
+                            <span className='picture-name'>
+                                Cancel
+                            </span>
+                            </div>
+                            <div className='homepage-center-input-item-2' onClick={()=>uploadProfilePicture(profileImage)}>
+                            <FaTelegramPlane  className='homepage-center-post-icon' size='25' />
+                            <span className='picture-name'>
+                                Post
+                            </span>
+                            </div>
                         </div>
-                    </div>
-                    }
+                        </div>     
+                    } */}
                     <form className="profile-label-box" enctype="multipart/form-data">
                         {idCurrent == userId && usernameCurrent == userUsername && <label htmlFor='profilePicture'  >
                             <div className="profile-label-box-inner">
@@ -831,13 +857,53 @@ const usernameCapitalized = firstLetter.toUpperCase() + otherLettes
                 }
                 </Grid>
             </Grid>
+            {coverPreviewBox && 
+                <div className='cover-img-preview-box'>
+                    <img src={coverPicturePreview} alt='Error loading preview' className='post-img-preview'/>
+                    <div className='preview-bottom'>
+                        <div className='homepage-center-input-item-2' onClick={()=>setCoverPreviewBox(false)} >
+                        <FaWindowClose  className='homepage-center-input-icon-close' size='25' />
+                        <span className='picture-name'>
+                            Cancel
+                        </span>
+                        </div>
+                        <div className='homepage-center-input-item-2' onClick={()=>uploadCoverPicture(profileImage)}>
+                        <FaTelegramPlane  className='homepage-center-post-icon' size='25' />
+                        <span className='picture-name'>
+                            Post
+                        </span>
+                        </div>
+                    </div>
+                    </div>  
+                }
+                {profilePreviewBox && 
+                    <div className='profile-img-preview-box'>
+                    <img src={profilePicturePreview} alt='Error loading preview' className='post-img-preview'/>
+                    <div className='preview-bottom'>
+                        <div className='homepage-center-input-item-2' onClick={()=>setProfilePreviewBox(false)} >
+                        <FaWindowClose  className='homepage-center-input-icon-close' size='25' />
+                        <span className='picture-name'>
+                            Cancel
+                        </span>
+                        </div>
+                        <div className='homepage-center-input-item-2' onClick={()=>uploadProfilePicture(profileImage)}>
+                        <FaTelegramPlane  className='homepage-center-post-icon' size='25' />
+                        <span className='picture-name'>
+                            Post
+                        </span>
+                        </div>
+                    </div>
+                    </div>     
+                }
             </Grid>
             
-            <Grid className='profile-center-right' item sm={false} md={1} ></Grid>
+            <Grid className='profile-center-left' item sm={false} md={1} ></Grid>
+
+
             
             <Grid className=''item sm={12}  container >
             
-            <Grid className='profile-center-inner-left'item sm={12} md={6} style={{marginTop:"10rem"}}>
+            <Grid className='profile-center-inner-left'item xs={12} sm={12} md={6} style={{marginTop:"10rem"}}>
                 
             <div className='profile-center-inner-left-1' >
                 <div className='profile-center-inner-left-2'>
@@ -961,7 +1027,7 @@ const usernameCapitalized = firstLetter.toUpperCase() + otherLettes
            <hr className='profile-center-top-hr' />
             </div>    
             </Grid>
-            <Grid className='profile-center-inner-right'item sm={12} md={6} style={{marginTop:"10rem"}}>
+            <Grid className='profile-center-inner-right'item xs={12} sm={12} md={6} >
             { idCurrent == userId && usernameCurrent == userUsername &&
             <div className='profile-center-top' >
                 <div className='profile-center-top-inner'>
@@ -978,18 +1044,43 @@ const usernameCapitalized = firstLetter.toUpperCase() + otherLettes
                 <hr className='profile-center-top-hr'/>
                     {postPreviewBox && 
                     <div className='post-img-preview-box'>
+                         <div className='preview-top'>
+                            <img src={profilePicture ? profilePicture : ProfileImage} className="post-profile-img-2" />
+                            <input type='hidden' name='userId' />
+                            <input type='hidden'  name='username'/>
+                            <input type='text' name='post-input' placeholder='Make a post' className='homepage-center-input-2' 
+                        value={formValue} onChange={setValues}/>
+                        </div>
                         <img src={postPicturePreview} alt='Error loading preview' className='post-img-preview'/>
+                        <div className='preview-bottom'>
+                            <div className='homepage-center-input-item-2'onClick={setCancelValues} >
+                            <FaWindowClose  className='homepage-center-input-icon-close' size='25' />
+                            <span className='picture-name'>
+                                Cancel
+                            </span>
+                            </div>
+                            <div className='homepage-center-input-item-2'onClick={submit} >
+                            <FaTelegramPlane  className='homepage-center-post-icon' size='25' />
+                            <span className='picture-name'>
+                                Post
+                            </span>
+                            </div>
+                        </div>
                     </div>
                     }
                 <div className='profile-center-top-inner2' >
                 {idCurrent == userId && usernameCurrent == userUsername && <label htmlFor='postPicture'  >
                         <div className="profile-center-input-item">
-                            <FaImages className='profile-center-input-icon' size='30'/> Picture
+                        <FaImages className='profile-center-input-icon-picture' size='25'/> 
+                            <span className='picture-name'>Picture</span>
                        </div>
                      <input id='postPicture' type='file' name='postPic' className='profile-center-input2' 
                         onChange={selectPostPic}/>
                     </label>}
-                    <button className='post-btn' onClick={submit}>Post</button>
+                    <div className='profile-center-input-item'onClick={submit} >
+                        <FaTelegramPlane  className='homepage-center-post-icon' size='25' />
+                        <span className='picture-name'>Post</span>
+                    </div>
                 </div>     
             </div> 
             
@@ -1019,7 +1110,8 @@ const usernameCapitalized = firstLetter.toUpperCase() + otherLettes
             </Grid>
 
             </Grid>
-            <Grid className='profile-center-right' item sm={12}  ></Grid> 
+
+            {/* <Grid className='profile-center-right' item sm={false} md={1} ></Grid>  */}
         </Grid>
         
         <Grid className='profile-right-border' item xs={false} sm={1} ></Grid>

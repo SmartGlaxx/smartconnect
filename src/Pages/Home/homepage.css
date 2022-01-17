@@ -238,8 +238,8 @@
 }
 
 .post-img-preview-2{
-    /* margin-top: 40rem; */
     width: 90%;
+    height: 18rem;
     object-fit: cover;
 }
 .timeline-posts{
@@ -277,6 +277,9 @@
     }
     .homepage-mobile-disabled{
         display: none;
+    }
+    .post-img-preview-2{
+        height: 10rem;
     }
 }
 
