@@ -113,7 +113,7 @@ if(loading){
                         return <div key={id} className='other-users-inner'>
                             <Link to={`/userprofile/${allUser._id}/${username}`} onClick={()=>setUserClicked(!userClicked)}>
                                 <img src={profilePicture ? profilePicture : ProfileImage} 
-                                 className="others-img" style={{width:"6rem"}}/>
+                                 className="others-img" />
                             </Link>
                             <div className='others-name'>{`${firstname} ${lastname}`}</div>
                             <form>
@@ -128,8 +128,8 @@ if(loading){
         </div>
     </div>
     <Button className='more-btn' onClick={()=>setRandomUsers(allUsers)} 
-    style={{background:"var(--color)", padding:'0.1rem 1rem', marginTop:"-1rem",
-    color: "var(--background-color)"}}>More Users</Button>
+    style={{background:"var(--background-color-9)", padding:'0.1rem 1rem', marginTop:"-1rem",
+    color: "var(--color-8)"}}>More Users</Button>
     </div>
 }
 

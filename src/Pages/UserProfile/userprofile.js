@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import './userprofile.css'
 import axios from 'axios'
@@ -16,6 +16,10 @@ import CoverImage from '../../assets/coverpic.jpg'
 import Button from '@restart/ui/esm/Button'
 import Profile from "../../assets/profile.jfif"
 import { Timeline } from '@material-ui/icons'
+
+import { makeStyles } from '@material-ui/core/styles';
+import Popover from '@material-ui/core/Popover';
+import Typography from '@material-ui/core/Typography';
 
 
 const UserProfile =()=>{
@@ -70,6 +74,34 @@ const setUserProfilePicture = (value)=>{
     setProfilePreviewBox(false)
     setTestValue(value)
 }
+
+
+//Popover starts 
+
+const useStyles = makeStyles((theme) => ({
+    typography: {
+      padding: theme.spacing(2),
+    },
+  }));
+  
+
+const classes = useStyles();
+const [anchorEl, setAnchorEl] = React.useState(null);
+
+const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+};
+
+const handleClose = () => {
+    setAnchorEl(null);
+};
+
+const open = Boolean(anchorEl);
+const popOverId = open ? 'simple-popover' : undefined;
+
+    //Popover ends
+
+
 
 //upload cover image and return url 
 
@@ -426,8 +458,7 @@ const connectRequest =async(e, value1, value2)=>{
             }
         } 
         
-        const result = await axios(options)
-      
+        const result = await axios(options)      
         if(result.data.response == "Success"){
             const reponse_2 = await axios(getUserurl)
             const {data} = reponse_2.data
@@ -646,7 +677,6 @@ if(loading || allUsers.length == 0 || !username && !timelineposts || !fetchedUse
 
 
 
-
 const {_id : idCurrent , username : usernameCurrent} = currentUserParsed
 
 const firstLetter = username[0]
@@ -728,8 +758,48 @@ const usernameCapitalized = firstLetter.toUpperCase() + otherLettes
                     <Button className='btn'>Edit Profile</Button> : 
                     <>
                     <div className='other-userbtn1'>
-                        <FaEllipsisH />
+                        <Button aria-describedby={popOverId} className='user-options' variant="contained" color="primary" onClick={handleClick}>
+                           <FaEllipsisH />
+                        </Button>
                     </div>
+                    <Popover
+                        id={popOverId}
+                        open={open}
+                        anchorEl={anchorEl}
+                        onClose={handleClose}
+                        anchorOrigin={{
+                        vertical: 'bottom',
+                        horizontal: 'center',
+                        }}
+                        transformOrigin={{
+                        vertical: 'top',
+                        horizontal: 'center',
+                        }}
+                    >
+                        <Typography className={classes.typography}>
+                        {  currentUserParsed.followings && !currentUserParsed.followings.includes(userId) ?
+                            <><Button className='popover-btn' onClick={(e)=>follow(e, userId, userUsername)}>Follow</Button><br /></>
+                        : <><Button className='popover-btn' onClick={(e)=>unfollow(e, userId, userUsername)}>Unfollow</Button><br/></>
+                        }
+                        { currentUserParsed.connections && !currentUserParsed.connections.includes(userId) &&
+                            !currentUserParsed.sentConnectionRequests.includes(userId) &&
+                            !currentUserParsed.receivedConnectionRequests.includes(userId) && 
+                            <><Button onClick={(e)=>connectRequest(e, id, username)} className='popover-btn'>Connect Request
+                            </Button><br/></>
+                        }
+                        {currentUserParsed.connections && !currentUserParsed.connections.includes(userId) &&
+                            (currentUserParsed.receivedConnectionRequests.includes(userId) || 
+                            currentUserParsed.sentConnectionRequests.includes(userId)) &&
+                            <><Button onClick={(e)=>connectRequest(e, id, username)} className='popover-btn'>Cancel Request</Button><br /></>
+                        } 
+                        { currentUserParsed.connections && currentUserParsed.connections.includes(userId) &&
+                            <Button className='popover-btn' onClick={(e)=>disconnectRequest(e, userId, userUsername)}>Disconnect</Button>
+                        }
+                        <Link to={ `/chat/${idCurrent}/${usernameCurrent}/${userId}/${userUsername}`} >
+                            <Button className='popover-btn'>Send Message</Button>
+                        </Link> 
+                        </Typography>
+                    </Popover>
                     <div className='other-userbtn2'>
                         {  currentUserParsed.followings && !currentUserParsed.followings.includes(userId) ?
                             <Button className='btn' onClick={(e)=>follow(e, userId, userUsername)}>Follow</Button>
@@ -749,8 +819,13 @@ const usernameCapitalized = firstLetter.toUpperCase() + otherLettes
                     { currentUserParsed.connections && currentUserParsed.connections.includes(userId) &&
                     <Button className='btn' onClick={(e)=>disconnectRequest(e, userId, userUsername)}>Disconnect</Button>}
                         <Link to={ `/chat/${idCurrent}/${usernameCurrent}/${userId}/${userUsername}`} >
-                            <Button className='btn'>Send Message</Button>
+                            <Button className='btn'
+                            disabled = {currentUserParsed.connections && !currentUserParsed.connections.includes(userId)}
+                           >Send Message</Button>
                         </Link>
+                        {currentUserParsed.connections && !currentUserParsed.connections.includes(userId) && 
+                        <div style={{textDecoration:"none"}}>Connet to this user to send a message</div>
+                        }
                     </div>
                 </>
                 }
@@ -782,6 +857,43 @@ const usernameCapitalized = firstLetter.toUpperCase() + otherLettes
                     </div>
                 </div>   
               <hr className='profile-center-top-hr' />
+
+
+
+              <h3>Connections</h3>
+              <div className='connections-box'>
+              {
+            allUsers.length == 0 ? 
+            <div style={{width: "100%",height : "7rem", 
+                display: 'grid', placeItems: "center"}}>
+                <LoadingIcons.Puff stroke="#555" strokeOpacity={.9} />
+            </div>:
+               fetchedUser ?
+            allUsers.map(allUser => {
+                const {_id : id, username, firstname, lastname, profilePicture} = allUser
+                const {_id, connections} = fetchedUser
+                      if(allUser._id !== _id && connections.includes(allUser._id)){
+                        return <div key={id} className='otherUsers-inner'>
+                            <Link to={`/userprofile/${allUser._id}/${username}`} onClick={()=>setUserClicked(!userClicked)}>
+                                <img src={profilePicture ? profilePicture : ProfileImage}  className="follow-img" />
+                            </Link>
+                            <div className='follow-name'>{`${firstname} ${lastname}`}</div>
+                            {/* <form>
+                                <br/>
+                                <button onClick={(e)=>unfollow(e, id, username)} className='follow-btn'>
+                                    {newUserFollowings  && newUserFollowings.includes(allUser._id) ? `Unfollow` : `Follow`}</button>
+                            </form> */}
+                        </div>
+                     }
+                })
+
+                : null
+            
+           }
+            </div>
+
+
+
               <h3>Following</h3>
               <div className='connections-box'>
               {
@@ -808,21 +920,6 @@ const usernameCapitalized = firstLetter.toUpperCase() + otherLettes
                         </div>
                      }
                 })
-
-                // return <div key={id} className='other-users-inner'>
-
-                //     <Link to={`/userprofile/${allUser._id}/${username}`} onClick={()=>setUserClicked(!userClicked)}>
-                //         <img src={profilePicture ? profilePicture : ProfileImage} 
-                //             className="others-img" style={{width:"6rem"}}/>
-                //     </Link>
-                //     <div className='others-name'>{`${firstname} ${lastname}`}</div>
-                //     <form>
-                //         <br/>
-                //         <button onClick={(e)=>follow(e, id, username)} className='follow-btn'>{ newUserFollowings.includes(allUser._id) ? `Followed` : `Follow`}</button>
-                //     </form>
-                //             </div>
-                //          }
-                //     })
 
                 : null
             
@@ -931,3 +1028,9 @@ const usernameCapitalized = firstLetter.toUpperCase() + otherLettes
 }
 
 export default UserProfile
+
+
+
+
+
+

@@ -317,13 +317,15 @@ const {_id : userId , firstname, lastname} = currentUserParsed
                 {connections && connections.length > 0 && <div className='name'><span>To: </span> 
                 <input type='text' value={searchValue} onChange={setSearchValueFunc} className='users-search'/>
                 {usersNameValue && <div className='users-list'>
+                    <h4 className='search-title'>You can only send a message to your connections</h4 >
                 {                    
-                    usersFound && usersFound.map(user =>{
+                    usersFound && usersFound.slice(0, 10).map(user =>{
                         const {_id, username, firstname, lastname, profilePicture} = user
                         return <Button onClick={()=>setButtonValue(_id, username,firstname, lastname)} 
-                        key = {_id} >
+                        key = {_id} disabled =  {currentUserParsed.connections && !currentUserParsed.connections.includes(_id)} >
                         <img src={profilePicture ? profilePicture : ProfileImage}  className='search-img'/>
-                            <div className='search-name'>{`${firstname} ${lastname}`}</div>
+                            <div className= {currentUserParsed.connections && currentUserParsed.connections.includes(_id) ? `search-name` : `search-name-disable`}>
+                                {`${firstname} ${lastname}`}</div>
                         </Button>
                     })
                 }

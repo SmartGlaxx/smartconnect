@@ -3,7 +3,7 @@ import {useState, useEffect} from 'react'
 import {useParams} from "react-router-dom"
 import axios from 'axios'
 import { FaUserAlt, FaUsers, FaImages, FaHome, FaUser, FaCamera, FaEllipsisH, FaTelegramPlane,
-    FaFileImage } from 'react-icons/fa'
+    FaFileImage, FaWindowClose } from 'react-icons/fa'
 import { Topbar, Sidebar, Backdrop } from "../../Components"
 import {Button, Grid} from '@material-ui/core'
 import { UseAppContext } from '../../Contexts/app-context'
@@ -129,7 +129,7 @@ useEffect(()=>{
 // }
 
     //SEND MESSAGE
-
+    
 const sendMessage = async(e)=>{
     
     e.preventDefault()
@@ -137,10 +137,19 @@ const sendMessage = async(e)=>{
     // const userData = formData.recipient
     // const recipientId = userData.split(' ')[0]
     // const recipientUsername = userData.split(' ')[1]
+    let recipientId = ''
+    let recipientUsername = ''
+    if(formData.userID && formData.userName){
+        const {userID , userName } = formData
+        recipientId = userID;
+        recipientUsername = userName
+    }else if(id && otherUsername){
+        recipientId  =  id;
+        recipientUsername =  otherUsername
+    }
     
-    const {userID : recipientId, userName : recipientUsername} = formData
     const url = `https://smart-job-search.herokuapp.com/api/v1/messages/${recipientId}/${recipientUsername}`
-
+    
     if(!formData.message && ! messageImage){
         return 
     }
@@ -226,12 +235,11 @@ const sendMessage = async(e)=>{
                     message : formData.message
                 }
             }
-            
+            console.log('dsfgt ', url)
             const result = await Axios(options)
             const {formatedMessage, response} = result.data
            
             if(response === 'Success'){ 
-                
                setTimeout(() => {
                 const elmnt = document.getElementById("content");
                 elmnt.scrollIntoView();   
@@ -332,19 +340,6 @@ const {_id : idCurrent , username : usernameCurrent} = currentUserParsed
         <Sidebar />
         <Backdrop />
         <Grid container className="chats-container-main" >
-        {messageImagePreviewBox && 
-         <Grid item xs={12} className='preview-container'>
-                <div className='message-img-preview-box'>
-                    <div>
-                        <img src={messageImagePreview} alt='Error loading preview' className='message-img-preview'/>
-                        <div className='pic-upload-btn'>
-                            <Button onClick={()=>setMessageImagePreviewBox(false)}>Cancel</Button>
-                            <Button onClick={sendMessage}>Send Picture</Button>
-                        </div>
-                    </div>
-                </div>
-                </Grid>
-            }
             <Grid item xs={false} sm={3} className='chat-mobile-disabled'>
                 <LeftNavigation />
             </Grid>
@@ -399,6 +394,30 @@ const {_id : idCurrent , username : usernameCurrent} = currentUserParsed
          <Grid item xs={false} sm={3} className="chat-right chat-mobile-disabled" >
             <Ads /> 
         </Grid>
+        {messageImagePreviewBox && 
+         <Grid item xs={12} className='preview-container'>
+                <div className='chat-message-img-preview-box'>
+                    <div>
+                        <img src={messageImagePreview} alt='Error loading preview' className='message-img-preview'/>
+                        <div className='pic-upload-btn'>
+                            <div className='homepage-center-input-item-2' onClick={()=>setMessageImagePreviewBox(false)}>
+                                <FaWindowClose  className='homepage-center-input-icon-close' size='25' />
+                                <span className='picture-name'>
+                                    Cancel
+                                </span>
+                            </div>
+
+                            <div className='homepage-center-input-item-2'onClick={sendMessage} >
+                            <FaTelegramPlane  className='homepage-center-input-icon' size='25' />
+                                <span className='picture-name'>
+                                    Send Picture
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </Grid>
+            }
     </Grid>
     </div>
 }

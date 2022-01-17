@@ -35,7 +35,7 @@
 }
 
 .others-img{
-    width: 20rem;
+    width: 6rem;
     height: 6rem;
     /* margin:0.3rem; */
     object-fit: cover;
@@ -54,7 +54,7 @@
     z-index: 2; */
 
     text-transform: capitalize;
-    padding-left: 0.3rem;
+    padding-left: 0 0.3rem;
     position: absolute;
     color:var(--color3);
     top: 6.5rem;
@@ -93,5 +93,14 @@
 }
 
 
-
+@media screen and (max-width: 600px) {
+    .others-img{
+        width: 100%;
+        max-width: 6rem;
+    }
+    .others-name{
+        width: 90%;
+        max-width: 5rem;
+    }
+}
 

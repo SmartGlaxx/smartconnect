@@ -574,6 +574,13 @@
         margin-top: -2rem;
         margin-right: 1rem;
     }
+    .popover-btn{
+        width:100%;
+        border: none;
+        padding: var(--btn-padding-3 );
+        border-radius: var( --btn-border-radius);
+        margin: var(--btn-margin-2);
+    }
 
     .profile-center-right{
         margin: 0;
