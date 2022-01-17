@@ -1,7 +1,8 @@
 .page-left-inner{
     height: 100%;
     overflow: auto;
-    padding: var(--section-padding)
+    padding: var(--section-padding);
+    /* background-color: red; */
 }
 .homepage-left-top{
     font-size: var(--header-font-size);
@@ -46,7 +47,7 @@
     
 }
 
-@media screen and (max-width: 940px){
+@media screen and (max-width: 960px){
     .page-left-inner{
         display: none;   
     }

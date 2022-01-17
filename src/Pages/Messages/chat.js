@@ -374,7 +374,6 @@ const {_id : idCurrent , username : usernameCurrent} = currentUserParsed
                         {/* </div> */}
                     <input id='messagePicture' type='file' name='messagePic' className='homepage-center-input2' 
                     onChange={(e)=>selectMessagePic(e, otherUser.id, otherUser.username)}/>
-                   
                     </label>}
                     
                 </form>
@@ -406,7 +405,6 @@ const {_id : idCurrent , username : usernameCurrent} = currentUserParsed
                                     Cancel
                                 </span>
                             </div>
-
                             <div className='homepage-center-input-item-2'onClick={sendMessage} >
                             <FaTelegramPlane  className='homepage-center-input-icon' size='25' />
                                 <span className='picture-name'>

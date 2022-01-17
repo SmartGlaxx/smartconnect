@@ -108,7 +108,7 @@ if(loading || allUsers.length == 0 || !currentUserParsed._id){
                     <FaSearch className='icons2' />
                     <input type='search' className='message-search' placeholder='Search Messages'/>
                 </div>
-                <Link to='/composemessage' className='message-header'><FaPlusSquare  size='25'/></Link>
+                <Link to='/composemessage' className='message-header'><FaPlusSquare className='add-chat'  size='25'/></Link>
                 <div className='unread-messages'>
                     {
                     fetchedUsers.length && userUniqueIds.length ? fetchedUsers.map(user => {

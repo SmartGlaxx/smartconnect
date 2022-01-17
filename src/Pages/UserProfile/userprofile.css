@@ -302,9 +302,7 @@
     width: 90%;
     margin : 0 auto
 }
-.profile-center-left , .profile-center-right{
-    /* background: red; */
-}
+
 .profile-center-input{
     font-size: 1.1rem;
     width:70%;
@@ -361,14 +359,7 @@
     /* border-radius: 50%; */
     cursor: pointer;
 }
-.post-btn{
-    /* width: 15%;
-    cursor: pointer;
-    height: var(--btn-height);
-    background: var(--background-color);s
-    font-weight: var(--btn-font-weight);
-     border: 1px solid var(--background-color-2); */
-}
+
 .btn-box{
     height: auto;
     width: auto;
