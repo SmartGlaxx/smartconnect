@@ -35,6 +35,10 @@ const [formData, setFormData] = useState({
     message2 : ""
 })
 
+const setCancelValues = (value)=>{
+    setPostPreviewBox(value)
+    setPostImage('')
+}
 
 const setPostData = (value1, value2)=>{
     setAlertMsg({status : value1, msg : value2})
@@ -288,7 +292,7 @@ const {_id : userId , firstname, lastname} = currentUserParsed
                     </div>
                        
                         <div className='preview-bottom'>
-                            <div className='homepage-center-input-item-2'  onClick={()=>setPostPreviewBox(false)}>
+                            <div className='homepage-center-input-item-2'  onClick={()=>setCancelValues(false)}>
                             <FaWindowClose  className='homepage-center-input-icon-close' size='25' />
                             <span className='picture-name'>
                                 Cancel
@@ -351,8 +355,8 @@ const {_id : userId , firstname, lastname} = currentUserParsed
                         <div className="homepage-center-input-item">
                             <FaImages className={formData.recipient ? `homepage-center-input-icon` :`homepage-center-input-icon-2`} size='25'/> Picture
                        </div>
-                     <input id='postPicture' type={formData.recipient ? `file` : null} name='postPic' className='compose-center-input2' 
-                        onChange={selectPostPic}/>
+                    { !postImage && <input id='postPicture' type={formData.recipient ? `file` : null} name='postPic' className='compose-center-input2' 
+                        onChange={selectPostPic}/>}
                     </label>
                 </div>  </>}
             </Grid>

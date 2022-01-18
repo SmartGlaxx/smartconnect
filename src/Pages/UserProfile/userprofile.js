@@ -69,11 +69,13 @@ const setValues = (e)=>{
 const setUserCoverPicture = (value)=>{
     setCoverPreviewBox(false)
     setTestValue(value)
+    setCoverImage('')
 }
 
 const setUserProfilePicture = (value)=>{
     setProfilePreviewBox(false)
     setTestValue(value)
+    setProfileImage('')
 }
 
 
@@ -338,15 +340,26 @@ const setPostData = (value1, value2)=>{
     setPostPreviewBox(false)
     setPostCreated(true)
     setFormValue('')
+    setPostImage('')
     setTimeout(()=>{
         setPostCreated(false)
     }, 3000)
 }
 
-const setCancelValues = ()=>{
+const setPostCancelValues = ()=>{
     setPostPreviewBox(false)
     setFormValue('')
     setPostImage('')
+}
+
+const setCoverCancelValues = (value) =>{
+    setCoverPreviewBox(value)
+    setCoverImage('')
+}
+
+const setProfileCancelValues = (value) =>{
+    setProfilePreviewBox(value)
+    setProfileImage("")
 }
 
 const setDataValues = (value, data)=>{
@@ -728,8 +741,8 @@ const usernameCapitalized = firstLetter.toUpperCase() + otherLettes
                             <div className="cover-label-box-inner" > 
                                 <FaCamera  className='img-upload-icon' size='30' /> 
                           </div>
-                        <input id='coverPicture' type='file' name='coverPic' className='homepage-center-input2' 
-                        onChange={selectCoverPic}/>
+                        {!coverImage &&<input id='coverPicture' type='file' name='coverPic' className='homepage-center-input2' 
+                        onChange={selectCoverPic}/>}
                         </label>}
                         {/* <button className='post-btn' onClick={submit}>Post</button> */}
                     </form>
@@ -760,8 +773,8 @@ const usernameCapitalized = firstLetter.toUpperCase() + otherLettes
                             <div className="profile-label-box-inner">
                                 <FaCamera  className='img-upload-icon' size='30'/> 
                           </div>
-                        <input id='profilePicture' type='file' name='profilePic' className='homepage-center-input2' 
-                        onChange={selectProfilePic}/>
+                        {!profileImage && <input id='profilePicture' type='file' name='profilePic' className='homepage-center-input2' 
+                        onChange={selectProfilePic}/>}
                         </label>}
                         {/* <button className='post-btn' onClick={submit}>Post</button> */}
                     </form>
@@ -861,13 +874,13 @@ const usernameCapitalized = firstLetter.toUpperCase() + otherLettes
                 <div className='cover-img-preview-box'>
                     <img src={coverPicturePreview} alt='Error loading preview' className='post-img-preview'/>
                     <div className='preview-bottom'>
-                        <div className='homepage-center-input-item-2' onClick={()=>setCoverPreviewBox(false)} >
+                        <div className='homepage-center-input-item-2' onClick={()=>setCoverCancelValues(false)} >
                         <FaWindowClose  className='homepage-center-input-icon-close' size='25' />
                         <span className='picture-name'>
                             Cancel
                         </span>
                         </div>
-                        <div className='homepage-center-input-item-2' onClick={()=>uploadCoverPicture(profileImage)}>
+                        <div className='homepage-center-input-item-2' onClick={()=>uploadCoverPicture(coverImage)}>
                         <FaTelegramPlane  className='homepage-center-post-icon' size='25' />
                         <span className='picture-name'>
                             Post
@@ -880,7 +893,7 @@ const usernameCapitalized = firstLetter.toUpperCase() + otherLettes
                     <div className='profile-img-preview-box'>
                     <img src={profilePicturePreview} alt='Error loading preview' className='post-img-preview'/>
                     <div className='preview-bottom'>
-                        <div className='homepage-center-input-item-2' onClick={()=>setProfilePreviewBox(false)} >
+                        <div className='homepage-center-input-item-2' onClick={()=>setProfileCancelValues(false)} >
                         <FaWindowClose  className='homepage-center-input-icon-close' size='25' />
                         <span className='picture-name'>
                             Cancel
@@ -1053,7 +1066,7 @@ const usernameCapitalized = firstLetter.toUpperCase() + otherLettes
                         </div>
                         <img src={postPicturePreview} alt='Error loading preview' className='post-img-preview'/>
                         <div className='preview-bottom'>
-                            <div className='homepage-center-input-item-2'onClick={setCancelValues} >
+                            <div className='homepage-center-input-item-2'onClick={()=>setPostCancelValues(false)} >
                             <FaWindowClose  className='homepage-center-input-icon-close' size='25' />
                             <span className='picture-name'>
                                 Cancel
@@ -1074,8 +1087,8 @@ const usernameCapitalized = firstLetter.toUpperCase() + otherLettes
                         <FaImages className='profile-center-input-icon-picture' size='25'/> 
                             <span className='picture-name'>Picture</span>
                        </div>
-                     <input id='postPicture' type='file' name='postPic' className='profile-center-input2' 
-                        onChange={selectPostPic}/>
+                    {!postImage && <input id='postPicture' type='file' name='postPic' className='profile-center-input2' 
+                        onChange={selectPostPic}/>}
                     </label>}
                     <div className='profile-center-input-item'onClick={submit} >
                         <FaTelegramPlane  className='homepage-center-post-icon' size='25' />

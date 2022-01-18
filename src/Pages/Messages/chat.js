@@ -36,6 +36,11 @@ const [formData, setFormData] = useState({
     message : ""
 })
 
+const cancelValues = (value)=>{
+    setMessageImagePreview('')
+    setMessageImagePreviewBox(value)
+    setMessageImage('')
+}
 const [otherUser, setOtherUser] = useState({
     id: "",
     username : ""
@@ -46,6 +51,7 @@ const setPostData = (value1, value2)=>{
     setAlertMsg({status : value1, msg : value2})
     setMessageImagePreviewBox(false)
     setChatCreated(!chatCreated)
+    setMessageImage('')
     setFormData({
         userName : "",
         message : ""
@@ -372,8 +378,8 @@ const {_id : idCurrent , username : usernameCurrent} = currentUserParsed
                         {/* <div style={{ position: "absolute", top:"0rem", right:"0rem", width:"2rem", background:"green", padding:"0.0.4rem"}}>  */}
                             <FaImages  className='msg-img-upload-icon' size='23' /> 
                         {/* </div> */}
-                    <input id='messagePicture' type='file' name='messagePic' className='homepage-center-input2' 
-                    onChange={(e)=>selectMessagePic(e, otherUser.id, otherUser.username)}/>
+                    {!messageImage && <input id='messagePicture' type='file' name='messagePic' className='homepage-center-input2' 
+                    onChange={(e)=>selectMessagePic(e, otherUser.id, otherUser.username)}/>}
                     </label>}
                     
                 </form>
@@ -382,13 +388,6 @@ const {_id : idCurrent , username : usernameCurrent} = currentUserParsed
                 </div>
             {/* <Button  className='formbutton' onClick={sendMessage}>Send</Button> */}
             </div>
-
-
-
-
-
-
-
             </Grid>
          <Grid item xs={false} sm={3} className="chat-right chat-mobile-disabled" >
             <Ads /> 
@@ -399,7 +398,7 @@ const {_id : idCurrent , username : usernameCurrent} = currentUserParsed
                     <div>
                         <img src={messageImagePreview} alt='Error loading preview' className='message-img-preview'/>
                         <div className='pic-upload-btn'>
-                            <div className='homepage-center-input-item-2' onClick={()=>setMessageImagePreviewBox(false)}>
+                            <div className='homepage-center-input-item-2' onClick={()=>cancelValues(false)}>
                                 <FaWindowClose  className='homepage-center-input-icon-close' size='25' />
                                 <span className='picture-name'>
                                     Cancel

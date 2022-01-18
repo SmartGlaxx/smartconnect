@@ -50,6 +50,8 @@ const setCancelValues = ()=>{
     setPostPreviewBox(false)
     setFormValue('')
     setPostImage('')
+    
+    // window.location.reload()
 }
 
 //select post pic
@@ -341,8 +343,8 @@ const {_id : idCurrent , username : usernameCurrent} = currentUserParsed
                             <FaImages className='homepage-center-input-icon-picture' size='25'/> 
                             <span className='picture-name'>Picture</span>
                        </div>
-                     <input id='postPicture' type='file' name='postPic' className='homepage-center-input2' 
-                        onChange={selectPostPic}/>
+                     {!postImage && <input id='postPicture' type='file' name='postPic' className='homepage-center-input2' 
+                        onChange={selectPostPic}/>}
                     </label>
                     <div className='homepage-center-input-item'onClick={submit} >
                         <FaTelegramPlane  className='homepage-center-post-icon' size='25' />
