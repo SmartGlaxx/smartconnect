@@ -308,10 +308,10 @@ const {_id : userId , firstname, lastname} = currentUserParsed
                    
                 </div>
                 }
-            <Grid item xs={false} sm={2} className='compose-mobile-disabled'>
+            <Grid item xs={false} sm={3} md={3} className='compose-mobile-disabled'>
                 <LeftNavigation />
             </Grid>
-            <Grid item xs={12} sm={8} className="compose-center">
+            <Grid item xs={12} sm={6} md={6} className="compose-center">
             <div className='compose-center-inner'>
             <h3>Compose Message</h3>
             
@@ -360,7 +360,7 @@ const {_id : userId , firstname, lastname} = currentUserParsed
                     </label>
                 </div>  </>}
             </Grid>
-            <Grid item xs={false} sm={2} className="compose-right compose-mobile-disabled">
+            <Grid item xs={false} sm={3} md={3} className="compose-right compose-mobile-disabled">
                 <Ads />
             </Grid>
         </Grid>

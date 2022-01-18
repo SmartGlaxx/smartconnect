@@ -83,7 +83,7 @@ background-color: var(--preview-background);
 }
 
 
-@media screen and (max-width: 940px){
+@media screen and (max-width: 960px){
     .ad-container{
         display: none;   
     }

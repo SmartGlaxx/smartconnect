@@ -139,7 +139,7 @@ if(loading || allUsers.length == 0 || !currentUserParsed._id){
                    }
                 </div>
             </Grid>
-            <Grid item sm={false} md={3} className="inbox-right inbox-mobile-disabled">
+            <Grid item xs={false} sm={false} md={3} className="inbox-right inbox-mobile-disabled">
                 <Ads />
             </Grid>
         </Grid>

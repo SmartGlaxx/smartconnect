@@ -6,8 +6,8 @@ import {Button, Divider} from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import './topbar.css'
 import { Grid } from '@material-ui/core'
-import {FaSearch, FaHome, FaPeopleArrows, FaRegClock, FaUserFriends, FaEnvelope, FaUserAlt, FaTh, FaBell, FaRocketchat, 
-    FaChevronCircleDown, FaTools} from 'react-icons/fa' 
+import {FaSearch, FaHome, FaPeopleArrows, FaRegClock, FaUserFriends, FaEnvelope, FaUserAlt,
+     FaTh, FaBell, FaSignOutAlt, FaChevronCircleDown, FaTools, FaRegEnvelope, FaPlusSquare} from 'react-icons/fa' 
 import { UseAppContext } from '../../Contexts/app-context'
 import ListIcon from '@material-ui/icons/List';
 import { Search } from '..';
@@ -244,7 +244,7 @@ const Topbar =()=>{
                         <Button onClick={()=>setLoginValues(false, {})}  className='link-btn' 
                         style={{display:"flex", justifyContent:"flex-start", alignItems:"center",
                         width:"100%", padding:"0.3rem 0.5rem"}}>
-                            <FaTools className='nav-icon link' /><span  className='log-out-btn' >Log out</span>
+                            <FaSignOutAlt className='nav-icon link' /><span  className='log-out-btn' >Sign out</span>
                         </Button>
                         }
                             </div>
@@ -263,11 +263,21 @@ const Topbar =()=>{
                             horizontal: 'center',
                             }}
                         >
-                            <Button className='link-btn'>
-                                <Link to='/composemessage' className='link'>New Message</Link>
-                            </Button><br />
-                            <Button className='link-btn'>
-                                <Link to='/inbox' className='link'>Inbox</Link>
+                            <Button className='link-btn'
+                            style={{display:"flex", justifyContent:"flex-start", alignItems:"center",
+                            width:"100%", padding:"0.3rem 0.5rem"}}>
+                                <FaPlusSquare className='nav-icon link' />
+                                <Link to='/composemessage' className='link'>
+                                    New Message
+                                </Link>
+                            </Button>
+                            <Button className='link-btn'
+                            style={{display:"flex", justifyContent:"flex-start", alignItems:"center",
+                            width:"100%", padding:"0.3rem 0.5rem"}}>
+                                <FaEnvelope className='nav-icon link' />
+                                <Link to='/inbox' className='link'>
+                                    Inbox
+                                </Link>
                             </Button>
                         </Popover>
                     </li>

@@ -63,6 +63,9 @@
 .sideTop{
     padding : 0.3rem 1rem
 }
+.sideTop-2{
+    padding : 0.3rem 1.4rem
+}
 .sideTop-ul{
     list-style-type: none;
     color:var(--color2)
@@ -73,7 +76,7 @@
     color: var(--color); */
 
     text-decoration: none;
-    color:var(--color2);
+    color:var(--color);
     margin: 0.8rem 0;
 }
 .sideTop-li-inner{
@@ -84,8 +87,8 @@
     text-decoration: none; 
 
     font-size: 1.1rem;
-    font-weight: 600;
-    padding: 0.5rem 0;
+    font-weight: 400;
+    padding: 0;
     padding-left: 0.5rem;
     border-radius: 0 0.5rem 0.5rem 0;
     background: var(--background-color);
@@ -121,8 +124,56 @@
 .logout-icon{
     float: left;
     /* margin: 0 0.5rem; */
-    margin-right: 1rem;
+    margin-right: 0.5rem;
 }
+.dropdown{
+    color: var(--color);
+    margin-left: 45%;
+}
+.message-btn-box{
+    display : flex;
+    align-items : center;
+    /* padding:0.9rem 0; */
+   
+    text-decoration: none; 
+    font-size: 1.1rem;
+    font-weight: 400;
+    /* padding: 0; */
+    padding-left: 0.5rem;
+    border-radius: 0 0.5rem 0.5rem 0;
+    /* background: var(--background-color); */
+    color:var(--color);
+}
+
+.message-options-box{
+    margin-left: 10%;
+    width: 80%; 
+    height: auto;
+    background: var(--background-color-10);
+    position : absolute; 
+    color: var(--color-7); 
+    padding: 1rem 0.3rem; 
+    box-sizing: border-box;
+    border-radius: var(--section-border-radius );
+}
+
+.link-2{
+    margin: 0 0.4rem;
+   color: var(--color);
+   text-decoration: none;
+   font-size: 0.95rem;
+   text-transform: capitalize;
+  
+}
+.link-2-active{
+   margin: 0 0.4rem;
+   color: var(--color-7);
+   text-decoration: none;
+   font-size: 0.95rem;
+   text-transform: capitalize;
+  
+}
+
 @media screen and (max-width : 940px){
     .sidebarContainer{
         width: 70vw;

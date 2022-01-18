@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Popover from '@material-ui/core/Popover';
 import Typography from '@material-ui/core/Typography';
 import {Button, Divider} from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import './sidebar.css'
-import { FaHome, FaPeopleArrows, FaRegClock, FaUserFriends, FaEnvelope, FaUserAlt, FaTh, FaBell, FaRocketchat, FaChevronCircleDown,
-     FaWindowClose, FaTools, FaSignInAlt} from 'react-icons/fa' 
+import { FaHome, FaPeopleArrows, FaUserFriends, FaEnvelope, FaUserAlt, FaTh, 
+    FaBell, FaPlusSquare, FaChevronCircleDown,FaWindowClose, FaTools, FaSignInAlt} from 'react-icons/fa' 
 import { UseAppContext } from '../../Contexts/app-context'
 import ListIcon from '@material-ui/icons/List';
 
@@ -20,7 +20,8 @@ const useStyles = makeStyles((theme) => ({
   //for popover ends
 
 const Sidebar =()=>{
-     const {setLoggedIn, loggedIn, currentUserParsed, sidebarOpen, openSidebar} = UseAppContext()
+    const {setLoggedIn, loggedIn, currentUserParsed, sidebarOpen, openSidebar} = UseAppContext()
+    const [showDropdown, setShowDropdown] = useState(false)
 
 const {_id, username, firstname, lastname} = currentUserParsed
      //popover function start
@@ -75,22 +76,45 @@ const {_id, username, firstname, lastname} = currentUserParsed
                         Follows </div>
                     </Link>
                     </li>
-                    <li className="sideTop-li" onClick={openSidebar}>
-                    <Link  to='/inbox' className='left-nav' >
+                    <li className="sideTop-li" >
+                    <dix  className='left-nav' >
                      <div className= {window.location.href.indexOf("chat") > -1 ||
                      window.location.href.indexOf("inbox") > -1 || 
                      window.location.href.indexOf("composemessage") > -1 ?
-                     `sideTop-li-inner-active` :`sideTop-li-inner `} >
+                     `sideTop-li-inner-active message-btn-box` :`sideTop-li-inner message-btn-box`}  >
                     <FaEnvelope className= {window.location.href.indexOf("chat") > -1 || 
                      window.location.href.indexOf("inbox") > -1 || 
                      window.location.href.indexOf("composemessage") > -1 ? `icons-active` :`icons`}  size='15'/>
-                    Messages </div>
-                    </Link>
+                        Messages
+                     <FaChevronCircleDown  className="icons2" className='dropdown'
+                     variant="contained"  onClick={()=>{setShowDropdown(!showDropdown)}}/>
+                     </div>
+                    </dix>
                     </li>
                 </ul> 
             </div>
         </div>
-        <div className="sideTop" >
+        {showDropdown && <div className='message-options-box'>
+        <Button className='link-btn' onClick={openSidebar}
+            style={{display:"flex", justifyContent:"flex-start", alignItems:"center",
+            width:"100%", padding:"0.3rem 0.5rem"}}>
+                <FaPlusSquare className= {window.location.href.indexOf("composemessage") > -1  ? `icons-active` :`icons`} />
+                <Link to='/composemessage'  
+                className= {window.location.href.indexOf("composemessage") > -1  ? `link-2-active` : `link-2`}>
+                    New Message
+                </Link>
+            </Button>
+            <Button className='link-btn' onClick={openSidebar}
+            style={{display:"flex", justifyContent:"flex-start", alignItems:"center",
+            width:"100%", padding:"0.3rem 0.5rem"}}>
+                <FaEnvelope className= {window.location.href.indexOf("inbox") > -1  ? `icons-active` :`icons`} />
+                <Link to='/inbox' 
+                className= {window.location.href.indexOf("inbox") > -1  ? `link-2-active` : `link-2`}>
+                    Inbox
+                </Link>
+            </Button>
+        </div>}
+        <div className="sideTop-2" >
             <div className="sideTop-inner">
                 <ul className="sideTop-ul">
                     <li className='sideTop-li'>
@@ -105,7 +129,7 @@ const {_id, username, firstname, lastname} = currentUserParsed
                     {/* <Button className='logout' style={{color: "rgb(236, 39, 39)"}}> */}
                     <li className='sideTop-li logout'>
                         <FaSignInAlt onClick={()=>setLoggedIn(false)} className='logout-icon logout' size='15'/>
-                        Log out
+                        Sign out
                     </li>
                     {/* </Button> */}
                     </>}
