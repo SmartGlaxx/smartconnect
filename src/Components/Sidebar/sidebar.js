@@ -81,13 +81,14 @@ const {_id, username, firstname, lastname} = currentUserParsed
                      <div className= {window.location.href.indexOf("chat") > -1 ||
                      window.location.href.indexOf("inbox") > -1 || 
                      window.location.href.indexOf("composemessage") > -1 ?
-                     `sideTop-li-inner-active message-btn-box` :`sideTop-li-inner message-btn-box`}  >
+                     `sideTop-li-inner-active message-btn-box` :`sideTop-li-inner message-btn-box`} 
+                     onClick={()=>{setShowDropdown(!showDropdown)}} >
                     <FaEnvelope className= {window.location.href.indexOf("chat") > -1 || 
                      window.location.href.indexOf("inbox") > -1 || 
                      window.location.href.indexOf("composemessage") > -1 ? `icons-active` :`icons`}  size='15'/>
                         Messages
                      <FaChevronCircleDown  className="icons2" className='dropdown'
-                     variant="contained"  onClick={()=>{setShowDropdown(!showDropdown)}}/>
+                     variant="contained"  />
                      </div>
                     </dix>
                     </li>

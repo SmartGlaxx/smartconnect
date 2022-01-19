@@ -61,16 +61,31 @@
     border-radius: 50%;
     width: 2.7rem;
     height: 2.7rem;
+    max-width: 2.7rem;
+    max-height: 2.7rem;
+    min-width: 2.7rem;
+    min-height: 2.7rem;
     position: relative;
     object-fit: cover;
 }
 .message-img-preview-2{
     margin-top: 0rem;
-    width: 100%;
+    /* width: 100%;
     height: 18rem;
     object-fit: cover;
-    z-index: 1;
+    z-index: 1; */
+    width: 100%;
+    height: auto;
+    margin : 0 auto;
+    object-fit: cover;
 }
+.message-img-container{
+    width: 100%;
+    height: 20rem;
+    overflow-y: auto;
+}
+
+
 .message-img-preview-box{
   position: absolute;
   left: 50%;
@@ -78,13 +93,12 @@
   padding: var(--input-padding);
   box-sizing: border-box;
   transform: translateX(-50%);
-  width: auto;
-  min-width: 37.5%;
+  width: 30rem;
   height: auto;
   display: grid;
   place-items: center;
   background: var(--preview-background);
-  top: 8rem;
+  top: 8.5rem;
   z-index: 1;
   box-shadow:
 0.6px 2.8px 2.2px rgba(0, 0, 0, 0.056),
@@ -98,12 +112,15 @@
 
 .pic-upload-btn{
     /* margin-top: 35%; */
-    position:relative
+    position:relative;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
 }
 
 .message-input-icon-picture{
     /* margin-right: 0.4rem; */
-    color: var(--color-7)
+    color: var(--color-7);
 }
 .message-input-icon-pictur-2{
     color: var(--color2)
@@ -150,7 +167,7 @@
 .users-list{
     position: absolute;
     top:13rem;
-    width: 51%; 
+    width: 38%; 
     height: 10rem; 
     overflow: auto;
     padding: 0.3rem;
@@ -427,7 +444,8 @@
     color: var(--color-7);
     font-size: var(--icon-size2);
     padding: 0rem; 
-    cursor : pointer
+    cursor : pointer;
+    margin-right: 0.8rem;
 }
 .msg-img-upload-icon{
     cursor: pointer;
@@ -460,12 +478,24 @@
 
 .preview-container{
     /* background: var(--preview-background); */
-    background-color: none;
+    /* background-color: none;
     position: fixed;
     top:0;
     bottom:0;
     left:0;
-    right: 0
+    right: 0 */
+}
+.chat-message-img-container{
+    width: 100%;
+    height: 20rem;
+    overflow-y: auto;
+}
+.chat-message-img-preview{
+    margin-top: 0rem;
+    width: 100%;
+    height: 25rem;
+    object-fit: cover;
+    z-index: 1;
 }
 
 .chat-message-img-preview-box{
@@ -475,14 +505,13 @@
     padding: var(--input-padding);
     box-sizing: border-box;
     transform: translateX(-50%);
-    width: auto;
-    min-width: 37.5%;
+    width: 30rem;
     height: auto;
     display: grid;
     place-items: center;
     background: var(--preview-background);
     top: 8rem;
-    z-index: 1;
+    z-index: 0;
     box-shadow:
   0.6px 2.8px 2.2px rgba(0, 0, 0, 0.056),
   1.5px 6.7px 5.3px rgba(0, 0, 0, 0.081),
@@ -562,12 +591,12 @@
     }
 }
 
-@media screen and (max-width: 850px){
+/* @media screen and (max-width: 850px){
     .chat-message-img-preview-box, .message-img-preview-box{
         width: auto;
     }
     
-}
+} */
 @media screen and (max-width: 600px){
     .sendingBox{
         width: 100%;
@@ -589,15 +618,18 @@
     }
     .chat-message-img-preview-box, .message-img-preview-box{
         width: 90%;
+        height: 25rem;
         left: 5%;
         transform: translateX(0%);
-        top: 8.5rem;
+        top: 5.5rem;
     }
-    .message-img-preview-box{
-        width: 90%;
-        left: 5%;
-        transform: translateX(0%);
-        top: 8.5rem;
+    .chat-message-img-preview-box{
+        /* width: auto */
+        top: 7.5rem;
+    }
+    
+    .message-img-container{
+        height: 13rem;
     }
     .compose-mobile-disabled, .inbox-mobile-disabled, .chat-mobile-disabled{
         display: none;   
@@ -605,11 +637,16 @@
     .users-list{
         width: 75%
     }
-    .message-img-preview, .message-img-preview-2{
+    /* .message-img-preview, .message-img-preview-2{
         height: 13rem
-    }
+    } */
 }
 
+@media screen and (max-width: 450px){
+    .chat-message-img-container{
+        height: 15rem;
+    }
+ }
 
 @media screen and (max-width: 400px){
     .compose-center-form{

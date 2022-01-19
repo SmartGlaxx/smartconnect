@@ -320,8 +320,10 @@ const {_id : idCurrent , username : usernameCurrent} = currentUserParsed
                             <input type='text' name='post-input' placeholder='Make a post' className='homepage-center-input-2' 
                         value={formValue} onChange={setValues}/>
                         </div>
-                        <img src={postPicturePreview} alt='Error loading preview' className='post-img-preview-2'/>
-                        <div className='preview-bottom'>
+                        <div className='img-container'>
+                            <img src={postPicturePreview} alt='Error loading preview' className='post-img-preview-2'/>
+                        </div>
+                        <div className='pic-upload-btn'>
                             <div className='homepage-center-input-item-2'onClick={setCancelValues} >
                             <FaWindowClose  className='homepage-center-input-icon-close' size='25' />
                             <span className='picture-name'>

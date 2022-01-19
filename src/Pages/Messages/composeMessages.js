@@ -284,14 +284,16 @@ const {_id : userId , firstname, lastname} = currentUserParsed
         <Grid container>
             {postPreviewBox && 
                 <div className='message-img-preview-box'>
-                        <img src={postPicturePreview} alt='Error loading preview' className='message-img-preview-2'/>
+                        <div className='message-img-container'>
+                            <img src={postPicturePreview} alt='Error loading preview' className='message-img-preview-2'/>
+                        </div>
                         <div className='preview-bottom'>
                             <img src={profilePicture ? profilePicture : ProfileImage} className="message-profile-img-2" />
                             <textarea type='text' onChange={setFormValue} placeholder='Your message' variant = 'contained'
                             cols='20' rows='3' name='message2' className='forminput' value={formData.message}></textarea>
                     </div>
                        
-                        <div className='preview-bottom'>
+                        <div className='pic-upload-btn'>
                             <div className='homepage-center-input-item-2'  onClick={()=>setCancelValues(false)}>
                             <FaWindowClose  className='homepage-center-input-icon-close' size='25' />
                             <span className='picture-name'>

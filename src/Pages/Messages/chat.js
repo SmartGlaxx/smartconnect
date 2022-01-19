@@ -395,8 +395,10 @@ const {_id : idCurrent , username : usernameCurrent} = currentUserParsed
         {messageImagePreviewBox && 
          <Grid item xs={12} className='preview-container'>
                 <div className='chat-message-img-preview-box'>
-                    <div>
-                        <img src={messageImagePreview} alt='Error loading preview' className='message-img-preview'/>
+                    {/* <div> */}
+                        <div className='chat-message-img-container'>
+                            <img src={messageImagePreview} alt='Error loading preview' className='chat-message-img-preview'/>
+                        </div>
                         <div className='pic-upload-btn'>
                             <div className='homepage-center-input-item-2' onClick={()=>cancelValues(false)}>
                                 <FaWindowClose  className='homepage-center-input-icon-close' size='25' />
@@ -411,7 +413,7 @@ const {_id : idCurrent , username : usernameCurrent} = currentUserParsed
                                 </span>
                             </div>
                         </div>
-                    </div>
+                    {/* </div> */}
                 </div>
                 </Grid>
             }

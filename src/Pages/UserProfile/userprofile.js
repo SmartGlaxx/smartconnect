@@ -872,8 +872,11 @@ const usernameCapitalized = firstLetter.toUpperCase() + otherLettes
             </Grid>
             {coverPreviewBox && 
                 <div className='cover-img-preview-box'>
-                    <img src={coverPicturePreview} alt='Error loading preview' className='post-img-preview'/>
-                    <div className='preview-bottom'>
+                    <h3 className='upload-title'>Upload Cover Picture</h3>
+                    <div className='cover-img-container'>
+                        <img src={coverPicturePreview} alt='Error loading preview' className='cover-img-preview'/>
+                    </div>
+                    <div className='pic-upload-btn'>
                         <div className='homepage-center-input-item-2' onClick={()=>setCoverCancelValues(false)} >
                         <FaWindowClose  className='homepage-center-input-icon-close' size='25' />
                         <span className='picture-name'>
@@ -883,7 +886,7 @@ const usernameCapitalized = firstLetter.toUpperCase() + otherLettes
                         <div className='homepage-center-input-item-2' onClick={()=>uploadCoverPicture(coverImage)}>
                         <FaTelegramPlane  className='homepage-center-post-icon' size='25' />
                         <span className='picture-name'>
-                            Post
+                            Upload
                         </span>
                         </div>
                     </div>
@@ -891,8 +894,11 @@ const usernameCapitalized = firstLetter.toUpperCase() + otherLettes
                 }
                 {profilePreviewBox && 
                     <div className='profile-img-preview-box'>
-                    <img src={profilePicturePreview} alt='Error loading preview' className='post-img-preview'/>
-                    <div className='preview-bottom'>
+                        <h3 className='upload-title'>Upload Profile Picture</h3>
+                    <div className='profile-img-container'>
+                        <img src={profilePicturePreview} alt='Error loading preview' className='profile-img-preview'/>
+                    </div>
+                    <div className='pic-upload-btn'>
                         <div className='homepage-center-input-item-2' onClick={()=>setProfileCancelValues(false)} >
                         <FaWindowClose  className='homepage-center-input-icon-close' size='25' />
                         <span className='picture-name'>
@@ -902,7 +908,7 @@ const usernameCapitalized = firstLetter.toUpperCase() + otherLettes
                         <div className='homepage-center-input-item-2' onClick={()=>uploadProfilePicture(profileImage)}>
                         <FaTelegramPlane  className='homepage-center-post-icon' size='25' />
                         <span className='picture-name'>
-                            Post
+                            Upload
                         </span>
                         </div>
                     </div>
@@ -1047,7 +1053,6 @@ const usernameCapitalized = firstLetter.toUpperCase() + otherLettes
                 { <img src={userProfilePicture ? userProfilePicture : ProfileImage} alt='Profile Image' className='profile-img-2' />}
                     <input type='hidden' name='userId' />
                     <input type='hidden'  name='username'/>
-                   
                      <input type='text' name='post-input' placeholder='Make a post' className='profile-center-input' 
                     value={formValue} onChange={setValues}/>
                 </div>     
@@ -1058,14 +1063,16 @@ const usernameCapitalized = firstLetter.toUpperCase() + otherLettes
                     {postPreviewBox && 
                     <div className='post-img-preview-box'>
                          <div className='preview-top'>
-                            <img src={profilePicture ? profilePicture : ProfileImage} className="post-profile-img-2" />
+                            <img src={userProfilePicture ? userProfilePicture : ProfileImage} className="post-profile-img-2" />
                             <input type='hidden' name='userId' />
                             <input type='hidden'  name='username'/>
                             <input type='text' name='post-input' placeholder='Make a post' className='homepage-center-input-2' 
                         value={formValue} onChange={setValues}/>
                         </div>
-                        <img src={postPicturePreview} alt='Error loading preview' className='post-img-preview'/>
-                        <div className='preview-bottom'>
+                        <div className='post-img-container'>
+                            <img src={postPicturePreview} alt='Error loading preview' className='post-img-preview'/>
+                        </div>
+                        <div className='pic-upload-btn'>
                             <div className='homepage-center-input-item-2'onClick={()=>setPostCancelValues(false)} >
                             <FaWindowClose  className='homepage-center-input-icon-close' size='25' />
                             <span className='picture-name'>

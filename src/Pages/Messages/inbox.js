@@ -134,8 +134,6 @@ if(loading || allUsers.length == 0 || !currentUserParsed._id){
                                 <h4 className='no-message'>No Messages in your inbox</h4>
                              <LoadingIcons.Puff  stroke="#555" strokeOpacity={.9} />
                          </div>  
-                          
-                     
                    }
                 </div>
             </Grid>
