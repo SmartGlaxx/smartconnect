@@ -17,7 +17,7 @@ const Inbox = () =>{
     const [newAllMessages, setNewAllMessages] = useState([])
     const [userUniqueIds, setUserUniqueIds] = useState([])
     const [fetchedUsers, setFetchedUsers] = useState([])
-    const  {_id : userId, username : userUsername } = currentUserParsed
+    const  {_id : userId, username : userUsername, messageNotifications } = currentUserParsed
     const messageUrl =  `https://smart-job-search.herokuapp.com/api/v1/messages/${userId}/${userUsername}`
     
     const fetchUserMessages = async(url)=>{
@@ -119,14 +119,36 @@ if(loading || allUsers.length == 0 || !currentUserParsed._id){
                                 if(otherUsername){
                                     otherUername = otherUsername.slice(0,1).toUpperCase().concat(otherUsername.slice(1).toLowerCase())
                                 }
-                                return <div className='inbox-userbox'>
-                                    <Link to={`/chat/${userId}/${userUsername}/${id}/${otherUsername}`} className='inbox-name'>
-                                    <div className='inbox-items'>
-                                        <img src={profilePicture ? profilePicture : Profile} className='inbox-photo'/>
-                                        <span className='inbox-name'>{otherUername}</span>
-                                    </div>
-                                    </Link><br/>
-                                    </div>
+                                // return <div className='inbox-userbox'>
+                                    
+                                    if(messageNotifications.includes(id)){
+                                        return <div className='inbox-userbox' >
+                                            <Link to={`/chat/${userId}/${userUsername}/${id}/${otherUsername}`} className='inbox-name'>
+                                            <div className='inbox-items'>
+                                                <img src={profilePicture ? profilePicture : Profile} className='inbox-photo'/>
+                                                <span className='inbox-name'>{otherUername}</span>
+                                                <div style={{background:"red", width:"1rem", heigth:"1rem"}}>a</div>
+                                            </div>
+                                            </Link>
+                                        </div>
+                                    }else if(!messageNotifications.includes(id)){
+                                        return <div className='inbox-userbox'>
+                                            <Link to={`/chat/${userId}/${userUsername}/${id}/${otherUsername}`} className='inbox-name'>
+                                            <div className='inbox-items'>
+                                                <img src={profilePicture ? profilePicture : Profile} className='inbox-photo'/>
+                                                <span className='inbox-name'>{otherUername}</span>
+                                            </div>
+                                            </Link>
+                                        </div>
+                                    }
+                                    
+                                    // {
+                                    
+                                    // }
+                                    
+                                    // <br/>
+
+                                  
                             }
                          }) : 
                          <div style={{width: "100%",height : "5rem", 

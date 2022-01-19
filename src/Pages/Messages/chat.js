@@ -28,6 +28,7 @@ const Chat = ()=>{
     const msgImgurl = 'https://smart-job-search.herokuapp.com/api/v1/messages'
     let chatUsername = ''
 
+    const {_id : idCurrent , username : usernameCurrent, messageNotifications} = currentUserParsed
 const {userId, userUsername, id, otherUsername} = useParams()
 const [fetchedMsg, setFetchedMsg] = useState([])
 const [formData, setFormData] = useState({
@@ -339,7 +340,7 @@ if(otherUsername){
     chatUsername = otherUsername.slice(0,1).toUpperCase().concat(otherUsername.slice(1).toLowerCase())
 }
 
-const {_id : idCurrent , username : usernameCurrent} = currentUserParsed
+// const {_id : idCurrent , username : usernameCurrent, messageNotifications} = currentUserParsed
 
     return <div className='chat-main'>
         <Topbar />

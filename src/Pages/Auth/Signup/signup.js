@@ -5,10 +5,10 @@ import {FaExclamationCircle} from 'react-icons/fa'
 import Axios from 'axios'
 import {Link, useNavigate} from 'react-router-dom'
 import { UseAppContext } from '../../../Contexts/app-context'
-// import LoadingIcons from 'react-loading-icons'
+import LoadingIcons from 'react-loading-icons'
 
 const Signup =()=>{
-    const {setLoading, loading, setCurrentUser, currentUser} = UseAppContext()
+    const {loggedIn, setLoading, loading, setCurrentUser, currentUser} = UseAppContext()
     const [error, setError] = useState({status: false, msg :''})
     const [formValues, setFormValues] = useState({
         firstname : "",
@@ -72,18 +72,20 @@ const Signup =()=>{
         }
     }
 
+    useEffect(() => {
+        window.scrollTo(0, 0)
+      }, [])
     
-    // if(loading){
-    //     return <div style={{width: "100%",height : "100vh", 
-    //     display: 'grid', placeItems: "center"}}>
-    //        <LoadingIcons.Puff       stroke="#555" strokeOpacity={.9} />
-    //    </div>
-    // }
+    if(loading){
+        return <div style={{width: "100%",height : "100vh", 
+        display: 'grid', placeItems: "center"}}>
+           <LoadingIcons.Puff       stroke="#555" strokeOpacity={.9} />
+       </div>
+    }
+    
+    
 
 //scroll to top of page
-useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [])
 
     return (
     <Grid className='signup' container>

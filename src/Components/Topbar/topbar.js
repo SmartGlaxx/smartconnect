@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
 const Topbar =()=>{
      const {setLoggedIn, loggedIn, allUsers, setCurrentUser, currentUser, currentUserParsed, openSidebar,
         setSearchTermValue, searchTermValue} = UseAppContext()
-     const {_id, username, firstname, lastname, receivedConnectionRequests} = currentUserParsed
+     const {_id, username, firstname, lastname, receivedConnectionRequests, messageNotifications} = currentUserParsed
      const [receivedRequests, setReceivedRequests] = useState([])
      let usernameCapitalized = ''
 
@@ -45,7 +45,8 @@ const Topbar =()=>{
      
      // get request users 
      
-     const requestUsers = allUsers.filter(user => user.receivedConnectionRequests.includes(user._id))
+     const requestUsers = allUsers.filter(user => user.sentConnectionRequests.includes(_id))
+     
     //  setReceivedRequests(requestUsers)
 
     //  console.log('receivedRequests', receivedRequests)
@@ -67,7 +68,7 @@ const Topbar =()=>{
     const handleClick3 = (event) => {
     setAnchorEl3(event.currentTarget);
     };
-   
+   console.log("dd,dodod", requestUsers)
      const handleClose = () => {
        setAnchorEl(null);
      };
@@ -96,6 +97,11 @@ const Topbar =()=>{
     setSearchTermValue(e.target.value)
   }
      
+  let notificationSum = 0
+  receivedConnectionRequests && receivedConnectionRequests.length > 0 && (notificationSum += receivedConnectionRequests.length)
+  messageNotifications && messageNotifications.length > 0 && (notificationSum += messageNotifications.length)
+
+
     return <Grid className='topbarContainer' container>
         <Grid className="topLeft" item xs ={9} sm={3} >
             <div className='mainlogo'>
@@ -163,7 +169,8 @@ const Topbar =()=>{
                     <li className='topRight-li'>
                         <div className='icon2-text'>
                             <FaBell  className="icons2"
-                            aria-describedby={id} variant="contained" onClick={handleClick3}/>{ receivedConnectionRequests && receivedConnectionRequests.length}
+                            aria-describedby={id} variant="contained" onClick={handleClick3}/>
+                            { notificationSum}
 
                         <Popover
                             id={id}
@@ -179,23 +186,30 @@ const Topbar =()=>{
                             horizontal: 'center',
                             }}
                         >
-                            <Button className=''>
+                            <div className=''>
                            {
                                requestUsers.length > 0 ? 
-                               <>
-                               <h4>Received Requests</h4>
-                               {requestUsers.map(user =>{
-                                   const {_id, username} = user
-                                   return <Button className='link-btn'>
-                                            <Link key={_id} to={`/userprofile/${_id}/${username}`} className='link'>
-                                                {username}
+                               <div>
+                                    <h4>Received Requests</h4>
+                                    {requestUsers.map(user =>{
+                                        const {_id, username} = user
+                                        return <Link key={_id} to={`/userprofile/${_id}/${username}`} className='link'>
+                                                <div className='link-btn'>
+                                                    {username}
+                                                </div>
                                             </Link>
-                                       </Button>
-                               })} 
-                               </> :
-                               <Typography>No Notifications </Typography>
+                                    })} 
+                               </div> :
+                               <div>No Notifications </div>
                            }
-                           </Button>
+                           {
+                               <Link to='/inbox'>
+                                    <div>
+                                        New Chats: {messageNotifications && messageNotifications.length > 0 &&  messageNotifications.length}
+                                    </div>
+                                </Link>
+                           }
+                           </div>
                         </Popover>
 
                         </div>
