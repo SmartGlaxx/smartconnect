@@ -183,6 +183,11 @@
 }
 .search-title{
     text-align: center;
+    color: var(--color2);
+}
+.search-title-2{
+    text-align: center;
+    color : var(--warning-text)
 }
 
 .search-name{
@@ -387,6 +392,16 @@
       padding: 0;
   }
 
+  .sendingBox-2{
+    align-items: right;
+    position: fixed;
+    right:25%;
+    bottom: 0;
+    width: calc(100% - 50%);
+    height: auto;
+    padding: 0;
+    z-index: 10
+}
   .chatinput{
       padding: var(--input-padding);
       padding-right: 2rem;
@@ -395,9 +410,20 @@
       width: 100%;
       height: 100%;
       border-radius: var(--section-border-radius);
-      border: 1px solid var(--border-color);
+      border: 1px solid var(--color);
       background: var(--background-color-2);
-      
+  }
+  .chat-reply-input{
+    position: relative;
+    padding: var(--input-padding);
+    padding-right: 2rem;
+    box-sizing: border-box;
+    bottom: -2.1rem;
+    width: 100%;
+    height: 100%;
+    border-radius: var(--section-border-radius);
+    border: 1px solid var(--color);
+    background: var(--background-color-2);
   }
 
   .chatinput:focus{
@@ -424,7 +450,7 @@
     position: absolute; 
     /* margin:20rem; */
     top: 4rem;
-    z-index : 100;
+    z-index : 3;
     height: auto; 
     font-weight: 600;
     width: 50%;
@@ -608,7 +634,7 @@
 }
 
 .replies{
-    background : lightslategrey;
+    background : var(--chat-color-5);
     padding: 1rem; 
     min-height: 4rem;
     box-sizing : border-box
@@ -629,8 +655,11 @@
     
 } */
 @media screen and (max-width: 600px){
-    .sendingBox{
+    .sendingBox, .sendingBox-2{
         width: 100%;
+    }
+    .sendingBox-2{
+        right: 0;
     }
     .chats-container{
         width: 40%;

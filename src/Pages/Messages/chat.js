@@ -444,16 +444,6 @@ if(otherUsername){
             <div className='sendingBox'>
             <textarea value={formData.message} type='text' onChange={(e)=>setFormValue(e,otherUser.id, otherUser.username)} placeholder='Your message' variant = 'contained'
                 name='message' className='chatinput'></textarea><br />
-
-            {/* {messageImagePreviewBox && 
-                <div className='cover-img-preview-box'>
-                    <img src={messageImagePreview} alt='Error loading preview' className='message-img-preview'/>
-                    <div className='pic-upload-btn'>
-                        <Button onClick={()=>setMessageImagePreviewBox(false)}>Cancel</Button>
-                        <Button onClick={()=>uploadMessagePicture(messageImage)}>Send Picture</Button>
-                    </div>
-                </div>
-                } */}
                 <form className="message-img-label-box" enctype="multipart/form-data">
                     {idCurrent == userId && usernameCurrent == userUsername && <label htmlFor='messagePicture'  >
                         {/* <div style={{ position: "absolute", top:"0rem", right:"0rem", width:"2rem", background:"green", padding:"0.0.4rem"}}>  */}
@@ -467,7 +457,6 @@ if(otherUsername){
                 <div className='send-btn' onClick={sendMessage}>
                     <FaTelegramPlane className='submit-icon' size='23'/>
                 </div>
-            {/* <Button  className='formbutton' onClick={sendMessage}>Send</Button> */}
             </div>
             </Grid>
          <Grid item xs={false} sm={3} className="chat-right chat-mobile-disabled" >

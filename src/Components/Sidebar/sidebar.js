@@ -21,12 +21,12 @@ const useStyles = makeStyles((theme) => ({
   //for popover ends
 
 const Sidebar =()=>{
-    const {setLoggedIn, loggedIn, currentUserParsed, sidebarOpen, openSidebar} = UseAppContext()
+    const {setLoggedIn, loggedIn, currentUserParsed, allUsers, sidebarOpen, openSidebar} = UseAppContext()
     const [showDropdown, setShowDropdown] = useState(false)
     const [showDropdown2, setShowDropdown2] = useState(false)
     // const [closeDropdown, setCloseDropdown] = useState(false)
 
-const {_id, username, firstname, lastname, profilePicture} = currentUserParsed
+const {_id, username, firstname, lastname, profilePicture, receivedConnectionRequests, messageNotifications} = currentUserParsed
      //popover function start
      const classes = useStyles();
      const [anchorEl, setAnchorEl] = React.useState(null);
@@ -45,6 +45,16 @@ const setCloseDropdown = ()=>{
         setShowDropdown(false)
         setShowDropdown2(false)
     }
+}
+
+// get request users 
+let requestUsers = []
+let messageReceived = []
+if(allUsers){
+    requestUsers = allUsers.filter(user => user.sentConnectionRequests.includes(_id))
+}
+if(messageNotifications && allUsers){
+   messageReceived = allUsers.filter(user => messageNotifications.includes(user._id))
 }
      
     return <div className={ sidebarOpen ? `sidebarContainer2` : `sidebarContainer1`} onClick={()=>{setCloseDropdown(true)}} >
@@ -89,7 +99,7 @@ const setCloseDropdown = ()=>{
                     </Link>
                     </li>
                     <li className="sideTop-li" >
-                    <dix  className='left-nav' >
+                    <div  className='left-nav' >
                      <div className= {window.location.href.indexOf("chat") > -1 ||
                      window.location.href.indexOf("inbox") > -1 || 
                      window.location.href.indexOf("composemessage") > -1 ?
@@ -98,7 +108,7 @@ const setCloseDropdown = ()=>{
                     <FaEnvelope className= {window.location.href.indexOf("chat") > -1 || 
                      window.location.href.indexOf("inbox") > -1 || 
                      window.location.href.indexOf("composemessage") > -1 ? `icons-active` :`icons`}  size='15'/>
-                        Messages
+                        Messages <span className='message-sidebar-notification'>{messageNotifications && messageNotifications.length > 0 && messageNotifications.length}</span>
                      <FaChevronCircleDown  className="icons2" className='dropdown'
                      variant="contained"  />
                      </div>
@@ -118,11 +128,11 @@ const setCloseDropdown = ()=>{
                                 <FaEnvelope className= {window.location.href.indexOf("inbox") > -1  ? `icons-active` :`icons`} />
                                 <Link to='/inbox' 
                                 className= {window.location.href.indexOf("inbox") > -1  ? `link-2-active` : `link-2`}>
-                                    Inbox
+                                    Inbox <span className='message-sidebar-notification-2'>{messageNotifications.length > 0 && messageNotifications.length}</span>
                                 </Link>
                             </Button>
                         </div>}
-                    </dix>
+                    </div>
                     </li>
                 </ul> 
             </div>
@@ -137,24 +147,39 @@ const setCloseDropdown = ()=>{
                         <FaChevronCircleDown  className="icons2" className='dropdown-2'
                      variant="contained"  />
                      {showDropdown2 && <div className='message-options-box-2'>
-                        <Button className='link-btn' onClick={openSidebar}
-                            style={{display:"flex", justifyContent:"flex-start", alignItems:"center",
-                            width:"100%", padding:"0.3rem 0.5rem"}}>
-                                <FaPlusSquare className= {window.location.href.indexOf("composemessage") > -1  ? `icons-active` :`icons`} />
-                                <Link to='/composemessage'  
-                                className= {window.location.href.indexOf("composemessage") > -1  ? `link-2-active` : `link-2`}>
-                                    New Message
-                                </Link>
-                            </Button>
-                            <Button className='link-btn' onClick={openSidebar}
-                            style={{display:"flex", justifyContent:"flex-start", alignItems:"center",
-                            width:"100%", padding:"0.3rem 0.5rem"}}>
-                                <FaEnvelope className= {window.location.href.indexOf("inbox") > -1  ? `icons-active` :`icons`} />
-                                <Link to='/inbox' 
-                                className= {window.location.href.indexOf("inbox") > -1  ? `link-2-active` : `link-2`}>
-                                    Inbox
-                                </Link>
-                            </Button>
+                     <div >
+                           {
+                               requestUsers.length > 0 ? 
+                               <div onClick={openSidebar}>
+                                   <Link to={`/connections/${_id}/${username}`} className='notification-link-title'>
+                                       <h4>Received Requests ({receivedConnectionRequests.length})</h4>
+                                    </Link>
+                                    {requestUsers.slice(0,3).map(user =>{
+                                        const {_id, username, firstname, lastname} = user
+                                        return <Link key={_id} to={`/userprofile/${_id}/${username}`} className='notification-link'>
+                                                <div className='notification-btn'>
+                                                    {`${firstname} ${lastname}`}
+                                                </div>
+                                            </Link>
+                                    })} 
+                               </div> :
+                               <div onClick={openSidebar}>No Notifications </div>
+                           }
+                           { messageNotifications && messageNotifications.length > 0 && <div onClick={openSidebar}>
+                           <Link to='/inbox' className='notification-link-title'>
+                                <h4>Received Messages({messageNotifications.length})</h4>
+                           </Link>
+                                <div>
+                                {messageReceived.slice(0,3).map(user =>{
+                                    const {_id, username, firstname, lastname} = user
+                                    return <Link to={`/userprofile/${_id}/${username}`} className='notification-link'>
+                                        <div key={_id} className='notification-btn'>{`${firstname} ${lastname}`}</div>
+                                    </Link>
+                                })}
+                                </div>
+                            </div>
+                           }
+                           </div>
                         </div>}
                     </li>
                     <li className='sideTop-li'>

@@ -223,6 +223,8 @@
 }
 .notification-box{
     padding: var(--section-padding);
+    max-height: 15rem;
+    overflow-x: auto;
 }
 .noitification-btn{
     margin: 0.2rem;

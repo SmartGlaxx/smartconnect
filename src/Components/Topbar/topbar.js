@@ -44,9 +44,15 @@ const Topbar =()=>{
      }
      
      // get request users 
+     let requestUsers = []
+     let messageReceived = []
+     if(allUsers){
+         requestUsers = allUsers.filter(user => user.sentConnectionRequests.includes(_id))
+     }
+     if(messageNotifications && allUsers){
+        messageReceived = allUsers.filter(user => messageNotifications.includes(user._id))
+     }
      
-     const requestUsers = allUsers.filter(user => user.sentConnectionRequests.includes(_id))
-     const messageReceived = allUsers.filter(user => currentUserParsed.messageNotifications.includes(user._id))
      
     //  setReceivedRequests(requestUsers)
 
@@ -195,7 +201,7 @@ const Topbar =()=>{
                                    <Link to={`/connections/${_id}/${username}`} className='notification-link-title'>
                                        <h4>Received Requests ({receivedConnectionRequests.length})</h4>
                                     </Link>
-                                    {requestUsers.map(user =>{
+                                    {requestUsers.slice(0,3).map(user =>{
                                         const {_id, username, firstname, lastname} = user
                                         return <Link key={_id} to={`/userprofile/${_id}/${username}`} className='notification-link'>
                                                 <div className='notification-btn'>
@@ -206,19 +212,19 @@ const Topbar =()=>{
                                </div> :
                                <div>No Notifications </div>
                            }
-                           { messageNotifications && messageNotifications.length > 0 && <>
+                           { messageNotifications && messageNotifications.length > 0 && <div>
                            <Link to='/inbox' className='notification-link-title'>
                                 <h4>Received Messages({messageNotifications.length})</h4>
                            </Link>
-                               <Link to='/inbox' className='notification-link'>
-                                    <div>
-                                    {messageReceived.map(user =>{
-                                        const {_id, username, firstname, lastname} = user
-                                        return <div key={_id} className='notification-btn'>{`${firstname} ${lastname}`}</div>
-                                    })}
-                                    </div>
-                                </Link>
-                            </>
+                                <div>
+                                {messageReceived.slice(0,3).map(user =>{
+                                    const {_id, username, firstname, lastname} = user
+                                    return <Link to={`/userprofile/${_id}/${username}`} className='notification-link'>
+                                        <div key={_id} className='notification-btn'>{`${firstname} ${lastname}`}</div>
+                                    </Link>
+                                })}
+                                </div>
+                            </div>
                            }
                            </div>
                         </Popover>

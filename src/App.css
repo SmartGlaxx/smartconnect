@@ -50,6 +50,8 @@
     --chat-color-2 : rgb(221, 221, 240);
     --chat-color-3 : rgba(213, 213, 226, 0.315);
     --chat-color-4 : rgba(221, 221, 240, 0.349);
+    --chat-color-5 : rgba(161, 22, 64, 0.123);
+    /* --chat-color-5 : rgba(145, 34, 62, 0.192); */
     --connections-fontsize : 0.7rem;
     --error-background : rgba(230, 230, 230, 0.9);
     --error-border: 1px solid #888;

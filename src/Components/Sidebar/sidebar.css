@@ -180,7 +180,7 @@
     background: var(--background-color-10);
     position : absolute; 
     color: var(--color-7); 
-    padding: 1rem 0.3rem; 
+    padding: 1rem 0.9rem; 
     box-sizing: border-box;
     border-radius: var(--section-border-radius );
      box-shadow:
@@ -190,6 +190,8 @@
     0px 36.5px 29.2px rgba(0, 0, 0, 0.048),
     0px 100px 80px rgba(0, 0, 0, 0.07);
     z-index: 2;
+    max-height: 10rem;
+    overflow-x: auto;
 }
 .sideTop-inner-2{
     width: 100%;
@@ -228,6 +230,26 @@
 .username{
     text-transform: capitalize;
     font-size: 3rem;
+}
+
+.message-sidebar-notification{
+    color: var(--warning-text-2);
+    font-size : 0.9rem;
+    position: absolute;
+    right: 4rem;
+}
+
+.message-sidebar-notification-2{
+    color: var(--warning-text-2);
+    font-size : 0.9rem;
+    margin: 0 0.4rem;
+}
+
+.notification-sidebar-box{
+    padding: var(--section-padding);
+    max-height: 15rem;
+    overflow-x: auto;
+    background-color: red;
 }
 
 @media screen and (max-width : 940px){

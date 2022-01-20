@@ -25,7 +25,8 @@ const [messageImagePreviewBox, setMessageImagePreviewBox] = useState(false)
 const [searchValue, setSearchValue] = useState('')
 const [usersNameValue, setUsersNameValue] = useState('')
 const [chatUserName, setChatUserName] = useState('')
-const [usersFound, setUsersFound] = useState([])
+const [usersFoundAndSorted, setUsersFoundAndSorted] = useState([])
+const [unconnectedUsers, setUnconnectedUsers] = useState([])
 const [usersList, setUsersList] = useState(false)
 const {_id, username, connections, profilePicture} = currentUserParsed
 const newRef = useRef()
@@ -79,7 +80,7 @@ const setButtonValue = (value1, value2, value3, value4)=>{
 
 useEffect(()=>{
     setUsersList(true)
-    if(searchValue.length < 1 || !usersFound){
+    if(searchValue.length < 1 || !usersFoundAndSorted){
         setUsersList(false)
     }
 },[searchValue])
@@ -262,8 +263,19 @@ useEffect(() => {
     const usersFoundValues  =   allUsers.length > 1 && 
     allUsers.filter(allUser => allUser._id !== _id && (allUser.firstname.startsWith(searchValue) 
     || allUser.lastname.startsWith(searchValue) || allUser.username.startsWith(searchValue)))
-
-    setUsersFound(usersFoundValues)
+    
+if(usersFoundValues){
+    // setUsersFound(usersFoundValues)
+    const sortedConnectedUsers = usersFoundValues.filter(user =>{
+        return currentUserParsed.connections.includes(user._id) 
+    })
+    const sortedUconnectedUsers = usersFoundValues.filter(user =>{
+        return !currentUserParsed.connections.includes(user._id) 
+    })
+    const allSortedUsers = sortedConnectedUsers.concat(sortedUconnectedUsers)
+    setUsersFoundAndSorted(allSortedUsers)
+    setUnconnectedUsers(sortedUconnectedUsers)
+}
 },[searchValue])
 
 if(loading || allUsers.length == 0 || !currentUserParsed._id){
@@ -323,9 +335,10 @@ const {_id : userId , firstname, lastname} = currentUserParsed
                 {connections && connections.length > 0 && <div className='name'><span>To: </span> 
                 <input type='text' value={searchValue} onChange={setSearchValueFunc} className='users-search'/>
                 {usersNameValue && <div className='users-list'>
-                    <h4 className='search-title'>You can only send a message to your connections</h4 >
+                    <h4 className='search-title'>{unconnectedUsers.length > 0 && "You can only send a message to your connections"}</h4 >
+                    <h4 className='search-title-2'>{usersFoundAndSorted.length == 0 && "No users match your search"}</h4 >
                 {                    
-                    usersFound && usersFound.slice(0, 10).map(user =>{
+                    usersFoundAndSorted && usersFoundAndSorted.slice(0, 20).map(user =>{
                         const {_id, username, firstname, lastname, profilePicture} = user
                         return <Button onClick={()=>setButtonValue(_id, username,firstname, lastname)} 
                         key = {_id} disabled =  {currentUserParsed.connections && !currentUserParsed.connections.includes(_id)} >

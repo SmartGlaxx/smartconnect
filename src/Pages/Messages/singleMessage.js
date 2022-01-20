@@ -8,7 +8,7 @@ import Button from '@material-ui/core/Button';
 import {useParams} from "react-router-dom"
 import { UseAppContext } from '../../Contexts/app-context'
 import TimeAgo from 'timeago-react'
-import { FaEllipsisV, FaReply,  FaTrash} from 'react-icons/fa'
+import { FaEllipsisV, FaReply,  FaTrash, FaTelegramPlane} from 'react-icons/fa'
 import { useEffect } from "react"
 import Axios from 'axios'
 
@@ -296,10 +296,13 @@ const deleteReceived = async(e, _id)=>{
             
         }
             {
-                replyBox && <div className='reply-box'>
-                <input type = 'text' onChange={(e)=>setFormData(e.target.value)}  className='reply-input'/><br />
-                <Button onClick={replyMessage}  className='reply-btn' style={{background:"var(--button-background)"}}>REPLY</Button>
-                </div> 
+                replyBox && <div className='sendingBox-2'>
+            <textarea value={formData.message} type='text'  onChange={(e)=>setFormData(e.target.value)}placeholder='Your reply' variant = 'contained'
+                name='message' className='chatinput'></textarea><br />
+                <div className='send-btn' onClick={replyMessage}>
+                    <FaTelegramPlane className='submit-icon' size='23'/>
+                </div>
+                </div>
             }
 
 </div>
