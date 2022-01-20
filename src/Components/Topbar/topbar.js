@@ -46,6 +46,7 @@ const Topbar =()=>{
      // get request users 
      
      const requestUsers = allUsers.filter(user => user.sentConnectionRequests.includes(_id))
+     const messageReceived = allUsers.filter(user => currentUserParsed.messageNotifications.includes(user._id))
      
     //  setReceivedRequests(requestUsers)
 
@@ -68,7 +69,7 @@ const Topbar =()=>{
     const handleClick3 = (event) => {
     setAnchorEl3(event.currentTarget);
     };
-   console.log("dd,dodod", requestUsers)
+   
      const handleClose = () => {
        setAnchorEl(null);
      };
@@ -168,10 +169,11 @@ const Topbar =()=>{
                 <ul className="topRight-ul" >
                     <li className='topRight-li'>
                         <div className='icon2-text'>
-                            <FaBell  className="icons2"
-                            aria-describedby={id} variant="contained" onClick={handleClick3}/>
-                            { notificationSum}
-
+                            <button aria-describedby={id} variant="contained" onClick={handleClick3}
+                            className='notification-btn'>
+                            <FaBell  className="icons2"/>
+                            <span className='notification-count'>{ notificationSum}</span>
+                            </button>
                         <Popover
                             id={id}
                             open={open3}
@@ -186,28 +188,37 @@ const Topbar =()=>{
                             horizontal: 'center',
                             }}
                         >
-                            <div className=''>
+                            <div className='notification-box'>
                            {
                                requestUsers.length > 0 ? 
                                <div>
-                                    <h4>Received Requests</h4>
+                                   <Link to={`/connections/${_id}/${username}`} className='notification-link-title'>
+                                       <h4>Received Requests ({receivedConnectionRequests.length})</h4>
+                                    </Link>
                                     {requestUsers.map(user =>{
-                                        const {_id, username} = user
-                                        return <Link key={_id} to={`/userprofile/${_id}/${username}`} className='link'>
-                                                <div className='link-btn'>
-                                                    {username}
+                                        const {_id, username, firstname, lastname} = user
+                                        return <Link key={_id} to={`/userprofile/${_id}/${username}`} className='notification-link'>
+                                                <div className='notification-btn'>
+                                                    {`${firstname} ${lastname}`}
                                                 </div>
                                             </Link>
                                     })} 
                                </div> :
                                <div>No Notifications </div>
                            }
-                           {
-                               <Link to='/inbox'>
+                           { messageNotifications && messageNotifications.length > 0 && <>
+                           <Link to='/inbox' className='notification-link-title'>
+                                <h4>Received Messages({messageNotifications.length})</h4>
+                           </Link>
+                               <Link to='/inbox' className='notification-link'>
                                     <div>
-                                        New Chats: {messageNotifications && messageNotifications.length > 0 &&  messageNotifications.length}
+                                    {messageReceived.map(user =>{
+                                        const {_id, username, firstname, lastname} = user
+                                        return <div key={_id} className='notification-btn'>{`${firstname} ${lastname}`}</div>
+                                    })}
                                     </div>
                                 </Link>
+                            </>
                            }
                            </div>
                         </Popover>

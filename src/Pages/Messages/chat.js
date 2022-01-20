@@ -12,11 +12,13 @@ import SinglgeMessage from './singleMessage'
 import { Satellite } from '@material-ui/icons'
 import { LeftNavigation } from '../../Components'
 import { Ads } from '../../Components'
+import LoadingIcons from 'react-loading-icons'
+import ProfileImage from '../../assets/profile.jpg'
 
 const Chat = ()=>{
 
-    const {loggedIn, setTestValue, currentUserParsed, allUsers, setChatUser, chatUser, 
-        replySent, setScrollIntoViewValue, scrollIntoViewValue } = UseAppContext()
+    const {loading, loggedIn, setTestValue, currentUserParsed, allUsers, setChatUser, chatUser, 
+        replySent, setScrollIntoViewValue, scrollIntoViewValue, testValue } = UseAppContext()
     const [error, setError] = useState({status : false, msg:''})
     const [alertMsg, setAlertMsg] = useState({status : false, msg : ''})
     const [messageImagePreview, setMessageImagePreview] = useState('')
@@ -24,11 +26,28 @@ const Chat = ()=>{
     const [postPreviewBox, setPostPreviewBox] = useState(false)
     const elmnt = document.getElementById("content");
     const [chatCreated, setChatCreated] = useState(false)
+    const [fetchedUser, setFetchedUser] = useState({})
     const [messageImagePreviewBox, setMessageImagePreviewBox] = useState(false)
     const msgImgurl = 'https://smart-job-search.herokuapp.com/api/v1/messages'
     let chatUsername = ''
 
     const {_id : idCurrent , username : usernameCurrent, messageNotifications} = currentUserParsed
+
+    let chatUserId = '' 
+    let chatUserUsername = '' 
+    let firstname  = '' 
+    let lastname  = ''
+    let profilePicture = ''
+
+    if(fetchedUser){
+        chatUserId = fetchedUser._id
+        chatUserUsername = fetchedUser.username
+        firstname = fetchedUser.firstname
+        lastname = fetchedUser.lastname
+        profilePicture = fetchedUser.profilePicture
+        // const {_id : chatUserId, username : chatUserUsername, firstname, lastname, profilePicture} = fetchedUser
+    }
+
 const {userId, userUsername, id, otherUsername} = useParams()
 const [fetchedMsg, setFetchedMsg] = useState([])
 const [formData, setFormData] = useState({
@@ -106,6 +125,42 @@ const setPostData = (value1, value2)=>{
         
     }
 
+//set Message as read
+const messageRead = async(url)=>{    
+  const options = {
+        url: url,
+        method : "PATCH",
+        headers : {
+            "Accept" : "application/json",
+            "Content-Type" : "application/json;charset=UTF-8"
+        }
+    }
+
+    const result = await Axios(options)
+console.log('result', result)
+    // const {response, message} = result2.data
+    
+    // if(response == 'Success' && message){
+    //     setUserCoverPicture(message)
+    // }else if(response == 'Fail'){
+    //    setError({status : true, msg : "Fialed to upload profile image"})
+    //    return setTimeout(()=>{
+    //         setError({status : false, msg :''})
+    // }, 4000)
+    // }
+}
+
+
+//set Message as read useEffect
+useEffect(()=>{
+    messageRead(`https://smart-job-search.herokuapp.com/api/v1/messages/chat/${userId}/${userUsername}/${id}`)
+},[])
+
+useEffect(()=>{
+    setTimeout(()=>{
+        setTestValue(!testValue)
+    },3000)
+},[])
 
     //select message pic
 const selectMessagePic = (e, value1, value2)=>{
@@ -242,7 +297,7 @@ const sendMessage = async(e)=>{
                     message : formData.message
                 }
             }
-            console.log('dsfgt ', url)
+            
             const result = await Axios(options)
             const {formatedMessage, response} = result.data
            
@@ -332,8 +387,30 @@ useEffect(() => {
     window.scrollTo(0, 0)
   }, [])
 
+
+  const fetchUser = async(fetchurl)=>{
+    const result = await axios(fetchurl)
+    const fetchedUserVal = result.data.data 
+    
+    setFetchedUser(fetchedUserVal)
+
+}
+
+//fetch other chat user useEffect
+  useEffect(()=>{
+    fetchUser(`https://smart-job-search.herokuapp.com/api/v1/user/${id}/${otherUsername}`)
+},[chatUserId, chatUserUsername, testValue])
+
+
 if(loggedIn == false){
     return window.location.href = '/login'
+}
+
+if(loading || !fetchedUser){
+    return <div style={{width: "100%",height : "100vh", 
+    display: 'grid', placeItems: "center"}}>
+       <LoadingIcons.Puff       stroke="#555" strokeOpacity={.9} />
+   </div>
 }
 
 if(otherUsername){
@@ -351,7 +428,10 @@ if(otherUsername){
                 <LeftNavigation />
             </Grid>
             <Grid item xs={12} sm={6} className="chats-container" >
-                <div className = 'chat-title'>{chatUsername}</div>
+                <div className = 'chat-top'>
+                    <img src={profilePicture ? profilePicture : ProfileImage}  className='chat-profile-pic'/>
+                    <div> {`${firstname} ${lastname}`}</div>
+                </div>
                 <div className='observer-container'>
                 {
                     fetchedMsg.map(message =>{   

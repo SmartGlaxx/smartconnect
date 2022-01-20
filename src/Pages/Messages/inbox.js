@@ -109,12 +109,12 @@ if(loading || allUsers.length == 0 || !currentUserParsed._id){
                     <input type='search' className='message-search' placeholder='Search Messages'/>
                 </div>
                 <Link to='/composemessage' className='message-header'><FaPlusSquare className='add-chat'  size='25'/></Link>
-                <div className='unread-messages'>
+                <div className='all-messages'>
                     {
                     fetchedUsers.length && userUniqueIds.length ? fetchedUsers.map(user => {
                      
                             if(userUniqueIds.includes(user._id) && user._id !== userId  ){
-                                const {_id : id, username : otherUsername, profilePicture} = user
+                                const {_id : id, username : otherUsername, firstname, lastname, profilePicture} = user
                                 let otherUername
                                 if(otherUsername){
                                     otherUername = otherUsername.slice(0,1).toUpperCase().concat(otherUsername.slice(1).toLowerCase())
@@ -126,8 +126,8 @@ if(loading || allUsers.length == 0 || !currentUserParsed._id){
                                             <Link to={`/chat/${userId}/${userUsername}/${id}/${otherUsername}`} className='inbox-name'>
                                             <div className='inbox-items'>
                                                 <img src={profilePicture ? profilePicture : Profile} className='inbox-photo'/>
-                                                <span className='inbox-name'>{otherUername}</span>
-                                                <div style={{background:"red", width:"1rem", heigth:"1rem"}}>a</div>
+                                                <span className='inbox-name'>{`${firstname} ${lastname}`}</span>
+                                                <div className='unread-message'></div>
                                             </div>
                                             </Link>
                                         </div>
@@ -136,7 +136,7 @@ if(loading || allUsers.length == 0 || !currentUserParsed._id){
                                             <Link to={`/chat/${userId}/${userUsername}/${id}/${otherUsername}`} className='inbox-name'>
                                             <div className='inbox-items'>
                                                 <img src={profilePicture ? profilePicture : Profile} className='inbox-photo'/>
-                                                <span className='inbox-name'>{otherUername}</span>
+                                                <span className='inbox-name'>{`${firstname} ${lastname}`}</span>
                                             </div>
                                             </Link>
                                         </div>

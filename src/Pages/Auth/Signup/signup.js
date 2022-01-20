@@ -90,7 +90,7 @@ const Signup =()=>{
     return (
     <Grid className='signup' container>
         <Grid className='signup-left' item xs={12} sm={6}>
-            <div className='title'>Smart Job Search</div>
+            <div className='title'>Smart Social</div>
         </Grid>
         <Grid className='signup-right' item xs={12} sm={6} >
             

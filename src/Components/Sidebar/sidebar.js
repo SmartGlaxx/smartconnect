@@ -9,6 +9,7 @@ import { FaHome, FaPeopleArrows, FaUserFriends, FaEnvelope, FaUserAlt, FaTh,
     FaBell, FaPlusSquare, FaChevronCircleDown,FaWindowClose, FaTools, FaSignInAlt} from 'react-icons/fa' 
 import { UseAppContext } from '../../Contexts/app-context'
 import ListIcon from '@material-ui/icons/List';
+import ProfileImage from '../../assets/profile.jpg'
 
 //for popover starts
 const useStyles = makeStyles((theme) => ({
@@ -22,8 +23,10 @@ const useStyles = makeStyles((theme) => ({
 const Sidebar =()=>{
     const {setLoggedIn, loggedIn, currentUserParsed, sidebarOpen, openSidebar} = UseAppContext()
     const [showDropdown, setShowDropdown] = useState(false)
+    const [showDropdown2, setShowDropdown2] = useState(false)
+    // const [closeDropdown, setCloseDropdown] = useState(false)
 
-const {_id, username, firstname, lastname} = currentUserParsed
+const {_id, username, firstname, lastname, profilePicture} = currentUserParsed
      //popover function start
      const classes = useStyles();
      const [anchorEl, setAnchorEl] = React.useState(null);
@@ -37,8 +40,14 @@ const {_id, username, firstname, lastname} = currentUserParsed
      if(lastname){
          lastnameCapitalized = lastname.slice(0,1).toUpperCase().concat(lastname.slice(1).toLowerCase())
      }
+const setCloseDropdown = ()=>{
+    if(showDropdown || showDropdown2){
+        setShowDropdown(false)
+        setShowDropdown2(false)
+    }
+}
      
-    return <div className={ sidebarOpen ? `sidebarContainer2` : `sidebarContainer1`}  >
+    return <div className={ sidebarOpen ? `sidebarContainer2` : `sidebarContainer1`} onClick={()=>{setCloseDropdown(true)}} >
         <div className="sidebarTop " xs ={9} sm={3}>
              <div className='sidebarlogo' onClick={openSidebar}>
                 <Link to='/' className='mainlogo-link'>SC</Link>
@@ -51,8 +60,11 @@ const {_id, username, firstname, lastname} = currentUserParsed
                      <li className="sideTop-li" onClick={openSidebar}>
                     <Link to={`/userprofile/${_id}/${username}`}  className="left-nav">
                     <div className= {window.location.href.indexOf("userprofile") > -1 ? `sideTop-li-inner-active` :`sideTop-li-inner` }
-                    ><FaUserAlt className= {window.location.href.indexOf("userprofile") > -1 ? `icons-active` :`icons`}  size='15'/>
-                        Profile </div>
+                    >
+                        {/* <FaUserAlt className= {window.location.href.indexOf("userprofile") > -1 ? `icons-active` :`icons`}  size='15'/> */}
+                        <img src={profilePicture ? profilePicture : ProfileImage } className='sidebar-profile-img' /><br />
+                        <span className='username'>{`${firstname} ${lastname}`}</span>
+                    </div>
                     </Link>
                     </li>
                     <li className="sideTop-li" onClick={openSidebar}>
@@ -90,37 +102,60 @@ const {_id, username, firstname, lastname} = currentUserParsed
                      <FaChevronCircleDown  className="icons2" className='dropdown'
                      variant="contained"  />
                      </div>
+                     {showDropdown && <div className='message-options-box'>
+                        <Button className='link-btn' onClick={openSidebar}
+                            style={{display:"flex", justifyContent:"flex-start", alignItems:"center",
+                            width:"100%", padding:"0.3rem 0.5rem"}}>
+                                <FaPlusSquare className= {window.location.href.indexOf("composemessage") > -1  ? `icons-active` :`icons`} />
+                                <Link to='/composemessage'  
+                                className= {window.location.href.indexOf("composemessage") > -1  ? `link-2-active` : `link-2`}>
+                                    New Message
+                                </Link>
+                            </Button>
+                            <Button className='link-btn' onClick={openSidebar}
+                            style={{display:"flex", justifyContent:"flex-start", alignItems:"center",
+                            width:"100%", padding:"0.3rem 0.5rem"}}>
+                                <FaEnvelope className= {window.location.href.indexOf("inbox") > -1  ? `icons-active` :`icons`} />
+                                <Link to='/inbox' 
+                                className= {window.location.href.indexOf("inbox") > -1  ? `link-2-active` : `link-2`}>
+                                    Inbox
+                                </Link>
+                            </Button>
+                        </div>}
                     </dix>
                     </li>
                 </ul> 
             </div>
         </div>
-        {showDropdown && <div className='message-options-box'>
-        <Button className='link-btn' onClick={openSidebar}
-            style={{display:"flex", justifyContent:"flex-start", alignItems:"center",
-            width:"100%", padding:"0.3rem 0.5rem"}}>
-                <FaPlusSquare className= {window.location.href.indexOf("composemessage") > -1  ? `icons-active` :`icons`} />
-                <Link to='/composemessage'  
-                className= {window.location.href.indexOf("composemessage") > -1  ? `link-2-active` : `link-2`}>
-                    New Message
-                </Link>
-            </Button>
-            <Button className='link-btn' onClick={openSidebar}
-            style={{display:"flex", justifyContent:"flex-start", alignItems:"center",
-            width:"100%", padding:"0.3rem 0.5rem"}}>
-                <FaEnvelope className= {window.location.href.indexOf("inbox") > -1  ? `icons-active` :`icons`} />
-                <Link to='/inbox' 
-                className= {window.location.href.indexOf("inbox") > -1  ? `link-2-active` : `link-2`}>
-                    Inbox
-                </Link>
-            </Button>
-        </div>}
-        <div className="sideTop-2" >
-            <div className="sideTop-inner">
+
+        <div className="sideTop-2">
+            <div className="sideTop-inner-2" >
                 <ul className="sideTop-ul">
-                    <li className='sideTop-li'>
+                    <li className='sideTop-li'  onClick={()=>{setShowDropdown2(!showDropdown2)}}>
                         <FaBell  className="icons" size='15'/>
                         Notifications
+                        <FaChevronCircleDown  className="icons2" className='dropdown-2'
+                     variant="contained"  />
+                     {showDropdown2 && <div className='message-options-box-2'>
+                        <Button className='link-btn' onClick={openSidebar}
+                            style={{display:"flex", justifyContent:"flex-start", alignItems:"center",
+                            width:"100%", padding:"0.3rem 0.5rem"}}>
+                                <FaPlusSquare className= {window.location.href.indexOf("composemessage") > -1  ? `icons-active` :`icons`} />
+                                <Link to='/composemessage'  
+                                className= {window.location.href.indexOf("composemessage") > -1  ? `link-2-active` : `link-2`}>
+                                    New Message
+                                </Link>
+                            </Button>
+                            <Button className='link-btn' onClick={openSidebar}
+                            style={{display:"flex", justifyContent:"flex-start", alignItems:"center",
+                            width:"100%", padding:"0.3rem 0.5rem"}}>
+                                <FaEnvelope className= {window.location.href.indexOf("inbox") > -1  ? `icons-active` :`icons`} />
+                                <Link to='/inbox' 
+                                className= {window.location.href.indexOf("inbox") > -1  ? `link-2-active` : `link-2`}>
+                                    Inbox
+                                </Link>
+                            </Button>
+                        </div>}
                     </li>
                     <li className='sideTop-li'>
                         <FaTools  className="icons" size='15'/>

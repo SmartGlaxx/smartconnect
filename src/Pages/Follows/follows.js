@@ -367,7 +367,7 @@ useEffect(() => {
                             <Link to={`/userprofile/${allUser._id}/${username}`} onClick={()=>setUserClicked(!userClicked)}>
                                 <img src={profilePicture ? profilePicture : ProfileImage} className="follows-img"/>
                             </Link>
-                            <div className='follows-name'>{username}</div>
+                            <div className='follows-name'>{`${firstname} ${lastname}`}</div>
                         </div>
                         }
                 })
@@ -389,7 +389,7 @@ useEffect(() => {
                             <Link to={`/userprofile/${allUser._id}/${username}`} onClick={()=>setUserClicked(!userClicked)}>
                                 <img src={profilePicture ? profilePicture : ProfileImage} alt={username} className="follows-img"/>
                             </Link>
-                            <div className='follows-name'>{username}</div>
+                            <div className='follows-name'>{`${firstname} ${lastname}`}</div>
                             <form>
                                 <button onClick={(e)=>unfollow(e, id, username)} className='follow-page-btn'>
                                     {newUserFollowings  && newUserFollowings.includes(allUser._id) ? `Unfollow` : `Follow`}</button>

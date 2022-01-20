@@ -430,8 +430,10 @@ const {_id : uId , username : userUsername} =  currentUserParsed
                     
                 <div className='post-top'>
                     <img src={profilePicture ? profilePicture : ProfileImage}  className='profile-pic'/>
-                    <div className='name'>{`${userFirstname} ${userLastname}`}</div>
-                    <TimeAgo datetime={createdAt} locale='en_US'/>
+                    <div className='post-top-details'>
+                        <div className='name'>{`${userFirstname} ${userLastname}`}</div>
+                        <div className='post-timeago'><TimeAgo datetime={createdAt} locale='en_US' /></div>
+                    </div>
                 </div>
                 <div className='description'>{description.length > 150  && !readMoreValue ? description.slice(0, 150) + "...  "  : description }
                     {description.length > 150 &&
@@ -452,7 +454,7 @@ const {_id : uId , username : userUsername} =  currentUserParsed
                              <div>
                                  <span className='sharename'>{` ${userFirstname} ${userLastname} `}</span>
                                   shared a post by 
-                                  <span className='sharename'>{ `${sharedFirstname} ${sharedLastname} `}</span>
+                                  <span className='sharename'>{` ${sharedFirstname} ${sharedLastname} `}</span>
                             </div>
                             }
                         </div>

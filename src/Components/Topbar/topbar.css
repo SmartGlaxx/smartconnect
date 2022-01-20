@@ -204,6 +204,34 @@
     width: 100%;
     padding: 0.5rem
 }
+.notification-link-title{
+    color:var(--color2);
+    text-decoration: none;
+}
+.notification-btn{
+    display: flex;
+    border: none;
+}
+.notification-count{
+    border-radius: 50%;
+    width: 1rem;
+    height: 1rem;
+    font-weight: 600;
+    padding: 0.1rem;
+    color: #fff;
+    background-color: var(--warning-text);
+}
+.notification-box{
+    padding: var(--section-padding);
+}
+.noitification-btn{
+    margin: 0.2rem;
+}
+.notification-link{
+    text-decoration: none;
+    text-transform: capitalize;
+    color: var(--color);
+}
 
 .log-out-btn{
     color: var(--color-alert);

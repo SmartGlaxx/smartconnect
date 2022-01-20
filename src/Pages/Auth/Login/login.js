@@ -89,7 +89,7 @@ useEffect(() => {
     return (
     <Grid className='login' container>
         <Grid className='login-left' item xs={12} sm={6} >
-            <div className='title'>Smart Job Search</div>
+            <div className='title'>Smart Social</div>
         </Grid>
         <Grid className='login-right' item xs={12} sm={6} >
             

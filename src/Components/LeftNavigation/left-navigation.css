@@ -1,5 +1,5 @@
 .page-left-inner{
-    height: 20rem;
+    height: 35rem;
     overflow: auto;
     padding: var(--section-padding);
     position: sticky;
@@ -35,7 +35,7 @@
     border-radius: 0 0.5rem 0.5rem 0;
     background: var(--background-color);
     color:var(--color);
-    
+    cursor: pointer;
 }
 .left-nav-inner-active{
     font-size: 1.1rem;
@@ -45,7 +45,7 @@
     border-radius: 0 0.5rem 0.5rem 0;
     background: var(--background-color-10);
     color:var(--color-7);
-    
+    cursor: pointer;
 }
 
 .left-nav-sub-link{
@@ -77,6 +77,38 @@
     color: var(--color);
     margin-right: 1rem;
     float: right;
+}
+
+.left-nav-profile-img{
+    width: 6rem;
+    height: 6rem;
+    max-width: 6rem;
+    max-height: 6rem;
+    min-width: 6rem;
+    min-height: 6rem;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-right: 2rem;
+    border : 0.3rem solid var(--background-color-3)
+}
+
+.main-message-options-box{
+    margin-left: 5%;
+    width: 80%; 
+    height: auto;
+    background: var(--background-color-10);
+    position : absolute; 
+    color: var(--color-7); 
+    padding: 1rem 0.3rem; 
+    box-sizing: border-box;
+    border-radius: var(--section-border-radius );
+     box-shadow:
+    0px 3.4px 2.7px rgba(0, 0, 0, 0.022),
+    0px 8.7px 6.9px rgba(0, 0, 0, 0.031),
+    0px 17.7px 14.2px rgba(0, 0, 0, 0.039),
+    0px 36.5px 29.2px rgba(0, 0, 0, 0.048),
+    0px 100px 80px rgba(0, 0, 0, 0.07);
+    z-index: 3;
 }
 
 @media screen and (max-width: 960px){

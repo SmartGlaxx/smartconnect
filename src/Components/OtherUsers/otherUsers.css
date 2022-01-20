@@ -54,18 +54,17 @@
     z-index: 2; */
 
     text-transform: capitalize;
-    padding-left: 0 0.3rem;
+    padding: 0 0.3rem;
     position: absolute;
     color:var(--color3);
     top: 6.5rem;
     width: auto;
     opacity: 0.8;
     z-index: 2;
-    width: 6rem;
+    width: 5.5rem;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    z-index: 2;
 }
 
 .other-users-box{

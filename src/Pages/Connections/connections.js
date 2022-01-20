@@ -212,7 +212,7 @@ const setRandomUsers = (value)=>{
 }
 
 useEffect(()=>{
-setRandomUsers(allUsers)
+    setRandomUsers(allUsers)
 },[allUsers])
 
 //scroll to top of page
@@ -302,8 +302,8 @@ let userConnections = currentUserParsed.connections ? currentUserParsed.connecti
             <br />
         <div className='connections-center-inner' >
             {
-            tempAllUsers &&
-            tempAllUsers.map(allUser => {
+            allUsers &&
+            allUsers.map(allUser => {
                 const {_id : id, username, firstname, lastname, profilePicture} = allUser
                 const {_id, connections} = currentUserParsed.connections ? currentUserParsed : JSON.parse(currentUser)
                         if(allUser._id !== _id && currentUserParsed.receivedConnectionRequests && currentUserParsed.receivedConnectionRequests.includes(allUser._id)){
@@ -318,7 +318,7 @@ let userConnections = currentUserParsed.connections ? currentUserParsed.connecti
                                 <button onClick={(e)=>acceptConnectRequest(e, id, username)} className='connect-btn2'>
                                     Accept
                                 </button>
-                                <button onClick={(e)=>declineConnectRequest(e, id, username)} className='connect-btn'>
+                                <button onClick={(e)=>declineConnectRequest(e, id, username)} className='decline-connect-btn'>
                                     Decline
                                 </button>
                                 </div>
@@ -333,8 +333,8 @@ let userConnections = currentUserParsed.connections ? currentUserParsed.connecti
             <br />
             <div className='connections-center-inner' >
             {
-            tempAllUsers &&
-            tempAllUsers.map(allUser => {
+            allUsers &&
+            allUsers.map(allUser => {
                 const {_id : id, username, firstname, lastname, profilePicture} = allUser
                 const {_id, connections} = currentUserParsed.connections ? currentUserParsed : JSON.parse(currentUser)
                         if(allUser._id !== _id && currentUserParsed.sentConnectionRequests && currentUserParsed.sentConnectionRequests.includes(allUser._id)){
@@ -359,8 +359,8 @@ let userConnections = currentUserParsed.connections ? currentUserParsed.connecti
             <br />
              <div className='connections-center-inner' >
             {
-            tempAllUsers &&
-            tempAllUsers.map(allUser => {
+            allUsers &&
+            allUsers.map(allUser => {
                 const {_id : id, username, firstname, lastname, profilePicture} = allUser
                 const {_id, connections} = currentUserParsed.connections ? currentUserParsed : JSON.parse(currentUser)
                         if(allUser._id !== _id && currentUserParsed.connections && currentUserParsed.connections.includes(allUser._id)){

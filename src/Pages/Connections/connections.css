@@ -37,14 +37,14 @@
 }
 .connections-name{
     text-transform: capitalize;
-    padding-left: 0.3rem;
+    padding: 0 0.3rem;
     position: absolute;
     color:var(--color3);
     top: 6.5rem;
     width: auto;
     opacity: 0.8;
     z-index: 2;
-    width: 6rem;
+    width: 5.5rem;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -54,10 +54,24 @@
     bottom: 0.5rem;
     cursor: pointer;
     color: var(--color-7);
-    padding: var(--btn-padding);
+    /* padding: var(--btn-padding); */
     background: var( --background-color-2);
     font-size: var(--connections-fontsize);
     width: 100%;
+    margin-top: 0.5rem;
+    /* margin-left: 0.8rem; */
+    border: 1px solid var(--background-color-2);
+    border-radius: 0 0 0.3rem 0.3rem;
+}
+.decline-connect-btn{
+    /* position: absolute; */
+    bottom: 0.5rem;
+    cursor: pointer;
+    color: var(--color5);
+    /* padding: var(--btn-padding); */
+    background: var( --button-background);
+    font-size: var(--connections-fontsize);
+    width: 50%;
     margin-top: 0.5rem;
     /* margin-left: 0.8rem; */
     border: 1px solid var(--background-color-2);
@@ -68,12 +82,13 @@
     bottom: 0.5rem;
     cursor: pointer;
     padding: var(--btn-padding-4);
-    background: var( --button-background);
+    background: var( --background-color-2);
     font-size: 0.7rem;
-    width: auto;
+    width: 50%;
     margin-top: 0.5rem;
     /* margin-left: 0.8rem; */
     border: 1px solid var(--background-color-2);
+    border-radius: 0 0 0.3rem 0.3rem;
 }
 .connect-btn3{
     bottom: 0.5rem;

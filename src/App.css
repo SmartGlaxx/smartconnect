@@ -14,6 +14,7 @@
     --background-color-8 : #335;
     --background-color-9 : #243eb3;
     --background-color-10 : rgb(213, 213, 226);
+    --background-color-11 : rgb(221, 221, 240);
     --border-color  : rgb(30,40,50);
     --border-color-2 : rgba(30, 40, 50, 0.527);
     --box-border-radius: 0.5rem;
@@ -45,8 +46,10 @@
     --chat-padding : 0.5rem;
     --chat-padding-2 : 0.8rem;
     --chat-padding-3 : 0.5rem;
-    --chat-color-1 : #bae8e8;
-    --chat-color-2 : #e3f6f5; 
+    --chat-color-1 : rgb(213, 213, 226);
+    --chat-color-2 : rgb(221, 221, 240);
+    --chat-color-3 : rgba(213, 213, 226, 0.315);
+    --chat-color-4 : rgba(221, 221, 240, 0.349);
     --connections-fontsize : 0.7rem;
     --error-background : rgba(230, 230, 230, 0.9);
     --error-border: 1px solid #888;

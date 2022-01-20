@@ -6,13 +6,14 @@ import { UseAppContext } from "../../Contexts/app-context"
 import { Link } from "react-router-dom"
 import { FaHome, FaUserAlt, FaImages, FaChevronCircleDown, FaPeopleArrows, FaUserFriends,
     FaEnvelope, FaPlusSquare} from 'react-icons/fa'
+import ProfileImage from '../../assets/profile.jpg'
 
 const LeftNavigation = ()=>{
     const {loggedIn, loading, setLazyLoading, lazyLoading, currentUser,timelineposts, allUsers, postcreated, 
         setPostCreated, currentUserParsed, fetchedUser, openSidebar} = UseAppContext()
     const {_id : userId, username : userUsername, followings, followers, 
         profilePicture : userProfilePicture, coverPicture : userCoverPicture} = fetchedUser
-    const {_id , username, firstname, lastname} = currentUserParsed
+    const {_id , username, firstname, lastname, profilePicture} = currentUserParsed
     const [showDropdown, setShowDropdown] = useState(false)
 
     let firstnameCapitalized = '';
@@ -25,12 +26,20 @@ const LeftNavigation = ()=>{
         lastnameCapitalized = lastname.slice(0,1).toUpperCase().concat(lastname.slice(1).toLowerCase())
     }
 
+    const setCloseDropdown = ()=>{
+        if(showDropdown ){
+            setShowDropdown(false)
+        }
+    }
 
-    return   <div className='page-left-inner' >
+
+    return   <div className='page-left-inner' onClick={()=>{setCloseDropdown(true)}}>
         <ul className='homepage-left-ul' >
             <li className='homepage-left-li'>
             <Link to={`/userprofile/${_id}/${username}`} className='left-nav'>
-            <div  className='left-nav-inner'> <FaUserAlt /> {`${firstnameCapitalized} ${lastnameCapitalized}`}</div>
+            <div  className='left-nav-inner'> 
+            <img src={profilePicture ? profilePicture : ProfileImage } className='left-nav-profile-img' /><br />
+             {`${firstnameCapitalized} ${lastnameCapitalized}`}</div>
             </Link>
             </li>
             <li className='homepage-left-li'>
@@ -64,7 +73,7 @@ const LeftNavigation = ()=>{
                </span>
             </li>
         </ul>
-        {showDropdown && <div className='message-options-box'>
+        {showDropdown && <div className='main-message-options-box'>
         <Link to='/composemessage'  
                 className= {window.location.href.indexOf("composemessage") > -1  ? `left-nav-sub-link-active` : `left-nav-sub-link`}>
         <div className='sub-link-btn'>

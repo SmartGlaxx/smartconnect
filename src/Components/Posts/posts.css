@@ -16,6 +16,8 @@
 .name{
     margin-left: 1rem;
     font-size: 1.2rem;
+    font-weight: 600;
+    display: block;
 }
 .post-top{
     display: flex;
@@ -157,9 +159,16 @@
 .comment-username{
     font-weight: 600;
     font-size: 0.9rem;
+    text-transform: capitalize;
 }
 .comment-timeago{
+    font-size: 0.6rem;
+    color: var(--color);
+}
+
+.post-timeago{
     font-size: 0.8rem;
+    color: var(--color);
 }
 
 .submit-icon{

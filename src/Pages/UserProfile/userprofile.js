@@ -962,7 +962,7 @@ const usernameCapitalized = firstLetter.toUpperCase() + otherLettes
                             <Link to={`/userprofile/${allUser._id}/${username}`} onClick={()=>setUserClicked(!userClicked)}>
                                 <img src={profilePicture ? profilePicture : ProfileImage}  className="follow-img" />
                             </Link>
-                            <div className='follow-name'>{`${firstname} ${lastname}`}</div>
+                            <div className='profile-follow-name'>{`${firstname} ${lastname}`}</div>
                             {/* <form>
                                 <br/>
                                 <button onClick={(e)=>unfollow(e, id, username)} className='follow-btn'>
@@ -996,7 +996,7 @@ const usernameCapitalized = firstLetter.toUpperCase() + otherLettes
                             <Link to={`/userprofile/${allUser._id}/${username}`} onClick={()=>setUserClicked(!userClicked)}>
                                 <img src={profilePicture ? profilePicture : ProfileImage}  className="follow-img" />
                             </Link>
-                            <div className='follow-name'>{`${firstname} ${lastname}`}</div>
+                            <div className='profile-follow-name'>{`${firstname} ${lastname}`}</div>
                             <form>
                                 <br/>
                                 <button onClick={(e)=>unfollow(e, id, username)} className='follow-btn'>
@@ -1027,7 +1027,7 @@ const usernameCapitalized = firstLetter.toUpperCase() + otherLettes
                             <Link to={`/userprofile/${allUser._id}/${username}`} onClick={()=>setUserClicked(!userClicked)}>
                                 <img src={profilePicture ? profilePicture : ProfileImage}  className="follow-img" />
                             </Link>
-                            <div className='follow-name'>{`${firstname} ${lastname}`}</div>
+                            <div className='profile-follow-name'>{`${firstname} ${lastname}`}</div>
                             <form>
                                 <br/>
                                 {  allUser._id != currentUserParsed._id  && newUserFollowings &&

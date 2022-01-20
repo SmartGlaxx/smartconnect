@@ -18,18 +18,20 @@ const OtherUsers = ()=>{
     const getUserurl = `https://smart-job-search.herokuapp.com/api/v1/user/${userId}/${userUsername}`
     const [alertMsg, setAlertMsg] = useState({status : false, msg : ""})
     
-    let randomStart = 0
-    let randomEnd = 0
+//     let randomStart = 0
+//     let randomEnd = 0
 
    const newUserFollowings = JSON.parse(currentUser).followings
 
-   if(allUsers.length !== 0){
-    randomStart = Math.floor(Math.random() * 10)
-    if(allUsers.length - randomStart <= 5){
-        randomStart = 0
-    }
-    randomEnd = randomStart + 6
-}
+//    if(allUsers.length !== 0){
+//     randomStart = Math.floor(Math.random() * 10)
+//     if(allUsers.length - randomStart <= 5){
+//         randomStart = 0
+//     }
+//     randomEnd = randomStart + 20
+// }
+
+
 
     const setValues = (value, data)=>{
         setNewCurrentUser(data)
@@ -79,6 +81,17 @@ const follow =async(e, id, followedUsername)=>{
 
 }
 
+let randomStart = 0
+let randomEnd = 0
+
+
+if(allUsers.length !== 0){
+randomStart = Math.floor(Math.random() * 10)
+if(allUsers.length - randomStart <= 5){
+    randomStart = 0
+}
+randomEnd = randomStart + 20
+}
 
 const setRandomUsers = (value)=>{
         setTempAllusers(value.slice(randomStart,randomEnd))
@@ -97,7 +110,7 @@ if(loading){
 
     return<div style={{position:"relative"}}><div className='otherUsers'>
         {
-            alertMsg.status && <div style={{position:"absolute", top:"20vh", background:"red", height : "40rem", width:"39rem"}}>ALERT</div> 
+            alertMsg.status && <div style={{position:"absolute", top:"20vh", height : "40rem", width:"39rem"}}>ALERT</div> 
         }
         <div className='other-users-box'>
         {
@@ -127,9 +140,9 @@ if(loading){
         }
         </div>
     </div>
-    <Button className='more-btn' onClick={()=>setRandomUsers(allUsers)} 
+    {tempAllUsers.length > 0 && <Button className='more-btn' onClick={()=>setRandomUsers(allUsers)} 
     style={{background:"var(--background-color-9)", padding:'0.1rem 1rem', marginTop:"-1rem",
-    color: "var(--color-8)"}}>More Users</Button>
+    color: "var(--color-8)"}}>More Users</Button>}
     </div>
 }
 
