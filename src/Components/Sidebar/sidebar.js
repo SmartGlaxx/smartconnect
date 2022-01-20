@@ -149,12 +149,12 @@ if(messageNotifications && allUsers){
                      {showDropdown2 && <div className='message-options-box-2'>
                      <div >
                            {
-                               requestUsers.length > 0 ? 
+                               requestUsers.length > 0 ? <>
                                <div onClick={openSidebar}>
                                    <Link to={`/connections/${_id}/${username}`} className='notification-link-title'>
                                        <h4>Received Requests ({receivedConnectionRequests.length})</h4>
                                     </Link>
-                                    {requestUsers.slice(0,3).map(user =>{
+                                    {requestUsers.slice(0,2).map(user =>{
                                         const {_id, username, firstname, lastname} = user
                                         return <Link key={_id} to={`/userprofile/${_id}/${username}`} className='notification-link'>
                                                 <div className='notification-btn'>
@@ -162,15 +162,18 @@ if(messageNotifications && allUsers){
                                                 </div>
                                             </Link>
                                     })} 
-                               </div> :
+                               </div>
+                               <span className='plus-more'>{requestUsers.length > 2 && `+ ${requestUsers.length - 2 } more`}</span>
+                                </>
+                                :
                                <div onClick={openSidebar}>No Notifications </div>
                            }
-                           { messageNotifications && messageNotifications.length > 0 && <div onClick={openSidebar}>
+                           { messageNotifications && messageNotifications.length > 0 && <><div onClick={openSidebar}>
                            <Link to='/inbox' className='notification-link-title'>
                                 <h4>Received Messages({messageNotifications.length})</h4>
                            </Link>
                                 <div>
-                                {messageReceived.slice(0,3).map(user =>{
+                                {messageReceived.slice(0,2).map(user =>{
                                     const {_id, username, firstname, lastname} = user
                                     return <Link to={`/userprofile/${_id}/${username}`} className='notification-link'>
                                         <div key={_id} className='notification-btn'>{`${firstname} ${lastname}`}</div>
@@ -178,6 +181,8 @@ if(messageNotifications && allUsers){
                                 })}
                                 </div>
                             </div>
+                            <span className='plus-more'>{messageReceived.length > 2 && `+ ${messageReceived.length - 2 } more`}</span>
+                            </>
                            }
                            </div>
                         </div>}

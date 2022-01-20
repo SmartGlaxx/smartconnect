@@ -242,6 +242,11 @@
     margin: 0 0.4rem;
 }
 
+.plus-more{
+    font-size: 0.8rem;
+    color: var(--color);
+}
+
 @media screen and (max-width : 940px){
     .search-box{
         left: 0rem;
