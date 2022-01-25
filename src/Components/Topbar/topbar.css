@@ -68,6 +68,9 @@
 ;
 }
 .search{
+    color: var(--color2);
+    font-size: 1.1rem;
+    font-weight: 600;
     border: none;
     margin-left: 1rem; 
     background: var(--background-color);

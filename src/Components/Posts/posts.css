@@ -134,6 +134,9 @@
     display: none;
 }
 .comment-input{
+    font-size: 1.07rem;
+    color:var(--color2);
+    font-weight: 500;
     box-sizing: border-box;
     width: 100%;
     padding: var(--input-padding2);

@@ -115,7 +115,13 @@ useEffect(()=>{
 //         }
 // }
 
-console.log('po p o', timeline)
+// Enter key to submit
+const enterClicked =(e)=>{
+if(e.charCode === 13){
+    submit(e)
+    }
+}
+
 
 const submit = async(e)=>{
     e.preventDefault()
@@ -304,24 +310,24 @@ const {_id : idCurrent , username : usernameCurrent} = currentUserParsed
                 </Link>
                     <input type='hidden' name='userId' />
                     <input type='hidden'  name='username'/>
-                    <input type='text' name='post-input' placeholder='Make a post' className='homepage-center-input' 
-                    value={formValue} onChange={setValues}/>
+                    <input type='text' name='post-input2' placeholder='Make a post' className='homepage-center-input' 
+                    value={formValue} onKeyPress={enterClicked} onChange={setValues}/>
                 </div>     
                 {
                     error.status && <div className='errorNotice'><FaExclamationCircle />{error.msg}</div>
                 }   
                 <hr className='homepage-center-top-hr'/>
                 {postPreviewBox && 
-                    <div className='post-img-preview-contaner'>
+                    <div className='post-img-preview-contaner' >
                         <div className='preview-top'>
                             <img src={profilePicture ? profilePicture : ProfileImage} className="post-profile-img-2" />
                             <input type='hidden' name='userId' />
                             <input type='hidden'  name='username'/>
                             <input type='text' name='post-input' placeholder='Make a post' className='homepage-center-input-2' 
-                        value={formValue} onChange={setValues}/>
+                        value={formValue} onKeyPress={enterClicked} onChange={setValues}/>
                         </div>
                         <div className='img-container'>
-                            <img src={postPicturePreview} alt='Error loading preview' className='post-img-preview-2'/>
+                            <img src={postPicturePreview} alt='Error loading preview' className='post-img-preview-2' />
                         </div>
                         <div className='pic-upload-btn'>
                             <div className='homepage-center-input-item-2'onClick={setCancelValues} >
@@ -346,7 +352,7 @@ const {_id : idCurrent , username : usernameCurrent} = currentUserParsed
                             <span className='picture-name'>Picture</span>
                        </div>
                      {!postImage && <input id='postPicture' type='file' name='postPic' className='homepage-center-input2' 
-                        onChange={selectPostPic}/>}
+                       onKeyPress={enterClicked}  onChange={selectPostPic}/>}
                     </label>
                     <div className='homepage-center-input-item'onClick={submit} >
                         <FaTelegramPlane  className='homepage-center-post-icon' size='25' />

@@ -54,8 +54,8 @@ const setPostData = (value1, value2)=>{
 
 //set both search value and value to show in input
 const setSearchValueFunc = (e)=>{
-    setSearchValue(e.target.value)
-    setUsersNameValue(e.target.value)
+    setSearchValue(e.target.value.toLowerCase())
+    setUsersNameValue(e.target.value.toLowerCase())
 }
 
 const setFormValue = (e)=>{
@@ -261,8 +261,8 @@ useEffect(() => {
 
   useEffect(()=>{
     const usersFoundValues  =   allUsers.length > 1 && 
-    allUsers.filter(allUser => allUser._id !== _id && (allUser.firstname.startsWith(searchValue) 
-    || allUser.lastname.startsWith(searchValue) || allUser.username.startsWith(searchValue)))
+    allUsers.filter(allUser => allUser._id !== _id && (allUser.firstname.toLowerCase().startsWith(searchValue) 
+    || allUser.lastname.toLowerCase().startsWith(searchValue) || allUser.username.toLowerCase().startsWith(searchValue)))
     
 if(usersFoundValues){
     // setUsersFound(usersFoundValues)
@@ -283,6 +283,10 @@ if(loading || allUsers.length == 0 || !currentUserParsed._id){
     display: 'grid', placeItems: "center"}}>
        <LoadingIcons.Puff  stroke="#555" strokeOpacity={.9} />
    </div>
+}
+
+if(loggedIn == false){
+    return window.location.href = '/login'
 }
 
 const {_id : userId , firstname, lastname} = currentUserParsed
@@ -331,7 +335,7 @@ const {_id : userId , firstname, lastname} = currentUserParsed
             
             <form className="compose-center-form">
                 <input type='hidden'  value={username} name='from' className='forminput' /><br />
-                {connections && connections.length > 0 && <div className='name'> <span>From:</span> {`${firstname} ${lastname}`}<br /></div> }
+                {connections && connections.length > 0 && <div className='name'> <span>From: </span> {`${firstname} ${lastname}`}<br /></div> }
                 {connections && connections.length > 0 && <div className='name'><span>To: </span> 
                 <input type='text' value={searchValue} onChange={setSearchValueFunc} className='users-search'/>
                 {usersNameValue && <div className='users-list'>

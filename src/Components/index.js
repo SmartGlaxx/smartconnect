@@ -6,5 +6,6 @@ import Posts from './Posts/posts'
 import Comments from './Comments/comments'
 import Search from './Search/search'
 import Ads from './Ads/ads'
+import InboxMessages from './InboxMessages/inboxMessages'
 
-export {Topbar, Sidebar, LeftNavigation, Backdrop, Posts, Comments, Search, Ads}
+export {Topbar, Sidebar, LeftNavigation, Backdrop, Posts, Comments, Search, Ads, InboxMessages}

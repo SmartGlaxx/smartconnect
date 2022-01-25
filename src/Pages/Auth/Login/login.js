@@ -1,3 +1,7 @@
+import React from 'react';
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
+import { makeStyles } from '@material-ui/core/styles';
 import './login.css'
 import { Button, Grid} from '@material-ui/core'
 import { useState, useEffect } from 'react'
@@ -7,13 +11,51 @@ import {Link} from 'react-router-dom'
 import { UseAppContext } from '../../../Contexts/app-context'
 import LoadingIcons from 'react-loading-icons'
 
+
+function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+  }
+  
+  const useStyles = makeStyles((theme) => ({
+    root: {
+      width: '20rem',
+      '& > * + *': {
+        marginTop: theme.spacing(2),
+      },
+      position:"absolute",
+      top:"30%",
+      left : "50%",
+      transform : "translate(-50%)"
+    },
+  }));
+  
+
 const Login =()=>{
-    const {setLoading, loading, setCurrentUser, currentUser, setLoggedIn} = UseAppContext()
+    const {loading, setCurrentUser, currentUser, setLoggedIn} = UseAppContext()
     const [error, setError] = useState({status: false, msg :''})
     const [formValues, setFormValues] = useState({
         emailOrUsername : '',
         password : ""
     })
+
+    //Snackbar Alert start
+    const classes = useStyles();
+  const [open, setOpen] = React.useState(false);
+  
+  const handleError = (status, message) => {
+    setOpen(true);
+    setError({status : status, msg : message})
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
+  //Snackbar Alert ends
+
 
     const setLoginValues =(value, loginData)=>{
         setCurrentUser(loginData)
@@ -28,12 +70,15 @@ const Login =()=>{
             return{...prev, [name] : value}
         })
     }
-    // const submitCall = ()=>{
-    //     setLoading(true)
-    //     //submit()
-    // }
+ 
+    // Enter key to submit
+    const enterClicked =(e)=>{
+        if(e.charCode === 13){
+            submit(e)
+          }
+    }
     const submit = async(e)=>{
-        setLoading(true)
+       
          e.preventDefault()
        
         
@@ -66,12 +111,14 @@ const Login =()=>{
                 return window.location.href = '/'
             }else if(requestResponse === 'Fail'){
                 const {message} = result.data
-                setError({status : true, msg : message})
+                handleError(true, message)
                 setTimeout(()=>{
                     setError({status : false, msg :''})
                 }, 4000)
             }
     }
+
+   
 
 //scroll to top of page
 useEffect(() => {
@@ -89,25 +136,36 @@ useEffect(() => {
     return (
     <Grid className='login' container>
         <Grid className='login-left' item xs={12} sm={6} >
-            <div className='title'>Smart Social</div>
+            <div className='title'>Smart Connect</div>
         </Grid>
         <Grid className='login-right' item xs={12} sm={6} >
             
             {
-                error.status && <div className='errorNotice'><FaExclamationCircle />{error.msg}</div>
+                error.status && <div className={classes.root}>
+                <Alert severity="error">{error.msg}</Alert>
+              </div>
+                
             }
             <div>
-            <form>
                  <h3 className='page-title'>Welcome Back</h3>
-                <input className='input' value ={formValues.emailOrUsername} onChange={setValues} type='text' name='emailOrUsername' placeholder='E-mail/Username' required/>
-                <input className='input' value ={formValues.password} onChange={setValues} type='password' name='password' placeholder='Password' required/>
-                <Button className='btn'  onClick={submit}>Login</Button>
-            </form>
-              <Link to ='/' className='forgot-password'>Forgot Password?</Link>
-              <Link to ='/signup' className='forgot-password'>Sign-up</Link>
+                <input className='input' value ={formValues.emailOrUsername} onKeyPress={enterClicked} onChange={setValues} 
+                 type='text' name='emailOrUsername' placeholder='E-mail/Username' required/>
+                <input className='input' value ={formValues.password} onKeyPress={enterClicked} onChange={setValues} 
+                type='password' name='password' placeholder='Password' required/>
+              <div className='auth-btns'>
+                <span className='auth-login-btn2' onClick={submit}>Login</span>
+                <Link to ='/signup' className='auth-login-btn1'>Sign-up</Link>
+              </div>
             </div>
         </Grid>
     </Grid>
 )}
 
 export default Login
+
+
+
+
+
+
+

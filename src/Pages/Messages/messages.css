@@ -143,7 +143,7 @@
 
 .name{
     text-transform: capitalize;
-    font-size: 0.9rem;
+    font-size: 1rem;
     display: flex;
     align-items: center;
     margin: 0.5rem 0;
@@ -154,7 +154,7 @@
     border:none;
     border-radius: 0.2rem;
     color:var(--color-7);
-    font-size: 0.9rem;
+    font-size: 1rem;
     font-weight: 600;
     padding: var(--input-padding3);
     box-sizing: border-box;
@@ -311,6 +311,7 @@
     text-decoration: none;
 }
 .no-message{
+    font-size: 1.1rem;
     color: var(--color2);
 }
 .message-header{

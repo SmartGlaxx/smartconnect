@@ -63,7 +63,9 @@
     margin : 0 auto
 }
 .homepage-center-input{
-    font-size: 1.1rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--color2);
     width: 70%;
     border: none;
     margin-left: 4rem; 
@@ -71,7 +73,9 @@
     box-sizing: border-box;
 }
 .homepage-center-input-2{
-    font-size: 1.1rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--color2);
     width: 100%;
     padding: var(--input-padding);
     border: none;
@@ -171,6 +175,7 @@
     font-weight: 600;
 }
 
+
 .homepage-right{
     flex : 3;
     position: sticky;
@@ -194,6 +199,10 @@
     width: 90%;
     align-items: center; 
     justify-content: space-around;
+}
+.post-input{
+    font-size: 2rem;
+    color:red
 }
 .post-profile-img{
     border-radius: 50%;

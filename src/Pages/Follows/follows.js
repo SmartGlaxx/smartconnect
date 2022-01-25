@@ -343,6 +343,10 @@ useEffect(() => {
     window.scrollTo(0, 0)
   }, [])
 
+if(loggedIn == false){
+    return window.location.href = '/login'
+}
+
     return <>
     <Topbar />
     <Sidebar />
@@ -358,8 +362,8 @@ useEffect(() => {
             <br />
             <div className='follows-center-inner' >
             {
-            tempAllUsers &&
-            tempAllUsers.map(allUser => {
+            allUsers &&
+            allUsers.map(allUser => {
                 const {_id : id, username, firstname, lastname, profilePicture} = allUser
                 const {_id, followers} = currentUserParsed.connections ? currentUserParsed : JSON.parse(currentUser)
                         if(allUser._id !== _id && currentUserParsed && userFollowers.includes(allUser._id)) {

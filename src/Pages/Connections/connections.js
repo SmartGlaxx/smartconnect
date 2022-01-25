@@ -253,6 +253,10 @@ let userConnections = currentUserParsed.connections ? currentUserParsed.connecti
         }
         })        
 
+    if(loggedIn == false){
+        return window.location.href = '/login'
+    }
+
 
     return <>
     <Topbar />

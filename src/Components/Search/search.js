@@ -9,7 +9,7 @@ const Search = ()=>{
     const searchTermValueToLowerCase =  searchTermValue.toLowerCase()
    const foundUsers = allUsers.filter(user =>{
        if(user.firstname){
-           return user.firstname.startsWith(searchTermValueToLowerCase) || user.lastname.startsWith(searchTermValueToLowerCase) || user.username.startsWith(searchTermValueToLowerCase)  
+           return user.firstname.toLowerCase().startsWith(searchTermValueToLowerCase) || user.lastname.toLowerCase().startsWith(searchTermValueToLowerCase) || user.username.startsWith(searchTermValueToLowerCase)  
 
        }
    })
