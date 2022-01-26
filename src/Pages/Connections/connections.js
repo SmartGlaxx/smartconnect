@@ -7,10 +7,11 @@ import { FaUserAlt, FaUsers, FaImages, FaExclamationCircle, FaHome, FaUser, FaAn
 import {Topbar, Sidebar, Backdrop} from '../../Components';
 import { UseAppContext } from '../../Contexts/app-context'
 import {Link, useNavigate} from 'react-router-dom'
-import {Redirect} from 'react-router-dom'
+import {Navigate} from 'react-router-dom'
 import Axios from 'axios'
 import OtherUsers from '../../Components/OtherUsers/otherUsers'
 import LoadingIcons from 'react-loading-icons'
+import { Loader } from '../../Components'
 import ProfileImage from '../../assets/profile.jpg'
 import CoverImage from '../../assets/cover.jfif'
 import Button from '@restart/ui/esm/Button'
@@ -253,9 +254,13 @@ let userConnections = currentUserParsed.connections ? currentUserParsed.connecti
         }
         })        
 
-    if(loggedIn == false){
-        return window.location.href = '/login'
-    }
+if(loggedIn == false){
+    return <Navigate to='/login' />
+}
+
+if(loading || allUsers.length == 0){
+    return <Loader />
+}
 
 
     return <>

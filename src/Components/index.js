@@ -7,5 +7,7 @@ import Comments from './Comments/comments'
 import Search from './Search/search'
 import Ads from './Ads/ads'
 import InboxMessages from './InboxMessages/inboxMessages'
+import Loader from './Loader/loader'
 
-export {Topbar, Sidebar, LeftNavigation, Backdrop, Posts, Comments, Search, Ads, InboxMessages}
+export {Topbar, Sidebar, LeftNavigation, Backdrop, Posts, Comments,
+     Search, Ads, InboxMessages, Loader}

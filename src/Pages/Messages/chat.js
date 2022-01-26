@@ -1,6 +1,6 @@
  './messages.css'
 import {useState, useEffect} from 'react'
-import {useParams} from "react-router-dom"
+import {useParams, Navigate} from "react-router-dom"
 import axios from 'axios'
 import { FaUserAlt, FaUsers, FaImages, FaHome, FaUser, FaCamera, FaEllipsisH, FaTelegramPlane,
     FaFileImage, FaWindowClose } from 'react-icons/fa'
@@ -13,6 +13,7 @@ import { Satellite } from '@material-ui/icons'
 import { LeftNavigation } from '../../Components'
 import { Ads } from '../../Components'
 import LoadingIcons from 'react-loading-icons'
+import { Loader } from '../../Components'
 import ProfileImage from '../../assets/profile.jpg'
 
 const Chat = ()=>{
@@ -190,7 +191,16 @@ useEffect(()=>{
 //     setTestValue(value)
 // }
 
-    //SEND MESSAGE
+
+// Enter key to submit
+const enterClicked =(e)=>{
+    // if(e.charCode === 13){
+    //     sendMessage(e)
+    //   }
+    alert('mes')
+}
+
+//SEND MESSAGE
     
 const sendMessage = async(e)=>{
     
@@ -403,14 +413,11 @@ useEffect(() => {
 
 
 if(loggedIn == false){
-    return window.location.href = '/login'
+    return <Navigate to='/login' />
 }
 
 if(loading || !fetchedUser){
-    return <div style={{width: "100%",height : "100vh", 
-    display: 'grid', placeItems: "center"}}>
-       <LoadingIcons.Puff       stroke="#555" strokeOpacity={.9} />
-   </div>
+    return <Loader />
 }
 
 if(otherUsername){
@@ -443,7 +450,7 @@ if(otherUsername){
             </div>
             <div className='sendingBox'>
             <textarea value={formData.message} type='text' onChange={(e)=>setFormValue(e,otherUser.id, otherUser.username)} placeholder='Your message' variant = 'contained'
-                name='message' className='chatinput'></textarea><br />
+                name='message' className='chatinput' ></textarea><br />
                 <form className="message-img-label-box" enctype="multipart/form-data">
                     {idCurrent == userId && usernameCurrent == userUsername && <label htmlFor='messagePicture'  >
                         {/* <div style={{ position: "absolute", top:"0rem", right:"0rem", width:"2rem", background:"green", padding:"0.0.4rem"}}>  */}
@@ -454,7 +461,7 @@ if(otherUsername){
                     </label>}
                     
                 </form>
-                <div className='send-btn' onClick={sendMessage}>
+                <div className='send-btn' onClick={sendMessage} onKeyPress={enterClicked}>
                     <FaTelegramPlane className='submit-icon' size='23'/>
                 </div>
             </div>

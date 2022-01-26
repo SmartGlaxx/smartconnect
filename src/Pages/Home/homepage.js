@@ -5,10 +5,11 @@ import { FaUserAlt, FaImages, FaExclamationCircle, FaPlane, FaTelegramPlane, FaW
 import { UseAppContext } from '../../Contexts/app-context'
 import {Topbar, Sidebar, Backdrop, Posts, Ads} from '../../Components';
 import {Link, useNavigate} from 'react-router-dom'
-import {Redirect} from 'react-router-dom'
+import {Navigate} from 'react-router-dom'
 import Axios from 'axios'
 import OtherUsers from '../../Components/OtherUsers/otherUsers'
 import LoadingIcons from 'react-loading-icons'
+import { Loader } from '../../Components'
 import Button from '@restart/ui/esm/Button'
 import { LeftNavigation } from '../../Components'
 import ProfileImage from '../../assets/profile.jpg'
@@ -280,15 +281,13 @@ useEffect(() => {
   }, [])
 
 if(loggedIn == false){
-    return window.location.href = '/login'
+    return <Navigate to='/login' />
 }
 
 if(loading || allUsers.length == 0){
-    return <div style={{width: "100%",height : "100vh", 
-    display: 'grid', placeItems: "center"}}>
-       <LoadingIcons.Puff  stroke="#555" strokeOpacity={.9} />
-   </div>
+    return <Loader />
 }
+
 
 
 const {_id : idCurrent , username : usernameCurrent} = currentUserParsed
@@ -338,7 +337,7 @@ const {_id : idCurrent , username : usernameCurrent} = currentUserParsed
                             </div>
                             <div className='homepage-center-input-item-2'onClick={submit} >
                             <FaTelegramPlane  className='homepage-center-post-icon' size='25' />
-                            <span className='picture-name'>
+                            <span className='picture-name' >
                                 Post
                             </span>
                             </div>

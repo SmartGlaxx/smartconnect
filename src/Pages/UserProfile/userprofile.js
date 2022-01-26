@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, Navigate } from 'react-router-dom'
 import './userprofile.css'
 import axios from 'axios'
 import { Grid } from '@material-ui/core'
@@ -12,6 +12,7 @@ import {Redirect} from 'react-router-dom'
 import Axios from 'axios'
 import OtherUsers from '../../Components/OtherUsers/otherUsers'
 import LoadingIcons from 'react-loading-icons'
+import { Loader } from '../../Components'
 import ProfileImage from '../../assets/profile.jpg'
 import CoverImage from '../../assets/coverpic.jpg'
 import Button from '@restart/ui/esm/Button'
@@ -686,14 +687,11 @@ useEffect(() => {
   }, [])
  
 if(loggedIn == false){
-    return window.location.href = '/login'
+    return <Navigate to='/login' />
 }
 // console.log(timeline)
 if(loading || allUsers.length == 0 || !username && !timelineposts || !fetchedUser.followings){
-    return <div style={{width: "100%",height : "100vh", 
-    display: 'grid', placeItems: "center"}}>
-       <LoadingIcons.Puff  stroke="#555" strokeOpacity={.9} />
-   </div>
+    return <Loader />
 }
 
 

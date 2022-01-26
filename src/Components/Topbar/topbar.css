@@ -46,6 +46,8 @@
     margin-left: 1rem;;
     font-size: var(--logo-font-size);
     text-align: center;
+    color: var(--color-7);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 .search-box{
     background : var(--background-color);
@@ -243,6 +245,10 @@
     text-transform: capitalize;
     font-size: 0.85rem;
     margin: 0 0.4rem;
+}
+
+.log-out-icon{
+    color: var(--color-alert);
 }
 
 .plus-more{

@@ -226,9 +226,17 @@ const [anchorEl3, setAnchorEl3] = React.useState(null);
 
     // fetch userId and userName using context
     
+    
+// Enter key to submit
+    const enterClicked1 =(e)=>{
+        if(e.charCode === 13){
+            postComments(e)
+        }
+    }
 
     // //post a comment
-    const postComments = async(url)=>{
+    const postComments = async(e)=>{
+        e.preventDefault()
         const {_id : currentUserId, username : currentUserName} = currentUserParsed
         const options ={
             url : `https://smart-job-search.herokuapp.com/api/v1/comments/${id}/${currentUserId}/${currentUserName}`,
@@ -254,8 +262,16 @@ const [anchorEl3, setAnchorEl3] = React.useState(null);
         }
     }
 
+// Enter key to submit
+const enterClicked2 =(e)=>{
+    if(e.charCode === 13){
+        postUpdate(e)
+      }
+}
+
 //Update post
-const postUpdate = async()=>{
+const postUpdate = async(e)=>{
+    e.preventDefault()
     const {_id : currentUserId, username : currentUserName} = currentUserParsed
         const options ={
             url : `https://smart-job-search.herokuapp.com/api/v1/posts/${id}`,
@@ -417,7 +433,7 @@ const {_id : uId , username : userUsername} =  currentUserParsed
                         Comfirm Delete
                         <div className='delete-box-2' >
                             <form>
-                                <Button onClick={handleClose2}>
+                                <Button onClick={handleClose2} >
                                     <FaTimes style={{color:"var(--color4)"}}/> Cancel
                                 </Button>
                                 <Button onClick={()=>deletePost(id)}>
@@ -493,7 +509,7 @@ const {_id : uId , username : userUsername} =  currentUserParsed
                      commentForm && <form>
                         <input type ='text' placeholder='Write a comment...' className='comment-input'
                         value = {commentValue} onChange={(e)=>setCommentValue(e.target.value)}/>
-                        <Button style={{float:"right", marginTop:"-2rem"}} onClick={postComments}>
+                        <Button style={{float:"right", marginTop:"-2rem"}} onKeyPress={enterClicked1} onClick={postComments}>
                             <FaTelegramPlane className='submit-icon'/></Button>
                     </form>
                     }
@@ -523,7 +539,7 @@ const {_id : uId , username : userUsername} =  currentUserParsed
                     </Popover>
                     {
                         showUpdatePostForm &&  <form>
-                        <input type ='text' className='comment-input'
+                        <input type ='text' className='comment-input' onKeyPress={enterClicked2}
                         value = {updateValue} onChange={(e)=>setUpdateValue(e.target.value)}/>
                         <Button style={{float:"right", marginTop:"-1.85rem"}} onClick={postUpdate}><FaTelegramPlane className='submit-icon'/></Button>
                     </form>

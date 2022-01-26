@@ -698,9 +698,9 @@
     .users-list{
         width: 75%
     }
-    /* .message-img-preview, .message-img-preview-2{
-        height: 13rem
-    } */
+    .chatinput{
+        padding-right: 4rem;
+    }
 }
 
 @media screen and (max-width: 450px){

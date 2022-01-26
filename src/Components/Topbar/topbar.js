@@ -111,9 +111,10 @@ const Topbar =()=>{
 
     return <Grid className='topbarContainer' container>
         <Grid className="topLeft" item xs ={9} sm={3} >
-            <div className='mainlogo'>
-                <Link to='/' className='mainlogo-link'>SC</Link>
-            </div>
+            <Link to='/' className='mainlogo-link'>
+                <div className='mainlogo'>SC
+                </div>
+            </Link>
             <div style={{display:"block"}}>
             <div className='topLeft-inner'>
                 <FaSearch className='icons2' />
@@ -280,7 +281,7 @@ const Topbar =()=>{
                         <Button onClick={()=>setLoginValues(false, {})}  className='link-btn' 
                         style={{display:"flex", justifyContent:"flex-start", alignItems:"center",
                         width:"100%", padding:"0.3rem 0.5rem"}}>
-                            <FaSignOutAlt className='nav-icon link' /><span  className='log-out-btn' >Sign out</span>
+                            <FaSignOutAlt className='link log-out-icon' /><span  className='log-out-btn' >Sign-out</span>
                         </Button>
                         }
                             </div>

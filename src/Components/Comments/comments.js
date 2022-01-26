@@ -73,9 +73,17 @@
             setCommentForm(!commentForm)
         }
         
+
+// Enter key to submit
+const enterClicked =(e)=>{
+    if(e.charCode === 13){
+        commentUpdate(e)
+    }
+}
 //Update comment
 //show post update
-const commentUpdate = async()=>{
+const commentUpdate = async(e)=>{
+    e.preventDefault()
     const {_id : currentUserId, username : currentUserName} = JSON.parse(currentUser)
             const options ={
             url : `https://smart-job-search.herokuapp.com/api/v1/comments/${id}/${_id}`,
@@ -203,7 +211,7 @@ const commentUpdate = async()=>{
         {
             commentForm && <form>
                 <input type='text' value={updateCommentValue} onChange={(e)=>setUpdateCommentValue(e.target.value)} className='comment-input' /><br />
-                <Button style={{float:"right", marginTop:"-1.9rem"}} onClick={commentUpdate}><FaTelegramPlane className='submit-icon'/></Button>
+                <Button style={{float:"right", marginTop:"-1.9rem"}} onKeyPress={enterClicked} onClick={commentUpdate}><FaTelegramPlane className='submit-icon'/></Button>
             </form>
         }
     </div> 

@@ -305,7 +305,7 @@ const setSearchTermValue = (value)=>{
 
 
     return <AppContext.Provider value={{
-        ...state,  setLoading, setCurrentUser, setLoggedIn, setLazyLoading, setCurrentUser, setLoggedIn, setNewCurrentUser, 
+        ...state,  setLoading, setCurrentUser, setLoggedIn, setLazyLoading, setCurrentUser, setNewCurrentUser, 
         setTempAllusers, setPostCreated, openSidebar, setUserClicked, setFetchedUser, 
         setTimelinePosts, setCommentSent,  setTestValue, setChatUser, setReplySent, setScrollIntoViewValue,
         setSearchTermValue

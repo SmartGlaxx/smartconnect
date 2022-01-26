@@ -103,7 +103,7 @@ if(messageNotifications && allUsers){
                      <div className= {window.location.href.indexOf("chat") > -1 ||
                      window.location.href.indexOf("inbox") > -1 || 
                      window.location.href.indexOf("composemessage") > -1 ?
-                     `sideTop-li-inner-active message-btn-box` :`sideTop-li-inner message-btn-box`} 
+                     `message-btn-box sideTop-li-inner-active` :`message-btn-box sideTop-li-inner`} 
                      onClick={()=>{setShowDropdown(!showDropdown)}} >
                     <FaEnvelope className= {window.location.href.indexOf("chat") > -1 || 
                      window.location.href.indexOf("inbox") > -1 || 

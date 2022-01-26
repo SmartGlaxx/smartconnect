@@ -5,9 +5,10 @@ import { Topbar, Sidebar, Backdrop,InboxMessages } from "../../Components"
 import { useState, useEffect } from 'react'
 import Axios from 'axios'
 import { FaImages, FaSearch, FaPlusSquare } from 'react-icons/fa'
-import { Link } from 'react-router-dom';
+import { Link , Navigate} from 'react-router-dom';
 import axios from 'axios'
 import LoadingIcons from 'react-loading-icons'
+import { Loader } from '../../Components'
 import { LeftNavigation } from '../../Components'
 import Profile from "../../assets/profile.jfif"
 import { Ads } from '../../Components'
@@ -87,15 +88,12 @@ useEffect(() => {
     window.scrollTo(0, 0)
   }, [])
 
-if(loggedIn == false){
-    return window.location.href = '/login'
+  if(loggedIn == false){
+    return <Navigate to='/login' />
 }
 
 if(loading || allUsers.length == 0 || !currentUserParsed._id){
-    return <div style={{width: "100%",height : "100vh", 
-    display: 'grid', placeItems: "center"}}>
-       <LoadingIcons.Puff  stroke="#555" strokeOpacity={.9} />
-   </div>
+    return <Loader />
 }
 
 

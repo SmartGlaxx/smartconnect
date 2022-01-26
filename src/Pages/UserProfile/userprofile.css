@@ -595,6 +595,11 @@
         left: 3rem;
         top: 0rem
     }
+    .user-options{
+        background-color:none ;
+        border:none;
+        cursor :pointer
+    }
     .username{
         font-size: 1.4rem;
         /* text-align: center;

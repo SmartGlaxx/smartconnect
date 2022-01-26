@@ -7,8 +7,9 @@ import { useState, useEffect } from 'react'
 import Axios from 'axios'
 import { FaImages, FaTelegramPlane, FaWindowClose } from 'react-icons/fa'
 import { LeftNavigation } from '../../Components'
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import LoadingIcons from 'react-loading-icons'
+import { Loader } from '../../Components'
 import ProfileImage from '../../assets/profile.jpg'
 import { Ads } from '../../Components'
 
@@ -108,6 +109,12 @@ useEffect(()=>{
     }
 },[postImage])
 
+// Enter key to submit
+ const enterClicked =(e)=>{
+    if(e.charCode === 13){
+        sendMessage(e)
+      }
+}
 
 //SEND MESSAGE
 
@@ -279,14 +286,11 @@ if(usersFoundValues){
 },[searchValue])
 
 if(loading || allUsers.length == 0 || !currentUserParsed._id){
-    return <div style={{width: "100%",height : "100vh", 
-    display: 'grid', placeItems: "center"}}>
-       <LoadingIcons.Puff  stroke="#555" strokeOpacity={.9} />
-   </div>
+    return <Loader />
 }
 
 if(loggedIn == false){
-    return window.location.href = '/login'
+    return <Navigate to='/login' />
 }
 
 const {_id : userId , firstname, lastname} = currentUserParsed
@@ -360,7 +364,7 @@ const {_id : userId , firstname, lastname} = currentUserParsed
                 {connections && connections.length < 1 && <div className='no-connection'>No connections yet. 
                 <Link to={`/connections/${userId}/${username}`} className='connect-link'>Connect</Link> with users to send messages.</div>}
                 {connections && connections.length > 0 && <> 
-                <textarea type='text' onChange={setFormValue} placeholder='Your message' variant = 'contained'
+                <textarea type='text' onChange={setFormValue} onKeyPress={enterClicked}  placeholder='Your message' variant = 'contained'
                 cols='20' rows='5' name='message1' className='forminput' value={formData.message}></textarea><br 
                 style={{background:"var(--background-color-2)"}}/>
                 </>}
