@@ -37,7 +37,7 @@ const LeftNavigation = ()=>{
         <ul className='homepage-left-ul' >
             <li className='homepage-left-li'>
             <Link to={`/userprofile/${_id}/${username}`} className='left-nav'>
-            <div  className='left-nav-inner'> 
+            <div  className='left-nav-inner2'> 
             <img src={profilePicture ? profilePicture : ProfileImage } className='left-nav-profile-img' /><br />
              {`${firstnameCapitalized} ${lastnameCapitalized}`}</div>
             </Link>

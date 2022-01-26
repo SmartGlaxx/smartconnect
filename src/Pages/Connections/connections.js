@@ -254,7 +254,7 @@ let userConnections = currentUserParsed.connections ? currentUserParsed.connecti
         }
         })        
 
-if(loggedIn == false){
+if(loggedIn == false || !currentUserParsed._id){
     return <Navigate to='/login' />
 }
 

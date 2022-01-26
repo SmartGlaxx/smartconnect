@@ -116,7 +116,6 @@
     margin-right: 0.5rem;
 }
 .logout{
-    /* float: right; */
     display: flex;
     text-align: left;
     color: var(--warning-text-2);
@@ -126,9 +125,19 @@
     /* margin: 0 0.5rem; */
     margin-right: 0.5rem;
 }
+.log-out-btn{
+    font-size: 1rem;
+}
 .mainlogo-link{
     text-decoration: none;
     font-weight: 900;
+}
+.mainlogo{
+    margin-left: 1rem;;
+    font-size: var(--logo-font-size);
+    text-align: center;
+    color: var(--color-7);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 .dropdown{
     color: var(--color);
@@ -227,9 +236,9 @@
     margin-right: 2rem;
     border : 0.3rem solid var(--background-color-3)
 }
-.username{
+.username1{
     text-transform: capitalize;
-    font-size: 3rem;
+    font-size: 1.2rem;
 }
 
 .message-sidebar-notification{

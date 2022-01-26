@@ -78,9 +78,7 @@ const Login =()=>{
           }
     }
     const submit = async(e)=>{
-       
          e.preventDefault()
-       
         
         const {emailOrUsername, password} = formValues
         if(!emailOrUsername || !password){
@@ -102,7 +100,14 @@ const Login =()=>{
                 }
             }
            
+            setTimeout(()=>{
+              setError({status : true, msg :"Please check your network connection"})
+            },10000)
+            setTimeout(()=>{
+              setError({status : false, msg :""})
+            },16000)
             const result = await Axios(options)
+            
            
             const requestResponse = result.data.response
             if(requestResponse === 'Success'){

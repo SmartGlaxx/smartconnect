@@ -6,7 +6,7 @@ import {Button, Divider} from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import './sidebar.css'
 import { FaHome, FaPeopleArrows, FaUserFriends, FaEnvelope, FaUserAlt, FaTh, 
-    FaBell, FaPlusSquare, FaChevronCircleDown,FaWindowClose, FaTools, FaSignInAlt} from 'react-icons/fa' 
+    FaBell, FaPlusSquare, FaChevronCircleDown,FaWindowClose, FaTools, FaSignOutAlt} from 'react-icons/fa' 
 import { UseAppContext } from '../../Contexts/app-context'
 import ListIcon from '@material-ui/icons/List';
 import ProfileImage from '../../assets/profile.jpg'
@@ -21,7 +21,8 @@ const useStyles = makeStyles((theme) => ({
   //for popover ends
 
 const Sidebar =()=>{
-    const {setLoggedIn, loggedIn, currentUserParsed, allUsers, sidebarOpen, openSidebar} = UseAppContext()
+    const {setLoggedIn, loggedIn, currentUserParsed, allUsers, sidebarOpen, openSidebar,
+        setCurrentUser} = UseAppContext()
     const [showDropdown, setShowDropdown] = useState(false)
     const [showDropdown2, setShowDropdown2] = useState(false)
     // const [closeDropdown, setCloseDropdown] = useState(false)
@@ -47,6 +48,12 @@ const setCloseDropdown = ()=>{
     }
 }
 
+const setLoginValues =(value, loginData)=>{
+    setCurrentUser(loginData)
+    setLoggedIn(value)
+}
+
+
 // get request users 
 let requestUsers = []
 let messageReceived = []
@@ -60,7 +67,10 @@ if(messageNotifications && allUsers){
     return <div className={ sidebarOpen ? `sidebarContainer2` : `sidebarContainer1`} onClick={()=>{setCloseDropdown(true)}} >
         <div className="sidebarTop " xs ={9} sm={3}>
              <div className='sidebarlogo' onClick={openSidebar}>
-                <Link to='/' className='mainlogo-link'>SC</Link>
+                <Link to='/' className='mainlogo-link'>
+                <div className='mainlogo'>SC
+                </div>
+            </Link>
              </div>
             <FaWindowClose className='close-icon' size='25' onClick = {openSidebar}/>
         </div>
@@ -73,7 +83,7 @@ if(messageNotifications && allUsers){
                     >
                         {/* <FaUserAlt className= {window.location.href.indexOf("userprofile") > -1 ? `icons-active` :`icons`}  size='15'/> */}
                         <img src={profilePicture ? profilePicture : ProfileImage } className='sidebar-profile-img' /><br />
-                        <span className='username'>{`${firstname} ${lastname}`}</span>
+                        <span className='username1'>{`${firstname} ${lastname}`}</span>
                     </div>
                     </Link>
                     </li>
@@ -192,12 +202,11 @@ if(messageNotifications && allUsers){
                         Settings
                     </li>
                     {loggedIn && <>
-                    {/* <Button className='logout' style={{color: "rgb(236, 39, 39)"}}> */}
-                    <li className='sideTop-li logout'>
-                        <FaSignInAlt onClick={()=>setLoggedIn(false)} className='logout-icon logout' size='15'/>
-                        Sign out
-                    </li>
-                    {/* </Button> */}
+                        <li onClick={()=>setLoginValues(false, {})}  className='sideTop-li logout' 
+                        style={{display:"flex", justifyContent:"flex-start", alignItems:"center",
+                        width:"100%", padding:"0.3rem 0rem"}}>
+                            <FaSignOutAlt className="log-out-icon" size='15'/><span  className='log-out-btn' >Sign-out</span>
+                        </li>
                     </>}
                 </ul>
             </div>

@@ -28,7 +28,17 @@
     text-decoration: none;
 }
 .left-nav-inner{
-    font-size: 1.1rem;
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 0.5rem 0;
+    padding-left: 0.5rem;
+    border-radius: 0 0.5rem 0.5rem 0;
+    background: var(--background-color);
+    color:var(--color);
+    cursor: pointer;
+}
+.left-nav-inner2{
+    font-size: 1.25rem;
     font-weight: 500;
     padding: 0.5rem 0;
     padding-left: 0.5rem;

@@ -105,6 +105,12 @@ const Signup =()=>{
                 }
             }
 
+            setTimeout(()=>{
+              setError({status : true, msg :"Please check your network connection"})
+            },10000)
+            setTimeout(()=>{
+              setError({status : false, msg :""})
+            },16000)
             const result = await Axios(options)
             const {response, singupdData} = result.data
             if(response === 'Success'){

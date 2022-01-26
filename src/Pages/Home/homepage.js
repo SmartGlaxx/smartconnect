@@ -280,14 +280,14 @@ useEffect(() => {
     window.scrollTo(0, 0)
   }, [])
 
-if(loggedIn == false){
-    return <Navigate to='/login' />
-}
 
 if(loading || allUsers.length == 0){
     return <Loader />
 }
 
+if(loggedIn == false || !currentUserParsed._id){
+    return <Navigate to='/login' />
+}
 
 
 const {_id : idCurrent , username : usernameCurrent} = currentUserParsed

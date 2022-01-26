@@ -118,7 +118,8 @@
         height: 80vh;
     }
     .input{
-        font-size: 0.8rem;
+        font-size: 1.03rem;
         font-weight: 500;
+        padding: var(--input-padding3);
     }
 }

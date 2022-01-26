@@ -121,8 +121,8 @@ if(loading){
             </div>: 
             tempAllUsers.map(allUser => {
                 const {_id : id, username, firstname, lastname, profilePicture} = allUser
-                const {_id, followings} = currentUserParsed.followings ? currentUserParsed : JSON.parse(currentUser)
-                      if(allUser._id !== _id && !followings.includes(allUser._id)){
+                const {_id, followings} = currentUserParsed && currentUserParsed.followings ? currentUserParsed : JSON.parse(currentUser)
+                      if(allUser._id !== _id && followings && !followings.includes(allUser._id)){
                         return <div key={id} className='other-users-inner'>
                             <Link to={`/userprofile/${allUser._id}/${username}`} onClick={()=>setUserClicked(!userClicked)}>
                                 <img src={profilePicture ? profilePicture : ProfileImage} 

@@ -686,7 +686,7 @@ useEffect(() => {
     window.scrollTo(0, 0)
   }, [])
  
-if(loggedIn == false){
+if(loggedIn == false || !currentUserParsed._id){
     return <Navigate to='/login' />
 }
 // console.log(timeline)
