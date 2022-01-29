@@ -468,9 +468,9 @@
       padding-top: 0.3rem;
       padding-bottom: 5.5rem;
       height: auto;
+      min-height: calc(100vh - 14rem);
       position: relative;
       bottom: 0;
-      /* background-color: red; */
   }
 .chat-top{
     text-transform: capitalize;
