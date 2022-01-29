@@ -722,12 +722,12 @@
     }
 }
 
-@media screen and (max-width: 932px){
+/* @media screen and (max-width: 932px){
     .observer-container{
         height: calc(100vh - 10rem);
     }
     
-}
+} */
 
 @media screen and (max-width: 600px){
     .sendingBox, .sendingBox-2{
