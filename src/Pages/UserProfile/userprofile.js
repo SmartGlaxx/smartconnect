@@ -686,7 +686,7 @@ useEffect(() => {
     window.scrollTo(0, 0)
   }, [])
  
-if(loggedIn == false || !currentUserParsed._id){
+if(loggedIn == false){
     return <Navigate to='/login' />
 }
 // console.log(timeline)
@@ -777,14 +777,14 @@ const usernameCapitalized = firstLetter.toUpperCase() + otherLettes
                         {/* <button className='post-btn' onClick={submit}>Post</button> */}
                     </form>
                     <div className='profile-summary-desktop'>
-                        <h1 className='username'>{`${firstname} ${lastname}`}</h1>
+                        <h1 className='username'>{firstname && lastname && `${firstname} ${lastname}`}</h1>
                         <div className='-followings'>{`Following : ${followings.length}`}</div>
                         <div className='-followings'>{`Followers : ${followers.length}`}</div>
                     </div>
                 </Grid>
                 <Grid className='profile-summary' item xs={12} sm={5}> 
                     <div className='profile-summary-inner'>
-                        <h1 className='username'>{`${firstname} ${lastname}`}</h1>
+                        <h1 className='username'>{firstname && lastname && `${firstname} ${lastname}`}</h1>
                         <div className='-followings'>{`Following : ${followings.length}`}</div>
                         <div className='-followings'>{`Followers : ${followers.length}`}</div>
                     </div>
@@ -960,7 +960,7 @@ const usernameCapitalized = firstLetter.toUpperCase() + otherLettes
                             <Link to={`/userprofile/${allUser._id}/${username}`} onClick={()=>setUserClicked(!userClicked)}>
                                 <img src={profilePicture ? profilePicture : ProfileImage}  className="follow-img" />
                             </Link>
-                            <div className='profile-follow-name'>{`${firstname} ${lastname}`}</div>
+                            <div className='profile-follow-name'>{firstname && lastname && `${firstname} ${lastname}`}</div>
                             {/* <form>
                                 <br/>
                                 <button onClick={(e)=>unfollow(e, id, username)} className='follow-btn'>
@@ -994,7 +994,7 @@ const usernameCapitalized = firstLetter.toUpperCase() + otherLettes
                             <Link to={`/userprofile/${allUser._id}/${username}`} onClick={()=>setUserClicked(!userClicked)}>
                                 <img src={profilePicture ? profilePicture : ProfileImage}  className="follow-img" />
                             </Link>
-                            <div className='profile-follow-name'>{`${firstname} ${lastname}`}</div>
+                            <div className='profile-follow-name'>{firstname && lastname && `${firstname} ${lastname}`}</div>
                             <form>
                                 <br/>
                                 <button onClick={(e)=>unfollow(e, id, username)} className='follow-btn'>
@@ -1025,7 +1025,7 @@ const usernameCapitalized = firstLetter.toUpperCase() + otherLettes
                             <Link to={`/userprofile/${allUser._id}/${username}`} onClick={()=>setUserClicked(!userClicked)}>
                                 <img src={profilePicture ? profilePicture : ProfileImage}  className="follow-img" />
                             </Link>
-                            <div className='profile-follow-name'>{`${firstname} ${lastname}`}</div>
+                            <div className='profile-follow-name'>{firstname && lastname && `${firstname} ${lastname}`}</div>
                             <form>
                                 <br/>
                                 {  allUser._id != currentUserParsed._id  && newUserFollowings &&

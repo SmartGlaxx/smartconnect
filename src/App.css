@@ -71,11 +71,13 @@
     --icon-size1 : 1.8rem;
     --icon-size2 : 1.2rem;
     --icon-margin : 0 0.5rem;
+    --input-font-size : 1.15rem;
     --input-margin : 0.5rem 0;
     --input-padding : 1rem;
     --input-padding2 : 0.5rem 2rem;
     --input-padding3 : 0.4rem 1rem;
     --input-padding4 : 0.5rem 0.2rem;
+    --input-padding5 : 0.3rem;
     --logo-font-size : 1.4rem;
     --page-padding : 2rem;
     --page-title1 : 2rem;
@@ -90,6 +92,7 @@
     --section-margin : 1rem;
     --section-padding : 1rem;
     --section-padding-2 : 0.4rem;
+    /* --section-padding-3 : 1rem 0rem; */
     --section-border-radius : 0.3rem;
     --small-font1 : 0.8rem;
     --warning-text : #cf2900;

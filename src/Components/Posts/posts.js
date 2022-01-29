@@ -6,6 +6,7 @@ import Popover from '@material-ui/core/Popover';
 import Typography from '@material-ui/core/Typography';
 import { Button, Grid } from '@material-ui/core'
 import ProfileImage from '../../assets/profile.jpg'
+import { Link } from 'react-router-dom';
 import TimeAgo from 'timeago-react'
 import { useEffect, useState } from 'react'
 import {FaExclamationCircle, FaThumbsUp, FaComment, FaEllipsisH, FaShare, FaWindowClose, 
@@ -48,7 +49,7 @@ const Posts =({_id : id, userId, username, firstname, lastname, description, lik
     const [fetchedUserData, setFetchedUserData] = useState({})
     const {_id : currentUserLikeId} = currentUserParsed
 
-    const {firstname : userFirstname, lastname : userLastname, profilePicture} = fetchedUserData
+    const {_id : userID, username : userName, firstname : userFirstname, lastname : userLastname, profilePicture} = fetchedUserData
 
 
     const classes = useStyles();
@@ -443,13 +444,15 @@ const {_id : uId , username : userUsername} =  currentUserParsed
                         </div>
                         </div>
                     </Popover>
-                    
+                
                 <div className='post-top'>
+                <Link to={`/userprofile/${userID}/${userName}`} className='post-details-box '>
                     <img src={profilePicture ? profilePicture : ProfileImage}  className='profile-pic'/>
                     <div className='post-top-details'>
-                        <div className='name'>{`${userFirstname} ${userLastname}`}</div>
+                        <div className='name'>{userFirstname && userLastname &&`${userFirstname} ${userLastname}`}</div>
                         <div className='post-timeago'><TimeAgo datetime={createdAt} locale='en_US' /></div>
                     </div>
+                </Link>
                 </div>
                 <div className='description'>{description.length > 150  && !readMoreValue ? description.slice(0, 150) + "...  "  : description }
                     {description.length > 150 &&
@@ -463,12 +466,12 @@ const {_id : uId , username : userUsername} =  currentUserParsed
                         <div className='shared-box-info'>
                             {username == sharedUsername ? 
                             <div>
-                                <span className='sharename'>{` ${userFirstname} ${userLastname} `}</span>
+                                <span className='sharename'>{userFirstname && userLastname &&`${userFirstname} ${userLastname} `}</span>
                                  shared a memory
                             </div>
                             :
                              <div>
-                                 <span className='sharename'>{` ${userFirstname} ${userLastname} `}</span>
+                                 <span className='sharename'>{userFirstname && userLastname &&`${userFirstname} ${userLastname} `}</span>
                                   shared a post by 
                                   <span className='sharename'>{` ${sharedFirstname} ${sharedLastname} `}</span>
                             </div>

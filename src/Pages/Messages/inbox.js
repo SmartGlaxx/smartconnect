@@ -14,7 +14,7 @@ import Profile from "../../assets/profile.jfif"
 import { Ads } from '../../Components'
 
 const Inbox = () =>{
-    const {loading, loggedIn, allUsers, currentUserParsed} = UseAppContext()
+    const {loading, loggedIn, allUsers, currentUserParsed, setTestValue, testValue} = UseAppContext()
     const [newAllMessages, setNewAllMessages] = useState([])
     const [userUniqueIds, setUserUniqueIds] = useState([])
     const [fetchedUsers, setFetchedUsers] = useState([])
@@ -88,7 +88,11 @@ useEffect(() => {
     window.scrollTo(0, 0)
   }, [])
 
-  if(loggedIn == false || !currentUserParsed._id){
+useEffect(()=>{
+    setTestValue(!testValue)
+},[])
+
+if(loggedIn == false){
     return <Navigate to='/login' />
 }
 
@@ -101,13 +105,13 @@ if(loading || allUsers.length == 0 || !currentUserParsed._id){
         <Topbar />
         <Sidebar />
         <Backdrop />
-        <Grid container>
+        <Grid container className='inbox'>
             <Grid item xs={false} sm={3} md={3} className='inbox-mobile-disabled'>
                 <LeftNavigation />
             </Grid>
             <Grid item  xs={12} sm={6} md={6} className="inbox-center">
-            <div className='compose-center-inner'>
-                <h3 class>Inbox</h3>
+            <div className='inbox-center-inner'>
+                <h2>Inbox</h2>
             </div>
                 {/* <div className='inbox-center-search'>
                     <FaSearch className='icons2' />
@@ -116,53 +120,6 @@ if(loading || allUsers.length == 0 || !currentUserParsed._id){
                 <Link to='/composemessage' className='message-header'><FaPlusSquare className='add-chat'  size='25'/></Link>
                 <div className='all-messages'>
                     <InboxMessages />
-                    {/* {
-                    fetchedUsers.length && userUniqueIds.length ? fetchedUsers.map(user => {
-                     
-                            if(userUniqueIds.includes(user._id) && user._id !== userId  ){
-                                const {_id : id, username : otherUsername, firstname, lastname, profilePicture} = user
-                                let otherUername
-                                if(otherUsername){
-                                    otherUername = otherUsername.slice(0,1).toUpperCase().concat(otherUsername.slice(1).toLowerCase())
-                                }
-                                // return <div className='inbox-userbox'>
-                                    
-                                    if(messageNotifications.includes(id)){
-                                        return <div className='inbox-userbox' >
-                                            <Link to={`/chat/${userId}/${userUsername}/${id}/${otherUsername}`} className='inbox-name'>
-                                            <div className='inbox-items'>
-                                                <img src={profilePicture ? profilePicture : Profile} className='inbox-photo'/>
-                                                <span className='inbox-name'>{`${firstname} ${lastname}`}</span>
-                                                <div className='unread-message'></div>
-                                            </div>
-                                            </Link>
-                                        </div>
-                                    }else if(!messageNotifications.includes(id)){
-                                        return <div className='inbox-userbox'>
-                                            <Link to={`/chat/${userId}/${userUsername}/${id}/${otherUsername}`} className='inbox-name'>
-                                            <div className='inbox-items'>
-                                                <img src={profilePicture ? profilePicture : Profile} className='inbox-photo'/>
-                                                <span className='inbox-name'>{`${firstname} ${lastname}`}</span>
-                                            </div>
-                                            </Link>
-                                        </div>
-                                    }
-                                    
-                                    // {
-                                    
-                                    // }
-                                    
-                                    // <br/>
-
-                                  
-                            }
-                         }) : 
-                         <div style={{width: "100%",height : "5rem", 
-                             display: 'grid', placeItems: "center"}}>
-                                <h4 className='no-message'>No Messages in your inbox</h4>
-                             <LoadingIcons.Puff  stroke="#555" strokeOpacity={.9} />
-                         </div>  
-                   } */}
                 </div>
             </Grid>
             <Grid item xs={false} sm={false} md={3} className="inbox-right inbox-mobile-disabled">

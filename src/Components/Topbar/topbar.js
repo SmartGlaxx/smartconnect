@@ -112,8 +112,7 @@ const Topbar =()=>{
     return <Grid className='topbarContainer' container>
         <Grid className="topLeft" item xs ={9} sm={3} >
             <Link to='/' className='mainlogo-link'>
-                <div className='mainlogo'>SC
-                </div>
+                <div className='mainlogo'>SC</div>
             </Link>
             <div style={{display:"block"}}>
             <div className='topLeft-inner'>
@@ -206,7 +205,7 @@ const Topbar =()=>{
                                         const {_id, username, firstname, lastname} = user
                                         return <Link key={_id} to={`/userprofile/${_id}/${username}`} className='notification-link'>
                                                 <div className='notification-btn'>
-                                                    {`${firstname} ${lastname}`}
+                                                    {firstname && lastname && `${firstname} ${lastname}`}
                                                 </div>
                                             </Link>
                                     })} 
@@ -224,7 +223,7 @@ const Topbar =()=>{
                                 {messageReceived.slice(0,2).map(user =>{
                                     const {_id, username, firstname, lastname} = user
                                     return <Link to={`/userprofile/${_id}/${username}`} className='notification-link'>
-                                        <div key={_id} className='notification-btn'>{`${firstname} ${lastname}`}</div>
+                                        <div key={_id} className='notification-btn'>{firstname && lastname && `${firstname} ${lastname}`}</div>
                                     </Link>
                                 })}
                                 </div>
@@ -258,7 +257,7 @@ const Topbar =()=>{
                         style={{display:"flex", justifyContent:"flex-start", alignItems:"center", 
                         width:"100%", padding:"0.3rem 0.5rem", margin:"0"}}>
                             <Link to={`/userprofile/${_id}/${username}`} className='link'>
-                                <FaUserAlt className='nav-icon' /> <span  className='link'>{`${firstname} ${lastname}`}</span>
+                                <FaUserAlt className='nav-icon' /> <span  className='link'>{firstname && lastname && `${firstname} ${lastname}`}</span>
                             </Link>
                         </Button>
                         <Button aria-describedby={id2} onClick={handleClick2} className='link-btn'

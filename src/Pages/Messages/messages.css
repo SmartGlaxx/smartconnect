@@ -1,7 +1,11 @@
 /* Compose */
+.compose{
+    padding-top: 5rem;
+}
 .compose-center{
     padding: var(--section-padding);
     min-height: calc(100vh - 5rem);
+    color: var(--color-7);
 }
 .compose-center-inner{
     display: grid;
@@ -207,6 +211,9 @@
 }
 
 /* Inbox */
+.inbox{
+    padding-top: 5rem;
+}
 .unread-message{
     background: var(--warning-text-2);
     width: 0.6rem;
@@ -231,7 +238,13 @@
 }
 .inbox-center{
     padding: var(--section-padding);
+    min-height: calc(100vh - 5rem);
+    color: var(--color-7);
 }
+.inbox-center-inner{
+    text-align: center;
+}
+
 .all-messages{
     background: var(--background-color-2);
     padding: var(--section-padding);
@@ -387,32 +400,41 @@
   .sendingBox{
       align-items: right;
       position: fixed;
-      bottom: 0;
-      width: calc(100% - 50%);
+      bottom: -0.44rem;
+      width: calc(100% - 50.5%);
       height: auto;
-      padding: 0;
+      padding: 0.5rem;
+      box-sizing: border-box;
+      background: var(--background-color);
   }
 
   .sendingBox-2{
     align-items: right;
     position: fixed;
-    right:25%;
-    bottom: 0;
-    width: calc(100% - 50%);
+    left:25%;
+    bottom: -0.44rem;
+    width: calc(100% - 51%);
     height: auto;
-    padding: 0;
-    z-index: 10
+    padding: 0.5rem;
+    z-index: 10;
+    box-sizing: border-box;
+    background: var(--background-color);
 }
   .chatinput{
-      padding: var(--input-padding);
-      padding-right: 2rem;
+      padding: var(--input-padding5);
+      padding-right: 5.5rem;
       box-sizing: border-box;
       bottom: 0;
       width: 100%;
       height: 100%;
       border-radius: var(--section-border-radius);
-      border: 1px solid var(--color);
+      border: none;
       background: var(--background-color-2);
+      border-radius: 2rem;
+      margin-right: 2rem;
+      color: var(--color-7);
+      font-size: var(--input-font-size);
+      font-weight: 400;
   }
   .chat-reply-input{
     position: relative;
@@ -437,25 +459,32 @@
       right: 0rem;
       padding: 0 0.4rem
   }
-  .chats-container-main{
+  .chat{
     background: var(--background-color); 
+    padding-top: 5rem;
   }
   .observer-container{
-      margin-top: 2rem;
+      /* margin-top: 2rem; */
+      padding-top: 0.3rem;
+      padding-bottom: 5.5rem;
+      height: auto;
+      position: relative;
+      bottom: 0;
+      /* background-color: red; */
   }
 .chat-top{
     text-transform: capitalize;
     display: flex;
     align-items: center;
     /* justify-content: space-between; */
-    position: absolute; 
+    position: fixed; 
     /* margin:20rem; */
     top: 4rem;
     z-index : 3;
     height: auto; 
     font-weight: 600;
     width: 50%;
-    padding: var(--section-padding);
+    /* padding: var(--section-padding-3); */
     box-sizing: border-box;
     background: var(--background-color);
     box-shadow:
@@ -466,8 +495,17 @@
     0px 100px 80px rgba(0, 0, 0, 0.07);
 
 }
+.chat-top-inner{
+    padding: 1rem 1rem ;
+    color: var(--color2);
+    display: flex;
+    align-items: center;
+    width: 100%;
+    text-decoration: none;
+}
 .chats-container{
     height: calc(100vh - 8.5rem);
+    height: auto;
     overflow-y: scroll;
     padding-top: 3rem;
     background: var(--background-color-2);
@@ -479,6 +517,7 @@
 .chatbody{
     text-align: left;
     padding: 0.2rem;
+    font-size: 1rem;
     height: auto;
     /* padding: var(--chat-padding-2); */
     word-wrap: break-word;
@@ -498,12 +537,36 @@
     background: none;
     text-align: center;
 }
+.submit-icon-box{
+    cursor: pointer;
+    width: 1rem;
+}
 .submit-icon{
+    cursor: pointer;
     color: var(--color-7);
-    font-size: var(--icon-size2);
+    font-size: 1.4rem;
+    position: absolute;
+    right: 1.5rem;
+    top: -0.65rem;
     padding: 0rem; 
-    cursor : pointer;
-    margin-right: 0.8rem;
+}
+.submit-icon-2{
+    cursor: pointer;
+    color: var(--color-7);
+    font-size: 1.4rem;
+    position: absolute;
+    right: 2rem;
+    top: 1.5rem;
+    padding: 0rem; 
+}
+.cancel-icon{
+    cursor: pointer;
+    color: var(--color-close);
+    font-size: 1.4rem;
+    position: absolute;
+    right: 4.7rem;
+    top: 1.5rem;
+    padding: 0rem; 
 }
 .msg-img-upload-icon{
     cursor: pointer;
@@ -511,8 +574,8 @@
     color: var(--color-7);
     font-size: 1.4rem;
     position: absolute;
-    right: 3.5rem;
-    top: -1rem;
+    right: 4.5rem;
+    top: -0.75rem;
     padding: 0rem; 
 }
 
@@ -638,7 +701,17 @@
     background : var(--chat-color-5);
     padding: 1rem; 
     min-height: 4rem;
-    box-sizing : border-box
+    box-sizing : border-box;
+    font-size: 0.9rem;
+    color: var(--color2);
+}
+.inbox-mobile-disabled, .compose-mobile-disabled, .chat-mobile-disabled{
+    /* padding-top: 6rem; 
+    top: 5rem; */
+}
+.chat-left, .chat-right, .compose-right, .compose-left{
+  /* display: none; */
+  /* background-color: red;  */
 }
 @media screen and (max-width: 940px){
     .compose-mobile-disabled, .inbox-mobile-disabled, .chat-mobile-disabled{
@@ -649,18 +722,19 @@
     }
 }
 
-/* @media screen and (max-width: 850px){
-    .chat-message-img-preview-box, .message-img-preview-box{
-        width: auto;
+@media screen and (max-width: 932px){
+    .observer-container{
+        height: calc(100vh - 10rem);
     }
     
-} */
+}
+
 @media screen and (max-width: 600px){
     .sendingBox, .sendingBox-2{
         width: 100%;
     }
     .sendingBox-2{
-        right: 0;
+        left: 0;
     }
     .chats-container{
         width: 40%;
@@ -710,6 +784,9 @@
  }
 
 @media screen and (max-width: 400px){
+    .msg-img-upload-icon{
+        right: 4rem; 
+    }
     .compose-center-form{
         width: 100%;
         padding: 0;

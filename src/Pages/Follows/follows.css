@@ -4,6 +4,7 @@
 .follows{
     display: flex;
     color: var(--color-7);
+    padding-top: 5rem;
     
 }
 .follows-left{

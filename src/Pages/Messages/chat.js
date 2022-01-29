@@ -1,6 +1,6 @@
  './messages.css'
 import {useState, useEffect} from 'react'
-import {useParams, Navigate} from "react-router-dom"
+import {Link, useParams, Navigate} from "react-router-dom"
 import axios from 'axios'
 import { FaUserAlt, FaUsers, FaImages, FaHome, FaUser, FaCamera, FaEllipsisH, FaTelegramPlane,
     FaFileImage, FaWindowClose } from 'react-icons/fa'
@@ -412,7 +412,7 @@ useEffect(() => {
 },[chatUserId, chatUserUsername, testValue])
 
 
-if(loggedIn == false || !currentUserParsed._id){
+if(loggedIn == false){
     return <Navigate to='/login' />
 }
 
@@ -430,14 +430,16 @@ if(otherUsername){
         <Topbar />
         <Sidebar />
         <Backdrop />
-        <Grid container className="chats-container-main" >
+        <Grid container className="chat" >
             <Grid item xs={false} sm={3} className='chat-mobile-disabled'>
                 <LeftNavigation />
             </Grid>
             <Grid item xs={12} sm={6} className="chats-container" >
                 <div className = 'chat-top'>
+                <Link to={`/userprofile/${chatUserId}/${chatUserUsername}`} className = 'chat-top-inner'>
                     <img src={profilePicture ? profilePicture : ProfileImage}  className='chat-profile-pic'/>
-                    <div> {`${firstname} ${lastname}`}</div>
+                    <div> {firstname && lastname && `${firstname} ${lastname}`}</div>
+                </Link>
                 </div>
                 <div className='observer-container'>
                 {
@@ -460,10 +462,10 @@ if(otherUsername){
                     onChange={(e)=>selectMessagePic(e, otherUser.id, otherUser.username)}/>}
                     </label>}
                     
-                </form>
-                <div className='send-btn' onClick={sendMessage} onKeyPress={enterClicked}>
+                <div className='submit-icon-box' onClick={sendMessage} onKeyPress={enterClicked}>
                     <FaTelegramPlane className='submit-icon' size='23'/>
                 </div>
+                </form>
             </div>
             </Grid>
          <Grid item xs={false} sm={3} className="chat-right chat-mobile-disabled" >

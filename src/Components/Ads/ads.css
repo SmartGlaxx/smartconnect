@@ -17,11 +17,11 @@
     0px 36.5px 29.2px rgba(0, 0, 0, 0.048),
     0px 100px 80px rgba(0, 0, 0, 0.07);
     position: relative;
-    animation: mymove 150s infinite;
+    animation: mymove 40s infinite;
 }
 @keyframes mymove {
     0% {top: 0;}
-    50% {top: -90rem;}
+    50% {top: -20rem;}
     100% {top: 0;}
   }
 .ad-img-1{

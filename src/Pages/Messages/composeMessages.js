@@ -289,7 +289,7 @@ if(loading || allUsers.length == 0 || !currentUserParsed._id){
     return <Loader />
 }
 
-if(loggedIn == false || !currentUserParsed._id){
+if(loggedIn == false){
     return <Navigate to='/login' />
 }
 
@@ -301,7 +301,7 @@ const {_id : userId , firstname, lastname} = currentUserParsed
         <Topbar />
         <Sidebar />
         <Backdrop />
-        <Grid container>
+        <Grid container className='compose'>
             {postPreviewBox && 
                 <div className='message-img-preview-box'>
                         <div className='message-img-container'>
@@ -335,11 +335,11 @@ const {_id : userId , firstname, lastname} = currentUserParsed
             </Grid>
             <Grid item xs={12} sm={6} md={6} className="compose-center">
             <div className='compose-center-inner'>
-            <h3>Compose Message</h3>
+            <h2>Compose Message</h2>
             
             <form className="compose-center-form">
                 <input type='hidden'  value={username} name='from' className='forminput' /><br />
-                {connections && connections.length > 0 && <div className='name'> <span>From: </span> {`${firstname} ${lastname}`}<br /></div> }
+                {connections && connections.length > 0 && <div className='name'> <span>From: </span> {firstname && lastname && `${firstname} ${lastname}`}<br /></div> }
                 {connections && connections.length > 0 && <div className='name'><span>To: </span> 
                 <input type='text' value={searchValue} onChange={setSearchValueFunc} className='users-search'/>
                 {usersNameValue && <div className='users-list'>
@@ -352,7 +352,7 @@ const {_id : userId , firstname, lastname} = currentUserParsed
                         key = {_id} disabled =  {currentUserParsed.connections && !currentUserParsed.connections.includes(_id)} >
                         <img src={profilePicture ? profilePicture : ProfileImage}  className='search-img'/>
                             <div className= {currentUserParsed.connections && currentUserParsed.connections.includes(_id) ? `search-name` : `search-name-disable`}>
-                                {`${firstname} ${lastname}`}</div>
+                                {firstname && lastname && `${firstname} ${lastname}`}</div>
                         </Button>
                     })
                 }

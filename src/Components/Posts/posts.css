@@ -22,6 +22,12 @@
 .post-top{
     display: flex;
 }
+.post-details-box{
+    display: flex;
+    justify-content: center;
+    text-decoration: none;
+    color: var(--color2)
+}
 .profile-pic{
     min-width: 3rem;
     min-height: 3rem;

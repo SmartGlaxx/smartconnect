@@ -24,7 +24,7 @@ const Search = ()=>{
                 <div className="search-result"> 
                 <div className="search-item-box">
                     <img src={profilePicture ? profilePicture : ProfileImage} className='search-img'/>
-                    <div className="search-results">{`${firstname} ${lastname}`}</div>
+                    <div className="search-results">{firstname && lastname && `${firstname} ${lastname}`}</div>
                 </div>
                 </div>
             </Link>

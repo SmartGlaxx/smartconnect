@@ -128,7 +128,7 @@ if(loading){
                                 <img src={profilePicture ? profilePicture : ProfileImage} 
                                  className="others-img" />
                             </Link>
-                            <div className='others-name'>{`${firstname} ${lastname}`}</div>
+                            <div className='others-name'>{firstname && lastname && `${firstname} ${lastname}`}</div>
                             <form>
                                 <br/>
                                 <button onClick={(e)=>follow(e, id, username)} className='follow-btn'>{ newUserFollowings.includes(allUser._id) ? `Follow` : `Follow`}</button>

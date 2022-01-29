@@ -16,15 +16,15 @@ const LeftNavigation = ()=>{
     const {_id , username, firstname, lastname, profilePicture} = currentUserParsed
     const [showDropdown, setShowDropdown] = useState(false)
 
-    let firstnameCapitalized = '';
-    let lastnameCapitalized = ''
-    if(firstname){
-        firstnameCapitalized = firstname.slice(0,1).toUpperCase().concat(firstname.slice(1).toLowerCase())
-    }
+    // let firstnameCapitalized = '';
+    // let lastnameCapitalized = ''
+    // if(firstname){
+    //     firstnameCapitalized = firstname.slice(0,1).toUpperCase().concat(firstname.slice(1).toLowerCase())
+    // }
 
-    if(lastname){
-        lastnameCapitalized = lastname.slice(0,1).toUpperCase().concat(lastname.slice(1).toLowerCase())
-    }
+    // if(lastname){
+    //     lastnameCapitalized = lastname.slice(0,1).toUpperCase().concat(lastname.slice(1).toLowerCase())
+    // }
 
     const setCloseDropdown = ()=>{
         if(showDropdown ){
@@ -39,7 +39,7 @@ const LeftNavigation = ()=>{
             <Link to={`/userprofile/${_id}/${username}`} className='left-nav'>
             <div  className='left-nav-inner2'> 
             <img src={profilePicture ? profilePicture : ProfileImage } className='left-nav-profile-img' /><br />
-             {`${firstnameCapitalized} ${lastnameCapitalized}`}</div>
+             { firstname && lastname &&`${firstname} ${lastname}`}</div>
             </Link>
             </li>
             <li className='homepage-left-li'>

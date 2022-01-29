@@ -46,6 +46,7 @@
     background: var(--background-color);
     color:var(--color);
     cursor: pointer;
+    text-transform: capitalize;
 }
 .left-nav-inner-active{
     font-size: 1.1rem;

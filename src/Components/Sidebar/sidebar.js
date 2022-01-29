@@ -83,7 +83,7 @@ if(messageNotifications && allUsers){
                     >
                         {/* <FaUserAlt className= {window.location.href.indexOf("userprofile") > -1 ? `icons-active` :`icons`}  size='15'/> */}
                         <img src={profilePicture ? profilePicture : ProfileImage } className='sidebar-profile-img' /><br />
-                        <span className='username1'>{`${firstname} ${lastname}`}</span>
+                        <span className='username1'>{firstname && lastname &&`${firstname} ${lastname}`}</span>
                     </div>
                     </Link>
                     </li>
@@ -168,7 +168,7 @@ if(messageNotifications && allUsers){
                                         const {_id, username, firstname, lastname} = user
                                         return <Link key={_id} to={`/userprofile/${_id}/${username}`} className='notification-link'>
                                                 <div className='notification-btn'>
-                                                    {`${firstname} ${lastname}`}
+                                                    {firstname && lastname &&`${firstname} ${lastname}`}
                                                 </div>
                                             </Link>
                                     })} 
@@ -186,7 +186,7 @@ if(messageNotifications && allUsers){
                                 {messageReceived.slice(0,2).map(user =>{
                                     const {_id, username, firstname, lastname} = user
                                     return <Link to={`/userprofile/${_id}/${username}`} className='notification-link'>
-                                        <div key={_id} className='notification-btn'>{`${firstname} ${lastname}`}</div>
+                                        <div key={_id} className='notification-btn'>{firstname && lastname && `${firstname} ${lastname}`}</div>
                                     </Link>
                                 })}
                                 </div>

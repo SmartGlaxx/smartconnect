@@ -205,7 +205,7 @@ const commentUpdate = async(e)=>{
                 </Typography>
             </Popover>
          <img src={profilePicture ? profilePicture : ProfileImage}  className='comment-pic'/>
-        <div className='comment-username'>{`${firstname} ${lastname}`}</div>
+        <div className='comment-username'>{firstname && lastname && `${firstname} ${lastname}`}</div>
         <div className='comment'>{userComment}</div>
         <TimeAgo datetime={createdAt} locale='en_US' className='comment-timeago'/>
         {

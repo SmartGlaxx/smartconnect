@@ -254,7 +254,7 @@ let userConnections = currentUserParsed.connections ? currentUserParsed.connecti
         }
         })        
 
-if(loggedIn == false || !currentUserParsed._id){
+if(loggedIn == false){
     return <Navigate to='/login' />
 }
 
@@ -287,7 +287,7 @@ if(loading || allUsers.length == 0){
                             <Link to={`/userprofile/${allUser._id}/${username}`} onClick={()=>setUserClicked(!userClicked)}>
                                 <img src={profilePicture ? profilePicture : ProfileImage} alt={firstname} className="connections-img"/>
                             </Link>
-                            <div className='connections-name'>{`${firstname} ${lastname}`}</div>
+                            <div className='connections-name'>{firstname && lastname && `${firstname} ${lastname}`}</div>
                             <form>
                                 <br/>
                                 {/* {
@@ -320,7 +320,7 @@ if(loading || allUsers.length == 0){
                             <Link to={`/userprofile/${allUser._id}/${username}`} onClick={()=>setUserClicked(!userClicked)}>
                                 <img src={profilePicture ? profilePicture : ProfileImage} alt={username} className="connections-img"/>
                             </Link>
-                            <div className='connections-name'>{`${firstname} ${lastname}`}</div>
+                            <div className='connections-name'>{firstname && lastname && `${firstname} ${lastname}`}</div>
                             <form>
                                 <br/>
                                 <div className='connect-response'>
@@ -351,7 +351,7 @@ if(loading || allUsers.length == 0){
                             <Link to={`/userprofile/${allUser._id}/${username}`} onClick={()=>setUserClicked(!userClicked)}>
                                 <img src={profilePicture ? profilePicture : ProfileImage} alt={username} className="connections-img"/>
                             </Link>
-                            <div className='connections-name'>{`${firstname} ${lastname}`}</div>
+                            <div className='connections-name'>{firstname && lastname && `${firstname} ${lastname}`}</div>
                             <form>
                                 <br/>
                                 <button onClick={(e)=>connectRequest(e, id, username)} className='connect-btn'>
@@ -377,7 +377,7 @@ if(loading || allUsers.length == 0){
                             <Link to={`/userprofile/${allUser._id}/${username}`} onClick={()=>setUserClicked(!userClicked)}>
                                 <img src={profilePicture ? profilePicture : ProfileImage} alt={username} className="connections-img"/>
                             </Link>
-                            <div className='connections-name'>{`${firstname} ${lastname}`}</div>
+                            <div className='connections-name'>{firstname && lastname && `${firstname} ${lastname}`}</div>
                             <form>
                                 <br/>
                                 <button onClick={(e)=>disconnectRequest(e, id, username)} className='connect-btn'>

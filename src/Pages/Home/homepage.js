@@ -285,7 +285,7 @@ if(loading || allUsers.length == 0){
     return <Loader />
 }
 
-if(loggedIn == false || !currentUserParsed._id){
+if(loggedIn == false){
     return <Navigate to='/login' />
 }
 
