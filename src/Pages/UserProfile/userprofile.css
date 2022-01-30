@@ -3,7 +3,50 @@
     /* padding: var(--section-padding); */
     background : var(--background-color-2)
 }
-
+.editprofile-box{
+    height : auto;
+    width: 100vw;
+    top: 0%;
+    left: 0%;
+    right: 0%;
+    /* bottom: 0%; */
+    background: none;
+    position:absolute;
+    background-position: fixed;
+    z-index:4;
+    padding: 4rem 20rem;
+    box-sizing: border-box;
+    overflow: auto;
+}
+.editprofile-box-inner{
+    width: auto;
+    height: 100%;
+    padding: var(--section-padding);
+    /* padding : 2rem 0%; */
+    box-sizing: content-box;
+    background: var(--background-color);
+    box-shadow:
+    0.6px 2.8px 2.2px rgba(0, 0, 0, 0.056),
+    1.5px 6.7px 5.3px rgba(0, 0, 0, 0.081),
+    2.8px 12.5px 10px rgba(0, 0, 0, 0.1),
+    4.9px 22.3px 17.9px rgba(0, 0, 0, 0.119),
+    9.2px 41.8px 33.4px rgba(0, 0, 0, 0.144),
+    22px 100px 80px rgba(0, 0, 0, 0.2);
+}
+.edituser-input{
+    border: 1px solid var(--color2);
+    width: 67%;
+    margin: 0.5rem 1rem;
+    padding: var(--input-padding2);
+    border-radius: 0.4rem;
+}
+.show-password{
+    display: flex;
+    justify-content: space-between;
+    width:70%;
+    margin: 1rem 0;
+    cursor: pointer;
+}
 .profile{
     display: flex;
     color: var(--color4);
@@ -542,6 +585,9 @@
     .other-userbtn2{
         margin-top: -2rem;
     }
+    .editprofile-box{
+        padding: 4rem 10rem;
+    }
 }
 @media screen and (max-width : 959px){
     .profile-center-inner-right{
@@ -557,6 +603,14 @@
     .profile-summary{
     transform: translateX(5vw);
  }
+ .editprofile-box{
+     margin-top: 4rem;
+     height: auto;
+     padding: 0;
+ }
+ /* .editprofile-box-inner{
+    width: auto;
+ } */
 }
 @media screen and (max-width : 650px){
     .cover-img-preview-box, .profile-img-preview-box{

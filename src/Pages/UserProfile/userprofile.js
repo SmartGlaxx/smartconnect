@@ -4,7 +4,7 @@ import './userprofile.css'
 import axios from 'axios'
 import { Grid } from '@material-ui/core'
 import { FaUserAlt, FaUsers, FaImages, FaExclamationCircle, FaHome, FaUser, FaCamera,
-    FaTelegramPlane, FaEllipsisH, FaWindowClose } from 'react-icons/fa'
+    FaTelegramPlane, FaEllipsisH, FaWindowClose, FaChevronCircleDown } from 'react-icons/fa'
 import {Topbar, Sidebar, Backdrop, Posts} from '../../Components';
 import { UseAppContext } from '../../Contexts/app-context'
 import {Link, useNavigate} from 'react-router-dom'
@@ -17,7 +17,7 @@ import ProfileImage from '../../assets/profile.jpg'
 import CoverImage from '../../assets/coverpic.jpg'
 import Button from '@restart/ui/esm/Button'
 import Profile from "../../assets/profile.jfif"
-import { Timeline } from '@material-ui/icons'
+import { Timeline, Update } from '@material-ui/icons'
 
 import { makeStyles } from '@material-ui/core/styles';
 import Popover from '@material-ui/core/Popover';
@@ -30,6 +30,7 @@ const {loggedIn, setLoading, loading, setLazyLoading, lazyLoading, currentUser, 
     fetchedUser, setTestValue, testValue} = UseAppContext()
 const [formValue, setFormValue] = useState('')
 const [error, setError] = useState({status : false, msg:''})
+// const [alert, setAlert] = useState({status : false, msg:''})
 const {_id : userId, username : userUsername, firstname, lastname, followings, followers, 
     profilePicture : userProfilePicture, coverPicture : userCoverPicture} = fetchedUser
 // const {profilePicture : userProfilePicture, coverPicture : userCoverPicture} = currentUserParsed
@@ -53,7 +54,24 @@ const [postPicturePreview, setPostPicturePreview] = useState('')
 const [coverPreviewBox, setCoverPreviewBox] = useState(false)
 const [profilePreviewBox, setProfilePreviewBox] = useState(false)
 const [postPreviewBox, setPostPreviewBox] = useState(false)
-
+const [userEditBox, setUserEditBox] = useState(false)
+const [showPasswordBox, setShowPasswordBox] = useState(false)
+const [editUserValues, setEditUserValues] = useState({
+    firstname : currentUserParsed.firstname,
+    lastname : currentUserParsed.lastname,
+    username : currentUserParsed.username,
+    email : currentUserParsed.email,
+    oldpassword : "",
+    newpassword : "",
+    comfirmpassword : "",
+    phone : currentUserParsed.phone,
+    aboutme : currentUserParsed.aboutMe,
+    country : currentUserParsed.country,
+    state : currentUserParsed.state,
+    city : currentUserParsed.city,
+    employment : currentUserParsed.employment    
+})
+console.log(editUserValues)
 // const [imageValue, setProfilePicture] = useState('')
 
 //pagination constants
@@ -105,6 +123,64 @@ const popOverId = open ? 'simple-popover' : undefined;
 
     //Popover ends
 
+
+//edit user 
+const openEditBox=()=>{
+    setUserEditBox(true)
+}
+
+const showPasswordBoxFunc =()=>{
+    setShowPasswordBox(!showPasswordBox)
+}
+
+const setEditValues =(e)=>{
+    const name = e.target.name;
+    const value = e.target.value;
+
+    setEditUserValues(prev =>{
+        return {...prev, [name]: value}
+    })
+}
+
+const updateUser = async(e)=>{
+    e.preventDefault()
+    const {firstname, lastname, oldpassword, newpassword, comfirmpassword,
+        phone, aboutme, country, state, city, employment} = editUserValues
+        const {_id, username, email} = currentUserParsed
+        if(newpassword != comfirmpassword){
+            return setError({status : true, msg : "Password comfirmation mismatch"})
+        }
+            const options ={
+                url : `https://smart-job-search.herokuapp.com/api/v1/user/update/${_id}/${username}`,
+                method : "PATCH",
+                headers : {
+                   "Accept" : "Application/json",
+                   "Content-Type" : "Application/json;charset=utf-8"
+                },
+                data :{
+                    userId : _id,
+                    firstname : firstname,
+                    lastname : lastname,
+                    username : username,
+                    email : email,
+                    password : oldpassword,
+                    newpassword : newpassword,
+                    phone : phone,
+                    aboutMe : aboutme,
+                    country : country,
+                    state : state,
+                    city : city,
+                    employment : employment,
+                }
+            }
+            const result = await axios(options)
+            const {response} = result.data
+            if(response == 'Success'){
+                setAlertMsg({status : true, msg : "Profile updated"})
+            }else{
+                setError({status : true, msg : "Failed to update post"})
+            }        
+}
 
 
 //upload cover image and return url 
@@ -707,33 +783,49 @@ const usernameCapitalized = firstLetter.toUpperCase() + otherLettes
     <Backdrop />
     <Grid className='profile' container > 
         <Grid className='profile-left-border' item xs={false} sm={1} ></Grid> 
+        {userEditBox && <div className='editprofile-box' >
+            <div className='editprofile-box-inner' >
+            <Grid container>
+                <Grid item xs={12} sm={12} md={6} >
+                    <div>
+                    First name: <br /><input type='text' name='firstname' className='edituser-input' value={editUserValues.firstname} onChange={setEditValues} /><br />
+                    Last name: <br /><input type='text' name='lastname' className='edituser-input' value={editUserValues.lastname} onChange={setEditValues} /><br />
+                    Username: <br /><input type='text' name='username' className='edituser-input' value={editUserValues.username} disabled /><br />
+                    Email: <br /><input type='text' name='email' className='edituser-input' value={editUserValues.email} disabled/><br />
+                    Phone: <br /><input type='text' name='phone' className='edituser-input' value={editUserValues.phone} onChange={setEditValues} /><br />
+                    </div>
+                </Grid>
+                <Grid item xs={12} sm={12} md={6} >
+                About Me: <br /><input type='text' name='aboutme' className='edituser-input' value={editUserValues.aboutme} onChange={setEditValues} /><br />
+                Country: <br /><input type='text' name='country'className='edituser-input'  value={editUserValues.country} onChange={setEditValues} /><br />
+                State / Province: <br /><input type='text' name='state' className='edituser-input' value={editUserValues.state} onChange={setEditValues} /><br />
+                City: <br /><input type='text' name='city'className='edituser-input'  value={editUserValues.city} onChange={setEditValues} /><br />
+                Occupation: <br /><input type='text' name='employment' className='edituser-input' value={editUserValues.employment} onChange={setEditValues} /><br />
+                </Grid>
+            </Grid>
+            <Grid container>
+                <Grid item xs={12} sm={12} md={6} >
+                <div className='show-password' onClick={showPasswordBoxFunc}>
+                    <div>Change Password?</div>
+                    <FaChevronCircleDown />
+                </div>
+                {showPasswordBox && <div>
+                    Old Password: <br /><input type='text' name='oldpassword' className='edituser-input' value={editUserValues.oldpassword} onChange={setEditValues} /><br />
+                    New Password: <br /><input type='text' name='newpassword' className='edituser-input' value={editUserValues.newpassword} onChange={setEditValues} /><br />
+                    Comfirm Password: <br /><input type='text' name='comfirmpassword' className='edituser-input' value={editUserValues.comfirmpassword} onChange={setEditValues} /><br />
+                </div>}
+                </Grid>
+            </Grid>
+            <Button onClick={updateUser} >Update</Button>
+            </div>
+        </div>}
         
         <Grid className='profile-center'item xs={12} sm={10} container>
             
             <Grid className='profile-center-left' item sm={false} md={1} ></Grid>
             
             <Grid className='profile-top'  item xs={12}> 
-                {/* <img src = {CoverImage} alt='Cover Image' className='cover-image'/> */}
                 { <img src={userCoverPicture ? userCoverPicture : CoverImage} alt='Cover Image' className='cover-image' />}
-                {/* {coverPreviewBox && 
-                    <div className='cover-img-preview-box'>
-                        <img src={coverPicturePreview} alt='Error loading preview' className='post-img-preview'/>
-                        <div className='preview-bottom'>
-                            <div className='homepage-center-input-item-2' onClick={()=>setCoverPreviewBox(false)} >
-                            <FaWindowClose  className='homepage-center-input-icon-close' size='25' />
-                            <span className='picture-name'>
-                                Cancel
-                            </span>
-                            </div>
-                            <div className='homepage-center-input-item-2' onClick={()=>uploadCoverPicture(profileImage)}>
-                            <FaTelegramPlane  className='homepage-center-post-icon' size='25' />
-                            <span className='picture-name'>
-                                Post
-                            </span>
-                            </div>
-                        </div>
-                        </div>  
-                    } */}
                 <form className="cover-label-box" enctype="multipart/form-data">
                         {idCurrent == userId && usernameCurrent == userUsername && <label htmlFor='coverPicture'  >
                             <div className="cover-label-box-inner" > 
@@ -742,30 +834,10 @@ const usernameCapitalized = firstLetter.toUpperCase() + otherLettes
                         {!coverImage &&<input id='coverPicture' type='file' name='coverPic' className='homepage-center-input2' 
                         onChange={selectCoverPic}/>}
                         </label>}
-                        {/* <button className='post-btn' onClick={submit}>Post</button> */}
                     </form>
                 <Grid className='profile-img-box' container>
                 <Grid item xs={12} sm={3}>
                    { <img src={userProfilePicture ? userProfilePicture : ProfileImage} alt='Profile Image' className='profile-img' />}
-                    {/* {profilePreviewBox && 
-                        <div className='profile-img-preview-box'>
-                        <img src={profilePicturePreview} alt='Error loading preview' className='post-img-preview'/>
-                        <div className='preview-bottom'>
-                            <div className='homepage-center-input-item-2' onClick={()=>setProfilePreviewBox(false)} >
-                            <FaWindowClose  className='homepage-center-input-icon-close' size='25' />
-                            <span className='picture-name'>
-                                Cancel
-                            </span>
-                            </div>
-                            <div className='homepage-center-input-item-2' onClick={()=>uploadProfilePicture(profileImage)}>
-                            <FaTelegramPlane  className='homepage-center-post-icon' size='25' />
-                            <span className='picture-name'>
-                                Post
-                            </span>
-                            </div>
-                        </div>
-                        </div>     
-                    } */}
                     <form className="profile-label-box" enctype="multipart/form-data">
                         {idCurrent == userId && usernameCurrent == userUsername && <label htmlFor='profilePicture'  >
                             <div className="profile-label-box-inner">
@@ -774,7 +846,6 @@ const usernameCapitalized = firstLetter.toUpperCase() + otherLettes
                         {!profileImage && <input id='profilePicture' type='file' name='profilePic' className='homepage-center-input2' 
                         onChange={selectProfilePic}/>}
                         </label>}
-                        {/* <button className='post-btn' onClick={submit}>Post</button> */}
                     </form>
                     <div className='profile-summary-desktop'>
                         <h1 className='username'>{firstname && lastname && `${firstname} ${lastname}`}</h1>
@@ -792,7 +863,7 @@ const usernameCapitalized = firstLetter.toUpperCase() + otherLettes
                 <Grid className='btn-box' item xs={12} sm={4}>
                     
                 { idCurrent == userId && usernameCurrent == userUsername ?
-                    <Button className='btn'>Edit Profile</Button> : 
+                    <Button className='btn' onClick={openEditBox}>Edit Profile</Button> : 
                     <>
                     <div className='other-userbtn1'>
                         <Button aria-describedby={popOverId} className='user-options' variant="contained" color="primary" onClick={handleClick}>
@@ -961,11 +1032,6 @@ const usernameCapitalized = firstLetter.toUpperCase() + otherLettes
                                 <img src={profilePicture ? profilePicture : ProfileImage}  className="follow-img" />
                             </Link>
                             <div className='profile-follow-name'>{firstname && lastname && `${firstname} ${lastname}`}</div>
-                            {/* <form>
-                                <br/>
-                                <button onClick={(e)=>unfollow(e, id, username)} className='follow-btn'>
-                                    {newUserFollowings  && newUserFollowings.includes(allUser._id) ? `Unfollow` : `Follow`}</button>
-                            </form> */}
                         </div>
                      }
                 })
@@ -1048,7 +1114,12 @@ const usernameCapitalized = firstLetter.toUpperCase() + otherLettes
             { idCurrent == userId && usernameCurrent == userUsername &&
             <div className='profile-center-top' >
                 <div className='profile-center-top-inner'>
-                { <img src={userProfilePicture ? userProfilePicture : ProfileImage} alt='Profile Image' className='profile-img-2' />}
+                { 
+                <Link to={`/userprofile/${id}/${username}`}>
+                    <img src={userProfilePicture ? userProfilePicture : ProfileImage} alt='Profile Image' className='profile-img-2' />
+                </Link>
+                
+                }
                     <input type='hidden' name='userId' />
                     <input type='hidden'  name='username'/>
                      <input type='text' name='post-input' placeholder='Make a post' className='profile-center-input' 

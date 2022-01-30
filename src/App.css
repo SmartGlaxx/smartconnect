@@ -83,6 +83,7 @@
     --page-title1 : 2rem;
     --page-title2 : 1.5rem;
     --preview-background : gray;
+    --preview-background2 : rgba(128, 128, 128, 0.959);
     --ad-background : rgba(124, 124, 177, 0.26);
     /* --scrollbar-track : #c5c5c5; */
     --scrollbar-track : #f4f4f4;
