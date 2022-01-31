@@ -36,16 +36,55 @@
 .edituser-input{
     border: 1px solid var(--color2);
     width: 67%;
-    margin: 0.5rem 1rem;
+    margin: 0.3rem 1rem;
+    display: flex;
+    flex-grow: 1;
     padding: var(--input-padding2);
     border-radius: 0.4rem;
 }
 .show-password{
     display: flex;
     justify-content: space-between;
-    width:70%;
+    width: 67%;
+    padding: 0.3rem 2rem;;
     margin: 1rem 0;
     cursor: pointer;
+    margin: 0.5rem 1rem;
+    border-radius: 0.4rem;
+    color: var(--color3);
+    background: var(--color2);
+}
+.close-useredit{
+    float:right;
+    color : var(--color-close);
+    cursor: pointer;
+}
+.update-btn-box{
+    /* width: 50%; */
+    /* background-color: red; */
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    justify-content: space-between;
+}
+.required{
+    color : var(--warning-text-2)
+}
+.update-user-btn1{
+    cursor: pointer;
+    margin-right: 0.4rem;
+    color: var(--color2);
+    padding: var(--btn-padding);
+    border-radius: 0.3rem;
+    border : 1px solid var(--color2);
+}
+.update-user-btn2{
+    cursor: pointer;
+    margin-right: 0.4rem;
+    color: var(--color-close);
+    padding: var(--btn-padding);
+    border-radius: 0.3rem;
+    border : 1px solid var(--color-close);
 }
 .profile{
     display: flex;
@@ -571,7 +610,14 @@
 }
 
 .pic-upload-btn{
-    /* margin-top: 35%; */
+    /* margin-top: -10%; */
+    position:relative;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+.user-pic-upload-btn{
+    margin-top: -15%;
     position:relative;
     display: flex;
     width: 100%;
@@ -609,7 +655,7 @@
      padding: 0;
  }
  /* .editprofile-box-inner{
-    width: auto;
+    box-shadow: 40px 40px 40px black
  } */
 }
 @media screen and (max-width : 650px){

@@ -32,8 +32,9 @@ const [formValue, setFormValue] = useState('')
 const [error, setError] = useState({status : false, msg:''})
 // const [alert, setAlert] = useState({status : false, msg:''})
 const {_id : userId, username : userUsername, firstname, lastname, followings, followers, 
-    profilePicture : userProfilePicture, coverPicture : userCoverPicture} = fetchedUser
-// const {profilePicture : userProfilePicture, coverPicture : userCoverPicture} = currentUserParsed
+    profilePicture : userProfilePicture, coverPicture : userCoverPicture, email, phone, 
+    aboutMe, country, state, city, employment} = fetchedUser
+
 const [alertMsg, setAlertMsg] = useState({status : false, msg : ''})
 const followurl = 'https://smart-job-search.herokuapp.com/api/v1/user/follow'
 const unFollowurl = 'https://smart-job-search.herokuapp.com/api/v1/user/unfollow'
@@ -57,21 +58,21 @@ const [postPreviewBox, setPostPreviewBox] = useState(false)
 const [userEditBox, setUserEditBox] = useState(false)
 const [showPasswordBox, setShowPasswordBox] = useState(false)
 const [editUserValues, setEditUserValues] = useState({
-    firstname : currentUserParsed.firstname,
-    lastname : currentUserParsed.lastname,
-    username : currentUserParsed.username,
-    email : currentUserParsed.email,
+    firstname : "",
+    lastname : "",
+    username : "",
+    email : "",
     oldpassword : "",
     newpassword : "",
     comfirmpassword : "",
-    phone : currentUserParsed.phone,
-    aboutme : currentUserParsed.aboutMe,
-    country : currentUserParsed.country,
-    state : currentUserParsed.state,
-    city : currentUserParsed.city,
-    employment : currentUserParsed.employment    
+    phone : "",
+    aboutme : "",
+    country : "",
+    state : "",
+    city : "",
+    employment : ""    
 })
-console.log(editUserValues)
+
 // const [imageValue, setProfilePicture] = useState('')
 
 //pagination constants
@@ -123,6 +124,10 @@ const popOverId = open ? 'simple-popover' : undefined;
 
     //Popover ends
 
+//close edit user  
+const closeEditBox = ()=>{
+    setUserEditBox(false)
+}
 
 //edit user 
 const openEditBox=()=>{
@@ -142,15 +147,78 @@ const setEditValues =(e)=>{
     })
 }
 
+//fill edit user input values on page load
+useEffect(()=>{
+    setEditUserValues({
+        firstname : currentUserParsed.firstname,
+        lastname : currentUserParsed.lastname,
+        username : currentUserParsed.username,
+        email : currentUserParsed.email,
+        oldpassword : "",
+        newpassword : "",
+        comfirmpassword : "",
+        phone : currentUserParsed.phone,
+        aboutme : currentUserParsed.aboutMe,
+        country : currentUserParsed.country,
+        state : currentUserParsed.state,
+        city : currentUserParsed.city,
+        employment : currentUserParsed.employment 
+    })
+},[currentUserParsed])
+
+const setResponseData =()=>{
+    closeEditBox(false)
+    setAlertMsg({status : true, msg : "Profile updated"})
+}
+
 const updateUser = async(e)=>{
     e.preventDefault()
     const {firstname, lastname, oldpassword, newpassword, comfirmpassword,
         phone, aboutme, country, state, city, employment} = editUserValues
         const {_id, username, email} = currentUserParsed
-        if(newpassword != comfirmpassword){
-            return setError({status : true, msg : "Password comfirmation mismatch"})
+
+        if(!firstname || !lastname || !oldpassword || !newpassword || !comfirmpassword || !phone || !aboutme || !country || !state || !city || !employment){
+            return setAlertMsg({status : true, msg : "Please provide all required fields"})
         }
-            const options ={
+
+        if(newpassword.length && comfirmpassword.length){
+            if(newpassword != comfirmpassword){
+                return setError({status : true, msg : "Password comfirmation mismatch"})
+            }
+                const options ={
+                    url : `https://smart-job-search.herokuapp.com/api/v1/user/update/${_id}/${username}`,
+                    method : "PATCH",
+                    headers : {
+                       "Accept" : "Application/json",
+                       "Content-Type" : "Application/json;charset=utf-8"
+                    },
+                    data :{
+                        userId : _id,
+                        firstname : firstname,
+                        lastname : lastname,
+                        username : username,
+                        email : email,
+                        password : oldpassword,
+                        newpassword : newpassword,
+                        phone : phone,
+                        aboutMe : aboutme,
+                        country : country,
+                        state : state,
+                        city : city,
+                        employment : employment,
+                    }
+                }
+                const result = await axios(options)
+                console.log(options)
+                const {response} = result.data
+                console.log(response)
+                if(response == 'Success'){
+                    setResponseData(true, "Profile updated")
+                }else{
+                    setError({status : true, msg : "Failed to update post"})
+                } 
+        }else{
+                const options ={
                 url : `https://smart-job-search.herokuapp.com/api/v1/user/update/${_id}/${username}`,
                 method : "PATCH",
                 headers : {
@@ -163,8 +231,6 @@ const updateUser = async(e)=>{
                     lastname : lastname,
                     username : username,
                     email : email,
-                    password : oldpassword,
-                    newpassword : newpassword,
                     phone : phone,
                     aboutMe : aboutme,
                     country : country,
@@ -174,12 +240,15 @@ const updateUser = async(e)=>{
                 }
             }
             const result = await axios(options)
+            console.log(options)
             const {response} = result.data
+            console.log(response)
             if(response == 'Success'){
-                setAlertMsg({status : true, msg : "Profile updated"})
+                setResponseData(true, "Profile updated")
             }else{
                 setError({status : true, msg : "Failed to update post"})
             }        
+        }
 }
 
 
@@ -783,31 +852,30 @@ const usernameCapitalized = firstLetter.toUpperCase() + otherLettes
     <Backdrop />
     <Grid className='profile' container > 
         <Grid className='profile-left-border' item xs={false} sm={1} ></Grid> 
-        {userEditBox && <div className='editprofile-box' >
+        {userEditBox && currentUserParsed &&<div className='editprofile-box' >
             <div className='editprofile-box-inner' >
+                <FaWindowClose size='23' className='close-useredit' onClick={closeEditBox} />
             <Grid container>
                 <Grid item xs={12} sm={12} md={6} >
-                    <div>
-                    First name: <br /><input type='text' name='firstname' className='edituser-input' value={editUserValues.firstname} onChange={setEditValues} /><br />
-                    Last name: <br /><input type='text' name='lastname' className='edituser-input' value={editUserValues.lastname} onChange={setEditValues} /><br />
-                    Username: <br /><input type='text' name='username' className='edituser-input' value={editUserValues.username} disabled /><br />
-                    Email: <br /><input type='text' name='email' className='edituser-input' value={editUserValues.email} disabled/><br />
-                    Phone: <br /><input type='text' name='phone' className='edituser-input' value={editUserValues.phone} onChange={setEditValues} /><br />
-                    </div>
+                    First name: <span className='required'>*</span> <br /><input type='text' name='firstname' className='edituser-input' value={editUserValues.firstname} onChange={setEditValues} /><br />
+                    Last name: <span className='required'>*</span> <br /><input type='text' name='lastname' className='edituser-input' value={editUserValues.lastname} onChange={setEditValues} /><br />
+                    Username: <span className='required'>*</span><br /><input type='text' name='username' className='edituser-input' value={editUserValues.username} disabled /><br />
+                    Email: <span className='required'>*</span><br /><input type='text' name='email' className='edituser-input' value={editUserValues.email} disabled/><br />
+                    Phone: <span className='required'>*</span><br /><input type='text' name='phone' className='edituser-input' value={editUserValues.phone} onChange={setEditValues} /><br />
                 </Grid>
                 <Grid item xs={12} sm={12} md={6} >
-                About Me: <br /><input type='text' name='aboutme' className='edituser-input' value={editUserValues.aboutme} onChange={setEditValues} /><br />
-                Country: <br /><input type='text' name='country'className='edituser-input'  value={editUserValues.country} onChange={setEditValues} /><br />
-                State / Province: <br /><input type='text' name='state' className='edituser-input' value={editUserValues.state} onChange={setEditValues} /><br />
-                City: <br /><input type='text' name='city'className='edituser-input'  value={editUserValues.city} onChange={setEditValues} /><br />
-                Occupation: <br /><input type='text' name='employment' className='edituser-input' value={editUserValues.employment} onChange={setEditValues} /><br />
+                    About Me: <span className='required'>*</span><br /><input type='text' name='aboutme' className='edituser-input' value={editUserValues.aboutme} onChange={setEditValues} /><br />
+                    Country: <span className='required'>*</span><br /><input type='text' name='country'className='edituser-input'  value={editUserValues.country} onChange={setEditValues} /><br />
+                    State / Province: <span className='required'>*</span><br /><input type='text' name='state' className='edituser-input' value={editUserValues.state} onChange={setEditValues} /><br />
+                    City: <span className='required'>*</span><br /><input type='text' name='city'className='edituser-input'  value={editUserValues.city} onChange={setEditValues} /><br />
+                    Occupation: <span className='required'>*</span><br /><input type='text' name='employment' className='edituser-input' value={editUserValues.employment} onChange={setEditValues} /><br />
                 </Grid>
             </Grid>
             <Grid container>
                 <Grid item xs={12} sm={12} md={6} >
                 <div className='show-password' onClick={showPasswordBoxFunc}>
                     <div>Change Password?</div>
-                    <FaChevronCircleDown />
+                    <FaChevronCircleDown size='15'/>
                 </div>
                 {showPasswordBox && <div>
                     Old Password: <br /><input type='text' name='oldpassword' className='edituser-input' value={editUserValues.oldpassword} onChange={setEditValues} /><br />
@@ -816,7 +884,10 @@ const usernameCapitalized = firstLetter.toUpperCase() + otherLettes
                 </div>}
                 </Grid>
             </Grid>
-            <Button onClick={updateUser} >Update</Button>
+            <div className='update-btn-box'>
+                <button onClick={updateUser} className='update-user-btn1' size='25'>Update</button>
+                <button onClick={closeEditBox} className='update-user-btn2' size='25'>Cancel</button>
+            </div>
             </div>
         </div>}
         
@@ -945,7 +1016,7 @@ const usernameCapitalized = firstLetter.toUpperCase() + otherLettes
                     <div className='cover-img-container'>
                         <img src={coverPicturePreview} alt='Error loading preview' className='cover-img-preview'/>
                     </div>
-                    <div className='pic-upload-btn'>
+                    <div className='user-pic-upload-btn'>
                         <div className='homepage-center-input-item-2' onClick={()=>setCoverCancelValues(false)} >
                         <FaWindowClose  className='homepage-center-input-icon-close' size='25' />
                         <span className='picture-name'>
@@ -967,7 +1038,7 @@ const usernameCapitalized = firstLetter.toUpperCase() + otherLettes
                     <div className='profile-img-container'>
                         <img src={profilePicturePreview} alt='Error loading preview' className='profile-img-preview'/>
                     </div>
-                    <div className='pic-upload-btn'>
+                    <div className='user-pic-upload-btn'>
                         <div className='homepage-center-input-item-2' onClick={()=>setProfileCancelValues(false)} >
                         <FaWindowClose  className='homepage-center-input-icon-close' size='25' />
                         <span className='picture-name'>
@@ -996,18 +1067,18 @@ const usernameCapitalized = firstLetter.toUpperCase() + otherLettes
             <div className='profile-center-inner-left-1' >
                 <div className='profile-center-inner-left-2'>
                     <h3>My Bio</h3>
-                    <h4>Description here</h4>
-                    { idCurrent == userId && usernameCurrent == userUsername &&
-                     <><Button className='bio-btn'>Edit Bio</Button><br/></>
-                    }
+                    <h4>{aboutMe}</h4>
                     <div className='icons-box'>
-                        <FaHome className='icons'/> Lives in  City here
+                        <FaHome className='icons'/> Lives in {city}, {state}, {country}
                     </div>
                     <div className='icons-box'>
-                        <FaUser className='icons'/> A brife descrption headers
+                        <FaUsers className='icons'/>Working as: {employment}
                     </div>
                     <div className='icons-box'>
-                        <FaUsers className='icons'/> Followed by {followers.length} users
+                        <FaUsers className='icons'/>Phone: {phone}
+                    </div>
+                    <div className='icons-box'>
+                        <FaUsers className='icons'/>Email: {email}
                     </div>
                 </div>   
               <hr className='profile-center-top-hr' />
