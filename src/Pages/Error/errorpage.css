@@ -11,7 +11,7 @@
     height: 100%
 }
 .errorpage-right{
-    background-color: var( --background-color-9 );
+    /* background-color: var( --background-color-9 ); */
     color: var(--color3);
     display: grid;
     place-content: center;
