@@ -621,6 +621,7 @@
     position:relative;
     display: flex;
     width: 100%;
+    background: var(--preview-background);
     justify-content: space-between;
 }
 .upload-title{
