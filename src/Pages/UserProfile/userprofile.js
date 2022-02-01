@@ -831,11 +831,12 @@ useEffect(() => {
     window.scrollTo(0, 0)
   }, [])
  
-if(loggedIn == false){
+if(loggedIn == "false"){
     return <Navigate to='/login' />
 }
+
 // console.log(timeline)
-if(loading || allUsers.length == 0 || !username && !timelineposts || !fetchedUser.followings){
+if(loading || allUsers.length == 0 || !username && !timelineposts || !fetchedUser.followings || !currentUserParsed._id){
     return <Loader />
 }
 

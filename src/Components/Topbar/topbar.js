@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Popover from '@material-ui/core/Popover';
 import Typography from '@material-ui/core/Typography';
 import {Button, Divider} from '@material-ui/core';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import './topbar.css'
 import { Grid } from '@material-ui/core'
 import {FaSearch, FaHome, FaPeopleArrows, FaRegClock, FaUserFriends, FaEnvelope, FaUserAlt,
@@ -98,6 +98,7 @@ const Topbar =()=>{
      const setLoginValues =(value, loginData)=>{
         setCurrentUser(loginData)
         setLoggedIn(value)
+        window.location.href = '/login'
     }
 
   const setSearchTerm = (e)=>{

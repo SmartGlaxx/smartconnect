@@ -92,7 +92,7 @@ useEffect(()=>{
     setTestValue(!testValue)
 },[])
 
-if(loggedIn == false){
+if(loggedIn == "false"){
     return <Navigate to='/login' />
 }
 

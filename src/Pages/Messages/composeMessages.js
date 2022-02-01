@@ -285,13 +285,14 @@ if(usersFoundValues){
 }
 },[searchValue])
 
+if(loggedIn == "false"){
+    return <Navigate to='/login' />
+}
+
 if(loading || allUsers.length == 0 || !currentUserParsed._id){
     return <Loader />
 }
 
-if(loggedIn == false){
-    return <Navigate to='/login' />
-}
 
 const {_id : userId , firstname, lastname} = currentUserParsed
 

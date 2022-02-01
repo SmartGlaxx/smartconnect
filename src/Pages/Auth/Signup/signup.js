@@ -137,7 +137,8 @@ const Signup =()=>{
            <LoadingIcons.Puff       stroke="#555" strokeOpacity={.9} />
        </div>
     }
-    
+  
+    //particles js  
     const particlesInit = (main) => {
       console.log(main);
   

@@ -51,6 +51,7 @@ const setCloseDropdown = ()=>{
 const setLoginValues =(value, loginData)=>{
     setCurrentUser(loginData)
     setLoggedIn(value)
+    window.location.href = '/login'
 }
 
 

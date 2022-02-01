@@ -31,7 +31,7 @@ function Alert(props) {
   
 
 const Login =()=>{
-    const {loading, setCurrentUser, currentUser, setLoggedIn} = UseAppContext()
+    const {loading, loggedIn, setCurrentUser, currentUser, setLoggedIn} = UseAppContext()
     const [error, setError] = useState({status: false, msg :''})
     const [formValues, setFormValues] = useState({
         emailOrUsername : '',
@@ -136,7 +136,7 @@ useEffect(() => {
            <LoadingIcons.Puff       stroke="#555" strokeOpacity={.9} />
        </div>
     }
-    
+    console.log(loggedIn)
     const particlesInit = (main) => {
       console.log(main);
   
@@ -144,7 +144,7 @@ useEffect(() => {
     };
   
     const particlesLoaded = (container) => {
-      console.log(container);
+      // console.log(container);
     };
     return (
     <Grid className='login' container>
