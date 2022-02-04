@@ -1103,7 +1103,7 @@ const usernameCapitalized = firstLetter.toUpperCase() + otherLettes
                             <Link to={`/userprofile/${allUser._id}/${username}`} onClick={()=>setUserClicked(!userClicked)}>
                                 <img src={profilePicture ? profilePicture : ProfileImage}  className="follow-img" />
                             </Link>
-                            <div className='profile-follow-name'>{firstname && lastname && `${firstname} ${lastname}`}</div>
+                            <div className='profile-follow-name-2'>{firstname && lastname && `${firstname} ${lastname}`}</div>
                         </div>
                      }
                 })
