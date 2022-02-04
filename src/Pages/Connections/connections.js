@@ -273,10 +273,10 @@ if(loading || allUsers.length == 0 || !currentUserParsed._id){
         <LeftNavigation />   
         </Grid> 
             <Grid className='connections-center' item xs={12} sm={12} md={6} > 
-            <h2>Connections</h2>
+            <h2 className='connect-title'>Connections</h2>
             <h4>People you can connect with</h4>
             <hr />
-            <br />
+            {/* <br /> */}
             <div className='connections-center-inner' >
             {
             tempAllUsers &&
@@ -291,9 +291,6 @@ if(loading || allUsers.length == 0 || !currentUserParsed._id){
                             <div className='connections-name'>{firstname && lastname && `${firstname} ${lastname}`}</div>
                             <form>
                                 <br/>
-                                {/* {
-                                    !sentConnectionRequestsArray.includes(allUser._id) && !connectionsArray.includes(allUsers._id) && !receivedConnectionRequestsArray.includes(allUser._id) &&
-                                } */}
                                 <button onClick={(e)=>connectRequest(e, id, username)} className='connect-btn'>
                                     { !currentUserParsed.sentConnectionRequests.includes(allUser._id) ? `Connect` : 
                                     !currentUserParsed.receivedConnectionRequests.includes(allUser._id) ? `Cancel` : null}
@@ -307,10 +304,11 @@ if(loading || allUsers.length == 0 || !currentUserParsed._id){
             <div className='button-nav'>
             <button className='more-btn' onClick={()=>setRandomUsers(allUsers)}>Find Random Users</button>
             </div>
+            {/* <br /> */}
             <h4> Received Connection Requests ({userReceivedConnectionRequests.length})</h4>
             <hr />
-            <br />
-        <div className='connections-center-inner' >
+            {/* <br /> */}
+             <div className='connections-center-inner' >
             {
             allUsers &&
             allUsers.map(allUser => {
@@ -338,9 +336,10 @@ if(loading || allUsers.length == 0 || !currentUserParsed._id){
                 })
             }
             </div>
+            <br />
              <h4> Sent Connection Requests ({userSentConnectionRequests.length})</h4>
              <hr />
-            <br />
+            {/* <br /> */}
             <div className='connections-center-inner' >
             {
             allUsers &&
@@ -364,9 +363,10 @@ if(loading || allUsers.length == 0 || !currentUserParsed._id){
                 })
             }
             </div>
-            <h3>Connections ({connectionsArray.length})</h3>
-            <hr />
             <br />
+            <h4>Connections ({connectionsArray.length})</h4>
+            <hr />
+            {/* <br /> */}
              <div className='connections-center-inner' >
             {
             allUsers &&

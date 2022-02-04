@@ -1082,11 +1082,11 @@ const usernameCapitalized = firstLetter.toUpperCase() + otherLettes
                         <FaUsers className='icons'/>Email: {email}
                     </div>
                 </div>   
-              <hr className='profile-center-top-hr' />
-
-
-
-              <h3>Connections</h3>
+                <br/>
+              <hr />
+           {fetchedUser.connections.length > 0 ? <h4>Connections ({fetchedUser.connections.length})</h4> : <><h4>No connections yet</h4>
+           { idCurrent == userId &&  usernameCurrent == userUsername && <p>Find <Link to={`/connections/${userId}/${userUsername}`}>Connections</Link></p>}
+            </> }
               <div className='connections-box'>
               {
             allUsers.length == 0 ? 
@@ -1112,10 +1112,11 @@ const usernameCapitalized = firstLetter.toUpperCase() + otherLettes
             
            }
             </div>
-
-
-
-              <h3>Following</h3>
+            <br/>
+              <hr />
+           {fetchedUser.followings.length > 0 ? <h4>Following ({fetchedUser.followings.length})</h4> : <><h4>Not following anyone yet</h4> 
+           { idCurrent == userId &&  usernameCurrent == userUsername && <p>Find people to <Link to={`/follows/${userId}/${userUsername}`}>Follow</Link></p>}
+            </> }
               <div className='connections-box'>
               {
             allUsers.length == 0 ? 
@@ -1135,7 +1136,7 @@ const usernameCapitalized = firstLetter.toUpperCase() + otherLettes
                             <div className='profile-follow-name'>{firstname && lastname && `${firstname} ${lastname}`}</div>
                             <form>
                                 <br/>
-                                <button onClick={(e)=>unfollow(e, id, username)} className='follow-btn'>
+                                <button onClick={(e)=>unfollow(e, id, username)} className='profile-page-follow-btn'>
                                     {newUserFollowings  && newUserFollowings.includes(allUser._id) ? `Unfollow` : `Follow`}</button>
                             </form>
                         </div>
@@ -1146,7 +1147,9 @@ const usernameCapitalized = firstLetter.toUpperCase() + otherLettes
             
            }
            </div>
-           <h3>Followers</h3>
+           <br/>
+              <hr />
+           {fetchedUser.followers.length > 0 ? <h4>Followers ({fetchedUser.followers.length})</h4> : <h4>No followers yet</h4> }
               <div className='connections-box'>
               {
             allUsers.length == 0 ? 
@@ -1169,8 +1172,10 @@ const usernameCapitalized = firstLetter.toUpperCase() + otherLettes
                                 {  allUser._id != currentUserParsed._id  && newUserFollowings &&
                                     <button onClick={newUserFollowings.includes(allUser._id) ? 
                                         (e)=>unfollow(e, id, username) : (e)=>follow(e, id, username)}
-                                        className='follow-btn'>
-                                        { newUserFollowings.includes(allUser._id) ? `Unfollow` : `Follow`}</button>}
+                                        className='profile-page-follow-btn'>
+                                        { newUserFollowings.includes(allUser._id) ? `Unfollow` :
+                                        (idCurrent == userId &&  usernameCurrent == userUsername) ?
+                                         `Follow Back` : `Follow`}</button>}
                             </form>
                         </div>
                      }

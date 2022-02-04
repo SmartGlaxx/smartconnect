@@ -374,15 +374,18 @@ const setMessageImgePicture = (value)=>{
 }
 
 useEffect(()=>{
-    setTimeout(() => {
-        const elmnt = document.getElementById("content");
-        elmnt.scrollIntoView();   
-    }, 1000);
+    window.addEventListener('load', (event) => {
+        setTimeout(() => {
+            const elmnt = document.getElementById("content");
+            elmnt.scrollIntoView();   
+        }, 1000);
+      });
 }, [])
 
 
 //scroll into view
-useEffect(()=>{                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
+useEffect(()=>{     
+    window.addEventListener('load', (event) => {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
     const scrollIntoViewFunc = ()=>{
         setTimeout(() => {
             const elmnt = document.getElementById("content");
@@ -390,6 +393,7 @@ useEffect(()=>{
         }, 1000);
     }
     scrollIntoViewFunc()
+});
 },[scrollIntoViewValue])
 
 //scroll to top of page

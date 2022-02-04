@@ -362,10 +362,10 @@ if(loading || allUsers.length == 0 || !currentUserParsed._id){
         <LeftNavigation />   
         </Grid> 
             <Grid className='follows-center' item xs={12} sm={12} md={6}  > 
-            <h2>Follows</h2>
+            <h2 className='follows-title'>Follows</h2>
             <h4>Followers (People following you)({userFollowers.length})</h4>
             <hr />
-            <br />
+            {/* <br /> */}
             <div className='follows-center-inner' >
             {
             allUsers &&
@@ -378,20 +378,30 @@ if(loading || allUsers.length == 0 || !currentUserParsed._id){
                                 <img src={profilePicture ? profilePicture : ProfileImage} className="follows-img"/>
                             </Link>
                             <div className='follows-name'>{firstname && lastname && `${firstname} ${lastname}`}</div>
+                            <form>
+                            {newUserFollowings  && userFollowings.includes(allUser._id) ?
+                                <button onClick={(e)=>unfollow(e, id, username)} className='follow-page-btn'>
+                                     Unfollow
+                                </button> :
+                                 <button onClick={(e)=>follow(e, id, username)} className='follow-page-btn'>
+                                    Follow Back 
+                            </button>
+                            }
+                                
+                            </form>
                         </div>
                         }
                 })
             }
             </div>
             <br />
-            
             <h4>Followings (People you Follow)({userFollowings.length}) </h4>
             <hr />
-            <br />
+            {/* <br /> */}
             <div className='follows-center-inner' >
             {
-            tempAllUsers &&
-            tempAllUsers.map(allUser => {
+            allUsers &&
+            allUsers.map(allUser => {
                 const {_id : id, username, firstname, lastname, profilePicture} = allUser
                 const {_id, followings} = currentUserParsed.followings ? currentUserParsed : JSON.parse(currentUser)
                         if(allUser._id !== _id && currentUserParsed && userFollowings.includes(allUser._id)){

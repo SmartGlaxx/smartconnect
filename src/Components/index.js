@@ -8,6 +8,7 @@ import Search from './Search/search'
 import Ads from './Ads/ads'
 import InboxMessages from './InboxMessages/inboxMessages'
 import Loader from './Loader/loader'
+import { ParticlesComponent } from './Particles/particles'
 
 export {Topbar, Sidebar, LeftNavigation, Backdrop, Posts, Comments,
-     Search, Ads, InboxMessages, Loader}
+     Search, Ads, InboxMessages, Loader, ParticlesComponent}

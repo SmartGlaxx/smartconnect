@@ -15,7 +15,7 @@ const SCROLLINTOVIEW = "SCROLLINTOVIEW" ; const SETSEARCHTERM = "SETSEARCHTERM"
 
 const getLoggedIn = ()=>{
     let value
-    if(localStorage.getItem('LoggedIn').value == "true"){
+    if(localStorage.getItem('LoggedIn') == "true"){
         value = localStorage.getItem('LoggedIn')
     }else{
         value = localStorage.getItem('LoggedIn')
@@ -23,7 +23,7 @@ const getLoggedIn = ()=>{
     return value
 }
 
-console.log(getLoggedIn())
+
 const getCurrentUser = ()=>{
     let value
     if(localStorage.getItem('CurrentUser')){
