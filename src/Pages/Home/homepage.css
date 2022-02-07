@@ -185,7 +185,8 @@
     top: 5rem;
     height: calc(100vh - 6rem);
     overflow-y: scroll;
-    background: var(--ad-background)
+    background: var(--ad-background);
+    padding: 0.3rem;
 }
 
 .lazyloader{

@@ -408,6 +408,15 @@ useEffect(()=>{
 
 const {id, username} = useParams()
 
+const fetchUser = async(fetchurl)=>{
+    setLoading(true)
+    const result = await axios(fetchurl)
+    const fetchedUserVal = result.data.data 
+    
+    setFetchedUser(fetchedUserVal)
+    setLoading(false)
+}
+
 useEffect(()=>{
     fetchUser(`https://smart-job-search.herokuapp.com/api/v1/user/${id}/${username}`)
 },[postcreated, id, username, testValue])
@@ -473,13 +482,7 @@ useEffect(()=>{
 
 },[id, username, userClicked, postcreated])
 
-const fetchUser = async(fetchurl)=>{
-    const result = await axios(fetchurl)
-    const fetchedUserVal = result.data.data 
-    
-    setFetchedUser(fetchedUserVal)
 
-}
 
 const setPostData = (value1, value2)=>{
     setAlertMsg({status : value1, msg : value2})

@@ -25,14 +25,14 @@ export const addsData = [
         id : 2,
         name : "lf",
         img : img5,
-        desc : ", activity, etc.) provided with funding by a particu",
+        desc : "Luxury is made",
         link : "/adPage/link"
     },
     {
         id : 3,
         name : "dove",
         img : img3,
-        desc : ", activity, etc.) provided with funding by a particu",
+        desc : "Let's change beauty",
         link : "/adPage/link"
     },
     {
@@ -99,6 +99,109 @@ export const addsData = [
         id : 14,
         name : "at",
         img :  img14,
+        link : "/adPage/link"
+    },
+ 
+]
+
+
+export const addsData2 = [
+    {
+        id : 1,
+        name : "burgers",
+        img : img1,
+        desc : "Just Enjoy",
+        link : "/adPage/link"
+    },
+    {
+        id : 2,
+        name : "lf",
+        img : img5,
+        desc : "Luxury at its best",
+        link : "/adPage/link"
+    },
+    {
+        id : 3,
+        name : "dove",
+        img : img3,
+        desc : "Beauty is for everyone",
+        link : "/adPage/link"
+    },
+    {
+        id : 4,
+        name : "reebook",
+        img : img4,
+        desc : "Be more human",
+        link : "/adPage/link"
+    },
+    {
+        id : 5,
+        name : "aquafresh",
+        img : img2,
+        desc : "Three in one protection for your family",
+        link : "/adPage/link"
+    },
+    {
+        id : 6,
+        name : "irishspring",
+        img : img10,
+        desc : "Add a little Irish to your Game",
+        link : "/adPage/link"
+    },
+    {
+        id : 7,
+        name : "king",
+        img :  img6,
+        desc : "King size or nothing",
+        link : "/adPage/link"
+    },
+    {
+        id : 8,
+        name : "safeduard",
+        img :  img7,
+        desc : "Prevention is better than cure",
+        link : "/adPage/link"
+    },
+    {
+        id : 9,
+        name : "lg",
+        img : img15,
+        desc : "Life's Good",
+        link : "/adPage/link"
+    },
+    {
+        id : 10,
+        name : "Vmobile",
+        img : imh9,
+        desc : "It's all about you",
+        link : "/adPage/link"
+    },
+    {
+        id : 11,
+        name : "colgate",
+        img :  img11,
+        desc : "Pure. Fresh. Clean.",
+        link : "/adPage/link"
+    },
+    {
+        id : 12,
+        name : "samsung",
+        img : img12,
+        desc : "Better Normal For All",
+        link : "/adPage/link"
+    },
+    {
+        id : 13,
+        name : "fashion",
+        img : img13,
+        desc : "An ageless adventure",
+        link : "/adPage/link"
+    },
+    {
+        id : 14,
+        name : "at",
+        img :  img14,
+        desc : "Always the best way to do it",
         link : "/adPage/link"
     },
  

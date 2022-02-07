@@ -37,6 +37,10 @@
     color:var(--color);
     cursor: pointer;
 }
+.left-nav-inner:hover{
+    background: var(--background-color-10);
+    color:var(--color-7);
+}
 .left-nav-inner2{
     font-size: 1.25rem;
     font-weight: 500;

@@ -3,7 +3,7 @@ import './homepage.css'
 import { Grid } from '@material-ui/core'
 import { FaUserAlt, FaImages, FaExclamationCircle, FaPlane, FaTelegramPlane, FaWindowClose } from 'react-icons/fa'
 import { UseAppContext } from '../../Contexts/app-context'
-import {Topbar, Sidebar, Backdrop, Posts, Ads} from '../../Components';
+import {Topbar, Sidebar, Backdrop, Posts, Ads, ConnectionsList} from '../../Components';
 import {Link, useNavigate} from 'react-router-dom'
 import {Navigate} from 'react-router-dom'
 import Axios from 'axios'
@@ -391,6 +391,7 @@ const {_id : idCurrent , username : usernameCurrent} = currentUserParsed
         </Grid>
         <Grid className='homepage-right homepage-mobile-disabled' item xs={false} sm={3} >
             <Ads />
+            <ConnectionsList />
         </Grid>
     
     </Grid>

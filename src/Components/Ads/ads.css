@@ -7,8 +7,9 @@
 
 .ad-item{
     width: 100%;
-    height: 8rem;
+    /* height: 8rem; */
     padding: 0.5rem;
+    box-sizing: border-box;
     background: var(--border-color-2);
     box-shadow:
     0px 3.4px 2.7px rgba(0, 0, 0, 0.022),
@@ -17,13 +18,13 @@
     0px 36.5px 29.2px rgba(0, 0, 0, 0.048),
     0px 100px 80px rgba(0, 0, 0, 0.07);
     position: relative;
-    animation: mymove 40s infinite;
+    /* animation: mymove 40s infinite; */
 }
-@keyframes mymove {
+/* @keyframes mymove {
     0% {top: 0;}
     50% {top: -20rem;}
     100% {top: 0;}
-  }
+  } */
 .ad-img-1{
     width: 100%;
     height: 8rem;
@@ -40,23 +41,21 @@
 
 .sponsored{
     /* font-size: 1.3rem; */
-    margin: 0.6rem 0;
+    margin: 0.1rem 0;
     color: var(--color3);
     text-align: center;
 }
 .desc{
-margin-left: 0.5rem;
-/* font-size: 0.9rem; */
-color: var(--color3);
-/* font-weight: 600; */
-height: 6rem;
-display: flex;
-align-items: center;
-justify-content: flex-start;
-/* white-space: nowrap; */
-/* text-overflow: ellipsis;*/
-overflow: hidden;
-background-color: var(--preview-background);
+    width: 100%;
+    margin-left: 0.5rem;
+    padding-left: 0.5rem;
+    color: var(--color3);
+    height: 6rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    overflow: hidden;
+    background-color: var(--preview-background);
 }
 
 .sm-items{
