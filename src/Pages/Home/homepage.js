@@ -280,9 +280,10 @@ useEffect(() => {
     window.scrollTo(0, 0)
   }, [])
 
-if(loggedIn == "false"){
+if(loggedIn == "false" || !loggedIn){
     return <Navigate to='/login' />
 }
+
 
 if(loading || allUsers.length == 0 || !currentUserParsed._id){
     return <Loader />

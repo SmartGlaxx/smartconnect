@@ -250,11 +250,13 @@ let userConnections = currentUserParsed.connections ? currentUserParsed.connecti
                 return user
             }
         }else{
-            return
+            return  
         }
         })        
 
-if(loggedIn == "false"){
+
+
+if(loggedIn == "false" || !loggedIn){
     return <Navigate to='/login' />
 }
         

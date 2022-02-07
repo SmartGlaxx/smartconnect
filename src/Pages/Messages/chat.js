@@ -416,7 +416,7 @@ useEffect(() => {
 },[chatUserId, chatUserUsername, testValue])
 
 
-if(loggedIn == "false"){
+if(loggedIn == "false" || !loggedIn){
     return <Navigate to='/login' />
 }
 
