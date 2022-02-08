@@ -11,7 +11,7 @@
     right: 0%;
     /* bottom: 0%; */
     background: none;
-    position:absolute;
+    position:fixed;
     background-position: fixed;
     z-index:4;
     padding: 4rem 20rem;
@@ -64,27 +64,94 @@
     /* background-color: red; */
     margin-left: auto;
     margin-right: auto;
+    margin: 1.5rem 1rem;
     display: flex;
     justify-content: space-between;
 }
+
 .required{
     color : var(--warning-text-2)
 }
 .update-user-btn1{
     cursor: pointer;
-    margin-right: 0.4rem;
+    /* margin-right: 0.4rem; */
+    color: var(--color-success);
+    padding: var(--btn-padding);
+    border-radius: 0.3rem;
+    border : 1px solid var(--color-success);
+}
+.update-user-btn2{
+    cursor: pointer;
+    /* margin-right: 0.4rem; */
+    color: var(--color-close);
+    padding: var(--btn-padding);
+    border-radius: 0.3rem;
+    border : 1px solid var(--color-close);
+}
+.deleteprofile-box{
+    height : auto;
+    width: 100vw;
+    top: 6rem;
+    left: 0%;
+    right: 0%;
+    /* bottom: 0%; */
+    background: none;
+    position:fixed;
+    background-position: fixed;
+    z-index:4;
+    padding: 4rem 20rem;
+    box-sizing: border-box;
+    overflow: auto;
+}
+.deleteprofile-box-inner{
+    width: auto;
+    width: 15rem;
+    margin: 0 auto;
+    height: 100%;
+    padding: var(--section-padding);
+    /* padding : 2rem 0%; */
+    box-sizing: content-box;
+    background: var(--background-color);
+    box-shadow:
+    0.6px 2.8px 2.2px rgba(0, 0, 0, 0.056),
+    /* 1.5px 6.7px 5.3px rgba(0, 0, 0, 0.081), */
+    2.8px 12.5px 10px rgba(0, 0, 0, 0.1),
+    4.9px 22.3px 17.9px rgba(0, 0, 0, 0.119),
+    9.2px 41.8px 33.4px rgba(0, 0, 0, 0.144)
+    /* 22px 100px 80px rgba(0, 0, 0, 0.2); */
+}
+.delete-btn-box{
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    justify-content: space-around;
+}
+.delete-user-btn1{
+    cursor: pointer;
+    /* margin-right: 0.4rem; */
     color: var(--color2);
     padding: var(--btn-padding);
     border-radius: 0.3rem;
     border : 1px solid var(--color2);
 }
-.update-user-btn2{
+.delete-user-btn2{
     cursor: pointer;
-    margin-right: 0.4rem;
+    /* margin-right: 0.4rem; */
     color: var(--color-close);
     padding: var(--btn-padding);
     border-radius: 0.3rem;
     border : 1px solid var(--color-close);
+}
+.box-header{
+    text-align: center;
+    margin-bottom: 1rem;
+}
+.alert-box{
+    position: fixed;
+    top: 5rem;
+    z-index: 5;
+    transform: translateX(-50%);
+    margin-left: 50%;
 }
 .profile{
     display: flex;
@@ -486,6 +553,17 @@
     opacity: 0.9;
     /* transform: translateY(-50%) */
 }
+/* .btn2{
+    font-weight: 600;
+    cursor: pointer;
+    padding : var(--btn-padding-2);
+    width: 10rem;
+    border-radius: var(--btn-border-radius);
+    border:none;
+    opacity: 0.9;
+    margin: 0.rem 0;
+    
+} */
 .bio-btn{
     font-weight: 600;
     cursor: pointer;
@@ -661,11 +739,45 @@
     color:var(--color2 )
 }
 
+.main-userbtn1{
+    display: none;
+}
+
+.main-userbtn2{
+    display: block;
+}
+.delete-notification{
+    color: var(--warning-text-2);
+    text-align: center;
+    margin: 0.4rem 0;
+    font-size: 0.9rem
+}
+.delete-input{
+    display: block;
+    margin: var(--input-margin);
+    width: 100%;
+    /* padding: var(--input-padding2); */
+    /* width: auto; */
+    box-sizing: border-box;
+    border-radius: var(--section-border-radius);
+    color: var( --warning-text-2);
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+.delete-username{
+    color: var(--color2);
+    font-weight: 700;
+    text-transform: capitalize;
+}
+
 @media screen and (max-width : 1191px){
     .other-userbtn2{
         margin-top: -2rem;
     }
     .editprofile-box{
+        padding: 4rem 10rem;
+    }
+    .deleteprofile-box{
         padding: 4rem 10rem;
     }
 }
@@ -688,9 +800,13 @@
      height: auto;
      padding: 0;
  }
- /* .editprofile-box-inner{
-    box-shadow: 40px 40px 40px black
- } */
+ .deleteprofile-box{
+    margin: 4rem auto;
+    height: auto;
+    padding: 0;
+    width: 80%;
+    /* margin: 0 auto */
+}
 }
 @media screen and (max-width : 650px){
     .cover-img-preview-box, .profile-img-preview-box{
@@ -807,6 +923,13 @@
     .cover-label-box-inner{
         right: auto
     }
+    .main-userbtn1{
+        display: block;
+    }
+    
+    .main-userbtn2{
+        display: none;
+    }
 }
 @media screen and (max-width : 599px){
     .profile-summary{
@@ -832,5 +955,8 @@
 @media screen and (max-width : 400px){
     .profile-img-box{
         padding: 0;
+    }
+    .deleteprofile-box-inner{
+        width: auto;
     }
 }

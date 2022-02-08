@@ -173,9 +173,10 @@ const Signup =()=>{
                 <input className='input' value ={formValues.password2} onKeyPress={enterClicked}  onChange={setValues} type='password' name='password2' placeholder='Comfirm Password'/>
                 {/* <Button className='btn'  onClick={submit}>Sign up</Button> */}
               <div className='auth-btns'>
-                <span className='auth-signup-btn2' onClick={submit}>Sign-up</span>
-                <Link to ='/login' className='auth-signup-btn1'>Login</Link>
+                <span className='auth-signup-btn2' onClick={submit}>Sign up</span>
+                {/* <Link to ='/login' className='auth-signup-btn1'>Login</Link> */}
               </div>
+              <div className='auth-alt'>Already have an account? <br/><Link to='/login' className='auth-signup-btn' >Sign in</Link></div>
             </div>
         </Grid>
     </Grid>

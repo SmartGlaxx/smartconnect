@@ -18,7 +18,7 @@ import CoverImage from '../../assets/coverpic.jpg'
 import Button from '@restart/ui/esm/Button'
 import Profile from "../../assets/profile.jfif"
 import { Timeline, Update } from '@material-ui/icons'
-
+import MuiAlert from '@material-ui/lab/Alert';
 import { makeStyles } from '@material-ui/core/styles';
 import Popover from '@material-ui/core/Popover';
 import Typography from '@material-ui/core/Typography';
@@ -36,6 +36,7 @@ const {_id : userId, username : userUsername, firstname, lastname, followings, f
     aboutMe, country, state, city, employment} = fetchedUser
 
 const [alertMsg, setAlertMsg] = useState({status : false, msg : ''})
+const [successMsg, setSuccessMsg] = useState({status : false, msg : ''})
 const followurl = 'https://smart-job-search.herokuapp.com/api/v1/user/follow'
 const unFollowurl = 'https://smart-job-search.herokuapp.com/api/v1/user/unfollow'
 const getUserurl = `https://smart-job-search.herokuapp.com/api/v1/user/${userId}/${userUsername}`
@@ -56,7 +57,9 @@ const [coverPreviewBox, setCoverPreviewBox] = useState(false)
 const [profilePreviewBox, setProfilePreviewBox] = useState(false)
 const [postPreviewBox, setPostPreviewBox] = useState(false)
 const [userEditBox, setUserEditBox] = useState(false)
+const [deleteBox, setDeleteBox] = useState(false)
 const [showPasswordBox, setShowPasswordBox] = useState(false)
+const [deleteValue, setDeleteValue] = useState("")
 const [editUserValues, setEditUserValues] = useState({
     firstname : "",
     lastname : "",
@@ -98,14 +101,36 @@ const setUserProfilePicture = (value)=>{
     setProfileImage('')
 }
 
+//Alert function
 
-//Popover starts 
-
-const useStyles = makeStyles((theme) => ({
+function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+  }
+  
+  const useStyles = makeStyles((theme) => ({
+    root: {
+      width: '20rem',
+      '& > * + *': {
+        marginTop: theme.spacing(2),
+      },
+      position:"absolute",
+      top:"30%",
+      left : "50%",
+      transform : "translate(-50%)"
+    },
     typography: {
       padding: theme.spacing(2),
     },
   }));
+  
+
+//Popover starts 
+
+// const useStyles = makeStyles((theme) => ({
+    // typography: {
+    //     padding: theme.spacing(2),
+    //   },
+//   }));
   
 
 const classes = useStyles();
@@ -131,7 +156,18 @@ const closeEditBox = ()=>{
 
 //edit user 
 const openEditBox=()=>{
+    setDeleteBox(false)
     setUserEditBox(true)
+}
+
+//close delete box
+const closeDeleteBox=()=>{
+    setDeleteBox(false)
+}
+//open delete account comfirmation
+const openDeleteBox=()=>{
+    setUserEditBox(false)
+    setDeleteBox(true)
 }
 
 const showPasswordBoxFunc =()=>{
@@ -167,23 +203,81 @@ useEffect(()=>{
 },[currentUserParsed])
 
 const setResponseData =()=>{
-    closeEditBox(false)
-    setAlertMsg({status : true, msg : "Profile updated"})
+    closeEditBox()
+    setSuccessMsg({status : true, msg : "Profile updated"})
+    return setTimeout(()=>{
+        setSuccessMsg({status : false, msg : ""})
+    },5000)
 }
 
+
+//delete user function
+const deleteUser = async(e)=>{
+    console.log("result")
+    e.preventDefault()
+        const {_id : id, username} = currentUserParsed 
+
+        if(!deleteValue ){
+            setError({status : true, msg : "Please enter your username" })
+            return setTimeout(()=>{
+                setError({status : false, msg : "" })
+            },5000)
+            return
+        }
+        if(deleteValue.toLowerCase() !== username.toLowerCase()){
+            setError({status : true, msg : "Incorrect username. Please try again" })
+            return setTimeout(()=>{
+                setError({status : false, msg : "" })
+            },5000)
+            return
+        }
+        const options ={
+            url : `https://smart-job-search.herokuapp.com/api/v1/user/delete/${id}/${username}`,
+            method : "DELETE",
+            headers : {
+                "Accept" : "Application/json",
+                "Content-Type" : "Application/json;charset=utf-8"
+            },
+            data :{
+                userId : id,
+                username : username
+            }
+        }
+        const result = await axios(options)
+        const {response} = result.data 
+        if(response == 'Success'){
+            window.location.href = '/signup'
+        }else{
+            const {response, message} = result.data
+            setError({status : true, msg : message })
+            return setTimeout(()=>{
+                setError({status : false, msg : "" })
+            },5000)
+        }
+}
+
+//update user fundtion
 const updateUser = async(e)=>{
     e.preventDefault()
     const {firstname, lastname, oldpassword, newpassword, comfirmpassword,
         phone, aboutme, country, state, city, employment} = editUserValues
         const {_id, username, email} = currentUserParsed
 
-        if(!firstname || !lastname || !oldpassword || !newpassword || !comfirmpassword || !phone || !aboutme || !country || !state || !city || !employment){
-            return setAlertMsg({status : true, msg : "Please provide all required fields"})
-        }
-
+        
         if(newpassword.length && comfirmpassword.length){
+            
+            if(!firstname || !lastname || !oldpassword || !newpassword || !comfirmpassword || !phone || !aboutme || !country || !state || !city || !employment){
+                setAlertMsg({status : true, msg : "Please provide all required fields"})
+                return setTimeout(()=>{
+                    setAlertMsg({status : false, msg : ""})
+                },5000)
+
+            }
             if(newpassword != comfirmpassword){
-                return setError({status : true, msg : "Password comfirmation mismatch"})
+                setAlertMsg({status : true, msg : "Password comfirmation mismatch"})
+                return setTimeout(()=>{
+                    setAlertMsg({status : false, msg : ""})
+                },5000)
             }
                 const options ={
                     url : `https://smart-job-search.herokuapp.com/api/v1/user/update/${_id}/${username}`,
@@ -209,15 +303,24 @@ const updateUser = async(e)=>{
                     }
                 }
                 const result = await axios(options)
-                console.log(options)
-                const {response} = result.data
+                const {response} = result.data 
                 console.log(response)
                 if(response == 'Success'){
                     setResponseData(true, "Profile updated")
                 }else{
-                    setError({status : true, msg : "Failed to update post"})
+                    const {response, message} = result.data
+                    setError({status : true, msg : message })
+                    return setTimeout(()=>{
+                        setError({status : false, msg : "" })
+                    },5000)
                 } 
         }else{
+            if(!firstname || !lastname || !phone || !aboutme || !country || !state || !city || !employment){
+                setAlertMsg({status : true, msg : "Please provide all required fields"})
+                return setTimeout(()=>{
+                    setAlertMsg({status : false, msg : ""})
+                },5000)
+            }
                 const options ={
                 url : `https://smart-job-search.herokuapp.com/api/v1/user/update/${_id}/${username}`,
                 method : "PATCH",
@@ -240,13 +343,15 @@ const updateUser = async(e)=>{
                 }
             }
             const result = await axios(options)
-            console.log(options)
             const {response} = result.data
             console.log(response)
             if(response == 'Success'){
                 setResponseData(true, "Profile updated")
             }else{
                 setError({status : true, msg : "Failed to update post"})
+                return setTimeout(()=>{
+                    setError({status : false, msg : ""})
+                },5000)
             }        
         }
 }
@@ -856,9 +961,25 @@ const usernameCapitalized = firstLetter.toUpperCase() + otherLettes
     <Backdrop />
     <Grid className='profile' container > 
         <Grid className='profile-left-border' item xs={false} sm={1} ></Grid> 
+        {
+            alertMsg.status &&  <div className='alert-box'>
+            <Alert severity="error">{alertMsg.msg}</Alert>
+          </div>
+        }
+        {
+            successMsg.status &&  <div className='alert-box'>
+            <Alert severity="success">{successMsg.msg}</Alert>
+          </div>
+        }
+        {
+            error.status &&  <div className='alert-box'>
+            <Alert severity="error">{error.msg}</Alert>
+          </div>
+        }
         {userEditBox && currentUserParsed &&<div className='editprofile-box' >
             <div className='editprofile-box-inner' >
                 <FaWindowClose size='23' className='close-useredit' onClick={closeEditBox} />
+            <h4 className='box-header'>Update Profile</h4>
             <Grid container>
                 <Grid item xs={12} sm={12} md={6} >
                     First name: <span className='required'>*</span> <br /><input type='text' name='firstname' className='edituser-input' value={editUserValues.firstname} onChange={setEditValues} /><br />
@@ -889,11 +1010,28 @@ const usernameCapitalized = firstLetter.toUpperCase() + otherLettes
                 </Grid>
             </Grid>
             <div className='update-btn-box'>
-                <button onClick={updateUser} className='update-user-btn1' size='25'>Update</button>
                 <button onClick={closeEditBox} className='update-user-btn2' size='25'>Cancel</button>
+                <button onClick={updateUser} className='update-user-btn1' size='25'>Update</button>
             </div>
             </div>
         </div>}
+        {
+            deleteBox && currentUserParsed &&<div className='deleteprofile-box' >
+                <div className='deleteprofile-box-inner' >
+                <FaWindowClose size='23' className='close-useredit' onClick={closeDeleteBox} />
+                <h4 className='box-header'>Delete Account?</h4>
+                <div className='delete-notification'>This is a serious action and cannot be undone</div>
+                <div className='delete-notification'>To comfirm delete, please type <span className='delete-username'>{username}</span> below</div>
+                <input type='text' value={deleteValue} onChange={(e)=>setDeleteValue(e.target.value)} className="delete-input"/>
+                <div className='deleteprofile-btns'>
+                    <div className='delete-btn-box'>
+                        <button onClick={closeDeleteBox} className='delete-user-btn1' size='25'>Cancel</button>
+                        <button onClick={deleteUser} className='delete-user-btn2' size='25'>Delete</button>
+                    </div>
+                </div>
+                </div>
+            </div>
+        }
         
         <Grid className='profile-center'item xs={12} sm={10} container>
             
@@ -938,7 +1076,40 @@ const usernameCapitalized = firstLetter.toUpperCase() + otherLettes
                 <Grid className='btn-box' item xs={12} sm={4}>
                     
                 { idCurrent == userId && usernameCurrent == userUsername ?
-                    <Button className='btn' onClick={openEditBox}>Edit Profile</Button> : 
+                <>
+
+
+
+
+                    <div className='main-userbtn1'>
+                        <Button aria-describedby={popOverId} className='user-options' variant="contained" color="primary" onClick={handleClick}>
+                           <FaEllipsisH />
+                        </Button>
+                    </div>
+                    <Popover
+                        id={popOverId}
+                        open={open}
+                        anchorEl={anchorEl}
+                        onClose={handleClose}
+                        anchorOrigin={{
+                        vertical: 'bottom',
+                        horizontal: 'center',
+                        }}
+                        transformOrigin={{
+                        vertical: 'top',
+                        horizontal: 'center',
+                        }}
+                    >
+                        <Typography className={classes.typography}>
+                            <Button className='popover-btn' onClick={openEditBox}>Edit Profile</Button><br/>
+                            <Button className='popover-btn' onClick={openDeleteBox}>Delete Account</Button>
+                        </Typography>
+                    </Popover>
+                <div className='main-userbtn2'>
+                    <Button className='btn' onClick={openEditBox}>Edit Profile</Button><br/>
+                    <Button className='btn' onClick={openDeleteBox}>Delete Account</Button>
+                </div>
+                </> : 
                     <>
                     <div className='other-userbtn1'>
                         <Button aria-describedby={popOverId} className='user-options' variant="contained" color="primary" onClick={handleClick}>

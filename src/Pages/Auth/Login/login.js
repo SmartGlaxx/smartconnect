@@ -168,9 +168,10 @@ useEffect(() => {
                 <input className='input' value ={formValues.password} onKeyPress={enterClicked} onChange={setValues} 
                 type='password' name='password' placeholder='Password' required/>
               <div className='auth-btns'>
-                <span className='auth-login-btn2' onClick={submit}>Login</span>
-                <Link to ='/signup' className='auth-login-btn1'>Sign-up</Link>
+                <span className='auth-login-btn2' onClick={submit}>Sign in</span>
+                {/* <Link to ='/signup' className='auth-login-btn1'>Sign-up</Link> */}
               </div>
+              <div className='auth-alt'>New user? <Link to='/signup' className='auth-signup-btn' >Register</Link> an account</div>
             </div>
         </Grid>
     </Grid>

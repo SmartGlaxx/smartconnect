@@ -72,6 +72,19 @@
 .auth-btns{
     margin-top: 1rem;
 }
+.auth-signup-btn{
+    cursor: pointer;
+    font-size: 1rem;
+    color: var(--color-8);
+    text-decoration: none;
+    border: 1px solid none;
+    opacity: 0.9;
+    color: var(--color-auth-alt)
+}
+.auth-alt{
+    color: var(--color-8);
+    opacity: 1rem;
+}
 .auth-signup-btn1{
     cursor: pointer;
     float : left;

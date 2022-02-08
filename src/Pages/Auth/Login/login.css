@@ -97,6 +97,10 @@
 .auth-btns{
     margin-top: 1rem;
 }
+.auth-alt{
+    color: var(--color-8);
+    opacity: 1rem;
+}
 .auth-login-btn1{
     cursor: pointer;
     float : left;
