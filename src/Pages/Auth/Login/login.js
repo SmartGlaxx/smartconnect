@@ -5,12 +5,12 @@ import { makeStyles } from '@material-ui/core/styles';
 import './login.css'
 import { Button, Grid} from '@material-ui/core'
 import { useState, useEffect } from 'react'
-import {FaExclamationCircle} from 'react-icons/fa'
+import {FaExclamationCircle, FaLeaf} from 'react-icons/fa'
 import Axios from 'axios'
-import {Link} from 'react-router-dom'
+import {Link, useParams} from 'react-router-dom'
 import { UseAppContext } from '../../../Contexts/app-context'
 import LoadingIcons from 'react-loading-icons'
-import { ParticlesComponent } from '../../../Components';
+import { ParticlesComponent, TransparentLoader } from '../../../Components';
 
 function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -25,14 +25,16 @@ function Alert(props) {
       position:"absolute",
       top:"30%",
       left : "50%",
-      transform : "translate(-50%)"
+      transform : "translate(-50%)",
+      zIndex : "10"
     },
   }));
   
 
 const Login =()=>{
-    const {loading, loggedIn, setCurrentUser, currentUser, setLoggedIn} = UseAppContext()
+    const {loading, setTransparentLoading, transparentLoading, loggedIn, setCurrentUser, currentUser, setLoggedIn} = UseAppContext()
     const [error, setError] = useState({status: false, msg :''})
+    const [signedupSuccessful, setSignedupSuccessful] = useState(false)
     const [formValues, setFormValues] = useState({
         emailOrUsername : '',
         password : ""
@@ -40,11 +42,14 @@ const Login =()=>{
 
     //Snackbar Alert start
     const classes = useStyles();
+    const {activity} = useParams() 
+    
   const [open, setOpen] = React.useState(false);
   
   const handleError = (status, message) => {
     setOpen(true);
     setError({status : status, msg : message})
+    setTransparentLoading(false)
   };
 
   const handleClose = (event, reason) => {
@@ -55,12 +60,15 @@ const Login =()=>{
     setOpen(false);
   };
   //Snackbar Alert ends
-
+// console.log("new signuo", signupSuccessful)
+  useEffect(()=>{
+    setTransparentLoading(false)
+  },[])
 
     const setLoginValues =(value, loginData)=>{
         setCurrentUser(loginData)
         setLoggedIn(value)
-        // setLoading(false)
+        setTransparentLoading(false)
     
     }
     const setValues =(e)=>{
@@ -79,10 +87,10 @@ const Login =()=>{
     }
     const submit = async(e)=>{
          e.preventDefault()
-        
+        setTransparentLoading(true)
         const {emailOrUsername, password} = formValues
         if(!emailOrUsername || !password){
-            setError({status : true, msg : "Pleae enter E-mail or Username and Password"})
+            setError({status : true, msg : "Please enter E-mail or Username and Password"})
             setTimeout(()=>{
                 setError({status : false, msg :''})
             }, 4000)
@@ -128,6 +136,13 @@ const Login =()=>{
 //scroll to top of page
 useEffect(() => {
     window.scrollTo(0, 0)
+    if(activity == "signup-successful-FSGDNHFGdgoeskpagesreASFNDGFHDSAEOFVGSBFafsSDAFGIUNJimdsfgoeskpagesreASFNDGFHDSAEOFVGSBFafsndgmosagFSGDNHFGdgoeskpagesreASFNDGFHDSAEOFVGSBFafsndgmosagFSGDNHFG"){
+      setSignedupSuccessful(true)
+      setTimeout(() => {
+        setSignedupSuccessful(false)
+      }, 6000);
+    }
+    
   }, [])
 
     if(loading){
@@ -136,7 +151,6 @@ useEffect(() => {
            <LoadingIcons.Puff       stroke="#555" strokeOpacity={.9} />
        </div>
     }
-    console.log(loggedIn)
     // const particlesInit = (main) => {
     //   console.log(main);
   
@@ -154,12 +168,20 @@ useEffect(() => {
             <div className='title'>Smart Connect</div>
         </Grid>
         <Grid className='login-right' item xs={12} sm={6} >
-            
+            {
+              signedupSuccessful &&
+              <div className={classes.root}>
+              <Alert severity="success">Signup Successfull. Please Sign-in</Alert>
+            </div>
+            }
             {
                 error.status && <div className={classes.root}>
                 <Alert severity="error">{error.msg}</Alert>
               </div>
                 
+            }
+            {
+              transparentLoading && <TransparentLoader />
             }
             <div>
                  <h3 className='page-title'>Welcome Back</h3>

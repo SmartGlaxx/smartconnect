@@ -8,8 +8,10 @@ import Search from './Search/search'
 import Ads from './Ads/ads'
 import InboxMessages from './InboxMessages/inboxMessages'
 import Loader from './Loader/loader'
+import TransparentLoader from './Loader/transparentLoader'
 import { ParticlesComponent } from './Particles/particles'
 import ConnectionsList from './ConnectionsList/connectionsList'
 
 export {Topbar, Sidebar, LeftNavigation, Backdrop, Posts, Comments,
-     Search, Ads, ConnectionsList, InboxMessages, Loader, ParticlesComponent}
+     Search, Ads, ConnectionsList, InboxMessages, Loader, TransparentLoader,
+      ParticlesComponent}

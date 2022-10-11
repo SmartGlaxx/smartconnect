@@ -5,12 +5,12 @@ import { makeStyles } from '@material-ui/core/styles';
 import './signup.css'
 import { Button, Grid} from '@material-ui/core'
 import { useState, useEffect } from 'react'
-import {FaExclamationCircle} from 'react-icons/fa'
+import {FaExclamationCircle, FaWindowClose} from 'react-icons/fa'
 import Axios from 'axios'
 import {Link, useNavigate} from 'react-router-dom'
 import { UseAppContext } from '../../../Contexts/app-context'
 import LoadingIcons from 'react-loading-icons'
-import { ParticlesComponent } from '../../../Components';
+import { ParticlesComponent, TransparentLoader } from '../../../Components';
 
 function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -25,13 +25,16 @@ function Alert(props) {
       position:"absolute",
       top:"30%",
       left : "50%",
-      transform : "translate(-50%)"
+      transform : "translate(-50%)",
+      zIndex : "10"
     },
   }));
 
 const Signup =()=>{
-    const {loggedIn, loading, setCurrentUser, currentUser} = UseAppContext()
+    const {loggedIn, loading,  setTransparentLoading, transparentLoading,
+      setCurrentUser, currentUser} = UseAppContext()
     const [error, setError] = useState({status: false, msg :''})
+    // const [alertMsg, setAlertMsg] = useState({status : false, msg : ''})
     const [formValues, setFormValues] = useState({
         firstname : "",
         lastname : "",
@@ -60,6 +63,16 @@ const Signup =()=>{
   };
   //Snackbar Alert ends
 
+  const setSignupValues =(data)=>{
+    setCurrentUser(data) 
+    setTransparentLoading(false)
+  }
+
+
+  //close alert box
+//   const closeAlertBox = ()=>{
+//     setAlertMsg(false)
+// }
 
     const setValues =(e)=>{
         let name = e.target.name
@@ -78,17 +91,53 @@ const Signup =()=>{
             submit(e)
           }
     }
+    const signedup= "signup-successful-FSGDNHFGdgoeskpagesreASFNDGFHDSAEOFVGSBFafsSDAFGIUNJimdsfgoeskpagesreASFNDGFHDSAEOFVGSBFafsndgmosagFSGDNHFGdgoeskpagesreASFNDGFHDSAEOFVGSBFafsndgmosagFSGDNHFG"
 
     const submit = async(e)=>{
-        //setLoading(true)
         e.preventDefault()
         const { firstname, lastname, username, email, password1, password2} = formValues
-        if(password2 !== password1){
-            handleError(true, "Password Mismatch")
-            setTimeout(()=>{
-                setError({status : false, msg :''})
-            }, 4000)
-        }else{
+        if(!firstname){
+          setError({status : true, msg : "Please enter Your first name"})
+          setTimeout(()=>{
+             return setError({status : false, msg :''})
+          }, 4000)
+       }else if(!lastname){
+          setError({status : true, msg : "Please enter Your last name"})
+          setTimeout(()=>{
+              setError({status : false, msg :''})
+          }, 4000)
+      }else if(!username){
+          setError({status : true, msg : "Please enter Your Username"})
+          setTimeout(()=>{
+              setError({status : false, msg :''})
+          }, 4000)
+      }else if(!email){
+          setError({status : true, msg : "Please enter Your E-mail"})
+          setTimeout(()=>{
+              setError({status : false, msg :''})
+          }, 4000)
+      }else if(password2.length == 0 || password1.length == 0){
+          setError({status : true, msg : "Please enter and comfirm your password"})
+          setTimeout(()=>{
+              setError({status : false, msg :''})
+          }, 4000)
+      } else if(password2.length < 8 || password1.length < 8){
+        handleError(true, "Password Must be 8 characters long")
+        setTimeout(()=>{
+            setError({status : false, msg :''})
+        }, 4000)
+    }
+        // if(!firstname || !lastname || !username || !email || !password1 || !password2){
+        //   // handleError(true, "Please fill all fields")
+        // } 
+        else{
+            if(password2 !== password1){
+              handleError(true, "Password Mismatch")
+              setTimeout(()=>{
+                  setError({status : false, msg :''})
+              }, 4000)
+           }else{
+          setTransparentLoading(true)
             const options = {
                 url: "http://smart-job-search.herokuapp.com/api/v1/auth/register",
                 method : "POST",
@@ -114,8 +163,9 @@ const Signup =()=>{
             const result = await Axios(options)
             const {response, singupdData} = result.data
             if(response === 'Success'){
-                setCurrentUser(singupdData)
-                return window.location.href = '/'
+                setSignupValues(singupdData)
+                return window.location.href = `/login/${signedup}`
+                // setAlertMsg({status : true, msg : "Please check your email to verify your account"})
                 
             }else if(response === 'Fail'){
                 const {message} = result.data
@@ -124,11 +174,14 @@ const Signup =()=>{
                     setError({status : false, msg :''})
                 }, 4000)
             }
+
+          }
         }
     }
 //scroll to top of page
     useEffect(() => {
         window.scrollTo(0, 0)
+        setTransparentLoading(false)
       }, [])
     
     if(loading){
@@ -162,6 +215,16 @@ const Signup =()=>{
                 error.status && <div className={classes.root}>
                 <Alert severity="error">{error.msg}</Alert>
               </div>
+            }
+            {/* {
+              alertMsg && <div className='' style={{width: "30rem", height: "10rem", 
+              background: "var(--color)", color:"var(--color2)", position:"fixed", top:"5rem", left: "50%", transform : "translateX(-50%)"}}>
+                <FaWindowClose size='23' className='close-useredit' onClick={closeAlertBox} />
+                {alertMsg.msg}
+              </div>
+            } */}
+            {
+              transparentLoading && <TransparentLoader />
             }
             <div>
                  <h3 className='page-title'>Register</h3>

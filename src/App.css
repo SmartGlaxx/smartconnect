@@ -115,16 +115,17 @@ body{
 }
 
 ::-webkit-scrollbar{
-    width: 0.7rem;
+    width: 0.8rem;
     height: 10px;
 }
 ::-webkit-scrollbar-track{
     height: 10px;
-    background: var(--scrollbar-track)
+    background: var(--scrollbar-track);
 }
 ::-webkit-scrollbar-thumb{
     background: var(--scrollbar-thumb);
     border-radius: 3rem;
+    border: 0.15rem solid var(--scrollbar-track);
 }
 
 /* ::-webkit-scrollbar-thumb:hover{

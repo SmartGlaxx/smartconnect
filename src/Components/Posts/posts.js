@@ -509,10 +509,10 @@ const {_id : uId , username : userUsername} =  currentUserParsed
                 </div>
                 <div className={commentForm || showUpdatePostForm ? `comment-box-open` : `comment-box-close`}>
                     {
-                     commentForm && <form>
+                     commentForm && <form style={{position:"relative"}}>
                         <input type ='text' placeholder='Write a comment...' className='comment-input'
                         value = {commentValue} onChange={(e)=>setCommentValue(e.target.value)}/>
-                        <Button style={{float:"right", marginTop:"-2rem"}} onKeyPress={enterClicked1} onClick={postComments}>
+                        <Button style={{right:"0rem", top:"1.09rem", zIndex:"10", position:"absolute"}} onKeyPress={enterClicked1} onClick={postComments}>
                             <FaTelegramPlane className='submit-icon'/></Button>
                     </form>
                     }
@@ -541,10 +541,12 @@ const {_id : uId , username : userUsername} =  currentUserParsed
                         </Typography>
                     </Popover>
                     {
-                        showUpdatePostForm &&  <form>
+                        showUpdatePostForm &&  <form style={{position:"relative"}}>
                         <input type ='text' className='comment-input' onKeyPress={enterClicked2}
                         value = {updateValue} onChange={(e)=>setUpdateValue(e.target.value)}/>
-                        <Button style={{float:"right", marginTop:"-1.85rem"}} onClick={postUpdate}><FaTelegramPlane className='submit-icon'/></Button>
+                        <Button style={{float:"right", marginTop:"-1.3rem"}} onClick={postUpdate}>
+                            <FaTelegramPlane className='submit-icon'/>
+                        </Button>
                     </form>
                     }
                     

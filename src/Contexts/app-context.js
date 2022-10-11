@@ -2,7 +2,7 @@ import React, {useEffect, useReducer} from 'react'
 import  reducer  from '../Reducers/app-reducer'
 import Axios from 'axios'
 import { useParams } from 'react-router-dom'
-const CURRENTUSER = "CURRENTUSER"; const LOGGEDIN = 'LOGGEDIN' ; 
+const CURRENTUSER = "CURRENTUSER"; const LOGGEDIN = 'LOGGEDIN' ; const SETTRANSPARENTLOADING = "SETTRANSPARENTLOADING";
 const LOADING = 'LOADING'; const MENUOPEN = 'MENUOPEN', TIMELINEPOSTS ='TIMELINEPOSTS', 
 ALERT='ALERT'; const ALLUSERS = "ALLUSERS"; const TEMPALLUSERS = 'TEMPALLUSERS';
 const SETCUSERFOLLOWINGS = "SETCUSERFOLLOWINGS"; const SETNEWTEMPUSER = 'SETNEWTEMPUSER'
@@ -10,7 +10,8 @@ const POSTCREATED = 'POSTCREATED'; const SETSIDEBAR = 'SETSIDEBAR' ; const USERC
 const SETFETCHEDUSER = 'SETFETCHEDUSER'; const COMMENTSENT = 'COMMENTSENT';
 const CURRENTUSERPARSED = 'CURRENTUSERPARSED' ; const TESTVALUE = 'TESTVALUE'; const LAZYLOADING = 'LAZYLOADING';
 const SETCHATUSERNAME = 'SETCHATUSERNAME'; const SETREPLYSENT = 'SETREPLYSENT';
-const SCROLLINTOVIEW = "SCROLLINTOVIEW" ; const SETSEARCHTERM = "SETSEARCHTERM"
+const SCROLLINTOVIEW = "SCROLLINTOVIEW" ; const SETSEARCHTERM = "SETSEARCHTERM"; 
+const SIGNUPSUCCESSFUL = "SIGNUPSUCCESSFUL"
 
 
 const getLoggedIn = ()=>{
@@ -46,7 +47,7 @@ const getUserFollowings = ()=>{
 const AppContext = React.createContext()
 const initialState = {
     //auth-context
-
+    signupSuccessful : false,
     loggedIn : getLoggedIn(),
     registered : false,
     currentUserParsed : {},
@@ -58,6 +59,7 @@ const initialState = {
     alert : {status : false, msg : ''},
     loading : false,
     lazyLoading : false,
+    transparentLoading : false,
     sidebarOpen : false,
     timelineposts : [],
     allUsers : [],
@@ -89,6 +91,10 @@ export const AppProvider = ({children})=>{
     const setLoading =(value)=> {
     //    console.log('LOADING')
             dispatch({type : LOADING, payload : value})
+     }
+
+     const setTransparentLoading = (value)=>{
+         dispatch({type: SETTRANSPARENTLOADING, payload : value})
      }
 
     //FETCH TIME-LINE POSTS
@@ -305,10 +311,14 @@ const setSearchTermValue = (value)=>{
     dispatch({type : SETSEARCHTERM , payload : value})
 }
 
+//set signup succesful to notify user on login page
+const setSignupSuccessful = (value)=>{
+    dispatch({type : SIGNUPSUCCESSFUL, payload : value})
+}
 
     return <AppContext.Provider value={{
-        ...state,  setLoading, setCurrentUser, setLoggedIn, setLazyLoading, setCurrentUser, setNewCurrentUser, 
-        setTempAllusers, setPostCreated, openSidebar, setUserClicked, setFetchedUser, 
+        ...state,  setLoading, setTransparentLoading, setCurrentUser, setLoggedIn, setLazyLoading, setCurrentUser, setNewCurrentUser, 
+        setTempAllusers, setPostCreated, openSidebar, setUserClicked, setFetchedUser, setSignupSuccessful,
         setTimelinePosts, setCommentSent,  setTestValue, setChatUser, setReplySent, setScrollIntoViewValue,
         setSearchTermValue
     }}>

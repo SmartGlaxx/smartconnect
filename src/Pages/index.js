@@ -1,5 +1,6 @@
 import Signup from "./Auth/Signup/signup";
 import Login from "./Auth/Login/login";
+// import VerifyEmail from "./Auth/VerifyEmail/verifyEmail";
 import HomePage from "./Home/homepage";
 import UserProfile from "./UserProfile/userprofile";
 import Connections from "./Connections/connections";

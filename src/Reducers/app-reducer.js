@@ -1,4 +1,4 @@
-const CURRENTUSER = "CURRENTUSER"; const LOGGEDIN = 'LOGGEDIN' ; 
+const CURRENTUSER = "CURRENTUSER"; const LOGGEDIN = 'LOGGEDIN' ; const SETTRANSPARENTLOADING = "SETTRANSPARENTLOADING";
 const LOADING = 'LOADING'; const MENUOPEN = 'MENUOPEN', TIMELINEPOSTS ='TIMELINEPOSTS', 
 ALERT='ALERT'; const ALLUSERS = "ALLUSERS"; const TEMPALLUSERS = 'TEMPALLUSERS';
 const SETCUSERFOLLOWINGS = "SETCUSERFOLLOWINGS"; const SETNEWTEMPUSER = 'SETNEWTEMPUSER'
@@ -6,12 +6,18 @@ const POSTCREATED = 'POSTCREATED'; const SETSIDEBAR = 'SETSIDEBAR' ; const USERC
 const SETFETCHEDUSER = 'SETFETCHEDUSER'; const COMMENTSENT = 'COMMENTSENT';
 const CURRENTUSERPARSED = 'CURRENTUSERPARSED'; const TESTVALUE = 'TESTVALUE'; const LAZYLOADING = 'LAZYLOADING';
 const SETCHATUSERNAME = 'SETCHATUSERNAME'; const SETREPLYSENT = 'SETREPLYSENT';
-const SCROLLINTOVIEW = "SCROLLINTOVIEW" ; const SETSEARCHTERM = "SETSEARCHTERM"
+const SCROLLINTOVIEW = "SCROLLINTOVIEW" ; const SETSEARCHTERM = "SETSEARCHTERM";
+const SIGNUPSUCCESSFUL = "SIGNUPSUCCESSFUL"
 
 const reducer = (state, action)=>{
     switch(action.type){
+        case SIGNUPSUCCESSFUL:
+            console.log("sadv", action.payload)
+            return {...state, signupSuccessful: action.payload }
         case LOADING: 
             return {...state, loading: action.payload }
+        case SETTRANSPARENTLOADING:
+            return {...state, transparentLoading: action.payload }
         case CURRENTUSER:
             return{...state, currentUser : action.payload}
         case LOGGEDIN:
@@ -54,6 +60,7 @@ const reducer = (state, action)=>{
         case SETSEARCHTERM : 
             return {...state, searchTermValue : action.payload}
 
+        
 
         default:
             return {...state}

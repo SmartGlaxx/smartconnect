@@ -25,7 +25,7 @@ import Typography from '@material-ui/core/Typography';
 
 
 const UserProfile =()=>{
-const {loggedIn, setLoading, loading, setLazyLoading, lazyLoading, currentUser, currentUserParsed, allUsers, 
+const {setLoggedIn, loggedIn, setLoading, loading, setLazyLoading, lazyLoading, currentUser, currentUserParsed, allUsers, 
     postcreated, setPostCreated, tempAllUsers, setNewCurrentUser, setUserClicked, userClicked, setFetchedUser, 
     fetchedUser, setTestValue, testValue} = UseAppContext()
 const [formValue, setFormValue] = useState('')
@@ -246,6 +246,7 @@ const deleteUser = async(e)=>{
         const result = await axios(options)
         const {response} = result.data 
         if(response == 'Success'){
+            setLoggedIn(false)
             window.location.href = '/signup'
         }else{
             const {response, message} = result.data
@@ -943,7 +944,7 @@ if(loggedIn == "false" || !loggedIn){
     return <Navigate to='/login' />
 }
 
-// console.log(timeline)
+
 if(loading || allUsers.length == 0 || !username && !timelineposts || !fetchedUser.followings || !currentUserParsed._id){
     return <Loader />
 }
